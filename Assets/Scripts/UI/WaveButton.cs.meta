@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 05a849c9ff5128c4c9e890afcd536640
+timeCreated: 1520950198
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - startSprite: {fileID: 21300016, guid: e4528eeb52e157148aa6132475a6ac79, type: 3}
+  - SpeedUpSprite: {fileID: 21300020, guid: e4528eeb52e157148aa6132475a6ac79, type: 3}
+  - SlowDownSprite: {fileID: 21300022, guid: e4528eeb52e157148aa6132475a6ac79, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

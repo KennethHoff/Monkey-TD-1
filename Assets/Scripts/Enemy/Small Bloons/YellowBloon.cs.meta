@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 973cd35819be4834fb2faf99447e7e6d
+timeCreated: 1521062330
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - regrowthSprite: {fileID: 21300030, guid: e637d112da7582245a2b88267f765588, type: 3}
+  - metalHitAudioClip: {fileID: 8300000, guid: c9329058a60f21642a464c6cf9a0754a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
