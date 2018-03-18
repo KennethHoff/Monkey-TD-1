@@ -8,12 +8,9 @@ namespace Bloon {
 
         protected override void Start() {
             bloonEnum = GameControl.BloonSpawner.Bloons.RedBloon;
-            bloonChildToSpawn = GameControl.BloonSpawner.Bloons.Undefined;
+            amountOfBloonsToSpawn = 0;
+            RBE = 1;
             base.Start();
-        }
-        public override void PopBloon(StandardTower tower, int projectileID) {
-            base.PopBloon(tower, projectileID);
-            GameControl.WaveSpawner.controllerObject.bloonsKilledThisWave++;
         }
     }
 }

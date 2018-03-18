@@ -11,32 +11,29 @@ namespace Projectile {
         public float despawnDistance;
         protected float distanceFromSpawn;
         protected Vector2 spawnPoint;
+        
+        public ParentController parent;
 
         public float moveSpd;
 
+        public int penetration; // How many layers it pops.
         public int totalPower;
         public int remainingPower;
 
         protected Rigidbody2D rbody;
 
         protected int projectileID;
-
-        public enum DamageTypes {
-            Sharp,
-            Explosive,
-            Both
-        }
-        public DamageTypes damageType;
+        
+        public GameControl.GameController.DamageTypes damageType;
 
         private float finalMoveSpd;
 
         protected virtual void Start() {
+            parent = transform.parent.GetComponent<ParentController>();
             spawnPoint = (Vector2)transform.position;
             projectileID = gameObject.GetInstanceID();
 
             tower = GameControl.DictionaryController.placementDictionary[towerEnum].towerPrefab;
-
-            Tower.ParentController parent = GameControl.DictionaryController.placementDictionary[towerEnum].towerParentPrefab;
 
             remainingPower = totalPower;
             rbody = GetComponent<Rigidbody2D>();
@@ -50,10 +47,6 @@ namespace Projectile {
             if (distanceFromSpawn > despawnDistance) {
                 Destroy(gameObject);
             }
-        }
-        public void OnDestroy() {
-            // GameControl.DictionaryController.controllerObject.OnProjectileDestroyed(projectileID);
-            GameControl.DictionaryController.controllerObject.OnProjectileDestroyedGameObject(gameObject);
         }
     }
 }

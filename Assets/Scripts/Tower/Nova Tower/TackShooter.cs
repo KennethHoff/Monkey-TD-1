@@ -14,15 +14,19 @@ namespace Tower {
         protected int tacksToFire;
 
         protected override void Shoot() {
-            for (int i = 0; i < tacksToFire; i++) {
+
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectiles(projectileToFire, transform.position, transform.rotation, transform.parent, tacksToFire);
+
+
+            for(int i = 0; i < shotProjectileList.Count; i++) {
+
+                Projectile.StandardProjectile shotProjectile = shotProjectileList[i];
                 float rotationAdjustment = (360 / tacksToFire) * i;
                 Quaternion newRot = Quaternion.Euler(0, 0, rotationAdjustment);
-
-                Projectile.StandardProjectile shotProjectile = CreateProjectile(projectile, transform.position, transform.rotation, transform.parent);
-
                 shotProjectile.transform.rotation = newRot;
                 shotProjectile.despawnDistance = firingRange * 1.2f;
             }
+
             Debug.Log("Tack Shooter Shot!");
             base.Shoot();
         }

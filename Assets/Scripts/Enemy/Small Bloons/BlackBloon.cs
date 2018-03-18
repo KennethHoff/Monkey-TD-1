@@ -8,8 +8,9 @@ namespace Bloon {
 
         protected override void Start() {
             bloonEnum = GameControl.BloonSpawner.Bloons.BlackBloon;
-            bloonChildToSpawn = GameControl.BloonSpawner.Bloons.PinkBloon;
+            amountOfBloonsToSpawn = 1;
             amountOfBloonsToSpawn = 2;
+            RBE = 11;
             base.Start();
         }
     }

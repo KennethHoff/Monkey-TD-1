@@ -38,7 +38,7 @@ namespace GameControl {
             public float secondsToWaitAfterSet; //LowPrio: If (last set in wave) { hide in inspector }
 
             [HideInInspector]
-            public GameObject bloonObject;
+            public Bloon.StandardBloon bloon;
             [Space]
             public int TotalSetRBE;
 
@@ -52,39 +52,37 @@ namespace GameControl {
             }
 
             public void SetDerivedAttributes() {
-                bloonObject = DictionaryController.bloonDictionary[bloonEnum];
-                TotalSetRBE = bloonObject.GetComponent<Bloon.StandardBloon>().RBE * amount;
+                bloon = DictionaryController.bloonDictionary[bloonEnum];
+                TotalSetRBE = bloon.RBE * amount;
             }
         }
 
         [System.Serializable]
         public class Wave {
             public List<WaveTypeAmount> waveTypeList = new List<WaveTypeAmount>();
+
             public int TotalBloons {
                 get {
-                    int amount = 0;
+                    int bloons = 0;
 
                     for (int i = 0; i < waveTypeList.Count; i++) {
                         WaveTypeAmount set = waveTypeList[i];
-                        amount += set.amount;
+                        bloons += set.amount;
                     }
-                    return amount;
+                    return bloons;
                 }
             }
 
             public int TotalRBE {
                 get {
-                    int amount = 0;
+                    int RBE = 0;
 
                     for (int i = 0; i < waveTypeList.Count; i++) {
                         WaveTypeAmount set = waveTypeList[i];
                         set.SetDerivedAttributes();
-                        amount += set.TotalSetRBE;
-                        //Debug.Log("set: " + i + ". Set RBE: " + set.TotalSetRBE + ". Wave RBE So Far: " + amount);
+                        RBE += set.TotalSetRBE;
                     }
-
-                    //Debug.Log("Total wave RBE: " + amount);
-                    return amount;
+                    return RBE;
                 }
             }
         }
@@ -196,7 +194,7 @@ namespace GameControl {
             
             for (int i = 0; i < _waveToSpawn.waveTypeList.Count; i++) {
                 for (int j = 0; j < _waveToSpawn.waveTypeList[i].amount; j++) {
-                    BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloonObject, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
+                    BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
                     yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].secondsBetweenBloons / GameController.controllerObject.currentGameSpeed); 
                 }
                 yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].secondsToWaitAfterSet / GameController.controllerObject.currentGameSpeed);

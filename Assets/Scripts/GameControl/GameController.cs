@@ -8,15 +8,28 @@ namespace GameControl {
     //LowPrio: Add BTD5 Font
 
     public class GameController : MonoBehaviour {
+
         public enum Difficulties {
             Easy,
             Normal,
             Hard,
             Impoppable
         }
+
+        public enum DamageTypes {
+            Sharp,
+            Explosive,
+            Both
+        }
+
         [Header("Universal Game Information")]
         public LayerMask enemyLayer;
         public bool UseGameObjectBasedCollisionDictionary;
+
+        [SerializeField]
+        private ProjectileParent ProjectileContainer;
+        [SerializeField]
+        private TowerParent towerContainer;
 
         [Header("Current Game Information:")]
         public Difficulties difficulty;
@@ -58,10 +71,25 @@ namespace GameControl {
             }
         }
 
-        public static GameObject CreateFamilyTree(GameObject parentObject, Vector3 position, Quaternion rotation, GameObject originalParent) {
+        public ParentController CreateTowerFamilyTree(Tower.StandardTower _tower, Vector3 _position, Quaternion _rotation) {
 
-            GameObject parentContainer = Instantiate(parentObject, position, rotation, originalParent.transform);
+            ParentController parentContainer = Instantiate(towerContainer, _position, _rotation, towerParent.transform);
+            parentContainer.name = "TowerParent_" + _tower.name;
+            Instantiate(_tower, _position, _rotation, parentContainer.transform);
+
             return parentContainer;
+        }
+
+        public List<Projectile.StandardProjectile> CreateProjectileFamilyTree(Projectile.StandardProjectile _projectile, Vector3 _position, Quaternion _rotation, Tower.StandardTower _tower, int _amount) {
+
+            ParentController parentContainer = Instantiate(towerContainer, _position, _rotation, _tower.transform);
+            parentContainer.name = "ProjectileParent_" + _projectile.name;
+            List<Projectile.StandardProjectile> projectileList = new List<Projectile.StandardProjectile>();
+
+            for (int i = 0; i < _amount; i++) {
+                projectileList.Add(Instantiate(_projectile, _position, _rotation, parentContainer.transform));
+            }
+            return projectileList;
         }
 
         public static bool WithinMapPosition(Vector2 worldPos, float outsideRadius) {

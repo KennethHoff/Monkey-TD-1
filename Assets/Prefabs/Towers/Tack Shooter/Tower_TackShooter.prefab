@@ -9,35 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1360826904347284}
+  m_RootGameObject: {fileID: 1532452779227006}
   m_IsPrefabParent: 1
---- !u!1 &1360826904347284
+--- !u!1 &1532452779227006
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4176684444749946}
-  - component: {fileID: 114674481265240770}
-  m_Layer: 0
-  m_Name: Parent_TackShooter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1888009523948534
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4760774720652908}
-  - component: {fileID: 212841080650104678}
-  - component: {fileID: 58662642172025908}
-  - component: {fileID: 114708255211862656}
+  - component: {fileID: 4546384626576948}
+  - component: {fileID: 212541558449283224}
+  - component: {fileID: 58522968385857040}
+  - component: {fileID: 114862738663303416}
   m_Layer: 8
   m_Name: Tower_TackShooter
   m_TagString: Tower
@@ -45,39 +29,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4176684444749946
+--- !u!4 &4546384626576948
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1360826904347284}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1532452779227006}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4760774720652908}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4760774720652908
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1888009523948534}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4176684444749946}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58662642172025908
+--- !u!58 &58522968385857040
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1888009523948534}
+  m_GameObject: {fileID: 1532452779227006}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -86,24 +56,13 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
---- !u!114 &114674481265240770
+  m_Radius: 0.6
+--- !u!114 &114862738663303416
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1360826904347284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b46c3196298a0dc40ab8de0226287f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114708255211862656
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1888009523948534}
+  m_GameObject: {fileID: 1532452779227006}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0811438fca055794b984cf28f5df2db3, type: 3}
@@ -111,20 +70,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerEnum: 2
   goldCost: 360
+  CamoDetection: 0
   attackSpeed: 1.6666666
   firingRange: 2
   PoppingPower: 1
   layersToPop: 1
   drawGizmos: 0
   targetting: 0
-  projectile: {fileID: 1184816750078510, guid: 0b48ca6a1db997649a746a2a76440acf, type: 2}
+  projectileToFire: {fileID: 114893572832495076, guid: 0b48ca6a1db997649a746a2a76440acf,
+    type: 2}
   tacksToFire: 8
---- !u!212 &212841080650104678
+--- !u!212 &212541558449283224
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1888009523948534}
+  m_GameObject: {fileID: 1532452779227006}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

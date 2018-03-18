@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tower {
+namespace Tower { 
     public class StandardTower : MonoBehaviour {
 
         // LowPrio: Add animation (check original asset ingame.xml file for the directions)
@@ -13,8 +13,10 @@ namespace Tower {
         public bool CamoDetection;
         public float attackSpeed = 0.25f;
         public float firingRange = 3f;
-        public float PoppingPower = 1;
-        public int layersToPop = 1;
+        public float projectilePoppingPower = 1; // How many bloons it pierces. // 1 = hit 1 bloon, then despawn, 2 = pierce 1, allowing it to hit 1 more before despawning.
+        public int projectilePenetration = 1; // How many layers each bloon loses. (1 = pink(4) > yellow(3). 2 = pink(4) > green(2))
+        
+        public GameControl.GameController.DamageTypes damageType;
 
         [Header("Debugging:")]
         public bool drawGizmos;
@@ -30,7 +32,7 @@ namespace Tower {
         protected int totalPierces;
 
         [SerializeField]
-        protected GameObject projectile;
+        protected Projectile.StandardProjectile projectileToFire;
 
         protected float rotationOffset = -90f; // Sprite is 90° "skewed"
 
@@ -48,47 +50,42 @@ namespace Tower {
                 firingCooldown -= Time.fixedDeltaTime;
             }
             else firingCooldown = -1;
-
         }
-
 
         protected virtual Collider2D[] GetEnemiesInRange() {
+            if (firingRange != -1)
             return Physics2D.OverlapCircleAll(transform.position, firingRange, GameControl.GameController.controllerObject.enemyLayer);
+            else return Physics2D.OverlapBoxAll(transform.position, Vector2.one * 100, GameControl.GameController.controllerObject.enemyLayer);
         }
-
-        #region Targetting modes
-
-        #endregion
-
+        
         protected virtual void Shoot() {
             //Projectile.StandardProjectile shotProjectile = CreateProjectile();
 
             firingCooldown = attackSpeed;
         }
 
-        protected virtual Projectile.StandardProjectile CreateProjectile(GameObject _projectile, Vector2 _position, Quaternion _rotation, Transform _parent) {
+        protected virtual List<Projectile.StandardProjectile> CreateProjectiles(Projectile.StandardProjectile _projectile, Vector2 _position, Quaternion _rotation, Transform _parent, int _amount) {
 
-            GameObject shotProjectile = Instantiate(_projectile, _position, _rotation, _parent);
+            List<Projectile.StandardProjectile> projectileList = GameControl.GameController.controllerObject.CreateProjectileFamilyTree(_projectile, _position, _rotation, this, _amount);
 
-            Projectile.StandardProjectile shotProjectileScript = shotProjectile.GetComponent<Projectile.StandardProjectile>();
+            foreach (Projectile.StandardProjectile projectile in projectileList) {
+                totalPierces = Mathf.FloorToInt(projectilePoppingPower);
 
-            totalPierces = Mathf.FloorToInt(PoppingPower);
+                int pierceCheck = UnityEngine.Random.Range(0, 100);
 
-            int pierceCheck = UnityEngine.Random.Range(0, 100);
+                if (pierceCheck < (projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower) * 100)) {
+                    totalPierces++;
+                    Debug.Log("Added an extra pierce on a roll of " + pierceCheck + ".\nChance of " + projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower));
+                }
 
-            if (pierceCheck < (PoppingPower % Mathf.FloorToInt(PoppingPower) * 100)) {
-                totalPierces++;
-                Debug.Log("Added an extra pierce on a roll of " + pierceCheck + ".\nChance of " + PoppingPower % Mathf.FloorToInt(PoppingPower));
+                projectile.totalPower = totalPierces;
+                projectile.penetration = projectilePenetration;
             }
-
-            shotProjectileScript.totalPower = totalPierces;
-
-            return shotProjectileScript;
+            return projectileList;
         }
         
         protected virtual void OnDrawGizmos() {
             if (drawGizmos) Gizmos.DrawWireSphere(transform.position, firingRange);
         }
-
     }
 }

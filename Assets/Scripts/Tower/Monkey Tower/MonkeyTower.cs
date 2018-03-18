@@ -6,6 +6,7 @@ namespace Tower {
 
     public class MonkeyTower : StandardTower {
 
+        protected Collider2D target;
 
         protected enum TargettingStates {
             Closest,
@@ -26,7 +27,11 @@ namespace Tower {
                     if (aimCooldown < 0) {
                         targetting = true;
                         aimCooldown = GameControl.GameController.controllerObject.aimTimer;
-                        SearchForEnemiesInRange();
+                        target = SearchForEnemiesInRange();
+
+                        if (target != null) {
+                            if (justShot <= 0) AimAt(target.gameObject);
+                        }
                     }
                 }
                 else targetting = false;
@@ -40,13 +45,15 @@ namespace Tower {
         }
 
 
-        protected void SearchForEnemiesInRange() {
+        protected Collider2D SearchForEnemiesInRange() {
 
             Collider2D[] allCollisions = GetEnemiesInRange();
+            Collider2D _target = null;
 
             switch (state) {
                 case TargettingStates.Closest:
-                    SearchForClosestEnemy(allCollisions);
+                    _target = SearchForClosestEnemy(allCollisions);
+
                     break;
                 case TargettingStates.First:
                     break;
@@ -55,22 +62,15 @@ namespace Tower {
                 case TargettingStates.Toughest:
                     break;
             }
+            return _target;
         }
 
-        protected virtual void SearchForClosestEnemy(Collider2D[] allCollisions) {
+        protected virtual Collider2D SearchForClosestEnemy(Collider2D[] allCollisions) {
             Collider2D closestEnemy = null;
             float closestEnemyDistance = float.MaxValue;
 
             foreach (Collider2D target in allCollisions) {
                 if (target.tag == "Enemy") {
-
-                    /*
-                    float xDistToTower = target.transform.position.x - transform.position.x; // X axis
-                    float yDistToTower = target.transform.position.y - transform.position.y; // Y Axis
-                    float distToTower = Mathf.Pow(xDistToTower, 2) + Mathf.Pow(yDistToTower, 2);
-
-                    float absDistToTower = Mathf.Abs(distToTower);
-                    */
 
                     float absDist = Vector2.Distance(target.transform.position, transform.position);
                     if (absDist < closestEnemyDistance) {
@@ -78,10 +78,8 @@ namespace Tower {
                         closestEnemyDistance = absDist;
                     }
                 }
-                if (closestEnemy != null) {
-                    if (justShot <= 0) AimAt(closestEnemy.gameObject);
-                }
             }
+            return closestEnemy;
         }
 
 

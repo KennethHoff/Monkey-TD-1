@@ -12,9 +12,13 @@ namespace Tower {
 
         protected override void Shoot() {
 
-            Projectile.StandardProjectile shotProjectile = CreateProjectile(projectile, transform.position, transform.rotation, transform.parent);
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectiles(projectileToFire, transform.position, transform.rotation, transform.parent, 1);
 
-            shotProjectile.despawnDistance = firingRange * 2.0f;
+
+            foreach (Projectile.StandardProjectile projectile in shotProjectileList) {
+                projectile.despawnDistance = firingRange * 2.0f;
+            }
+
             Debug.Log("Dart Monkey shot!");
             base.Shoot();
         }

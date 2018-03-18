@@ -18,25 +18,24 @@ namespace GameControl {
             LeadBloon
         }
 
-        public GameObject redBloonPrefab;
-        public GameObject blueBloonPrefab;
-        public GameObject greenBloonPrefab;
-        public GameObject yellowBloonPrefab;
-        public GameObject pinkBloonPrefab;
-        public GameObject blackBloonPrefab;
-        public GameObject leadBloonPrefab;
+        public Bloon.RedBloon redBloonPrefab;
+        public Bloon.BlueBloon blueBloonPrefab;
+        public Bloon.GreenBloon greenBloonPrefab;
+        public Bloon.YellowBloon yellowBloonPrefab;
+        public Bloon.PinkBloon pinkBloonPrefab;
+        public Bloon.BlackBloon blackBloonPrefab;
+        public Bloon.LeadBloon leadBloonPrefab;
 
         public void Awake() {
             controllerObject = GetComponent<BloonSpawner>();
         }
 
         // LowPrio: Remake the Bloon & Projectile Spawning mechanic to be a Object Pooler
-        public static GameObject SpawnBloon(GameObject _bloonObject, Vector3 _position, Quaternion _rotation, int _CurrentWaypoint,  bool _regrowth, bool _camo) {
-            GameObject spawnedBloon = Instantiate(_bloonObject, _position, _rotation, GameController.enemyParent.transform);
-            Bloon.StandardBloon spawnedScript = spawnedBloon.GetComponent<Bloon.StandardBloon>();
+        public static Bloon.StandardBloon SpawnBloon(Bloon.StandardBloon _bloon, Vector3 _position, Quaternion _rotation, int _CurrentWaypoint,  bool _regrowth, bool _camo) {
+            Bloon.StandardBloon spawnedBloon = Instantiate(_bloon, _position, _rotation, GameController.enemyParent.transform);
             spawnedBloon.GetComponent<WayPoints>().currentWayPoint = _CurrentWaypoint;
-            spawnedScript.regrowth = _regrowth;
-            spawnedScript.camo = _camo;
+            spawnedBloon.regrowth = _regrowth;
+            spawnedBloon.camo = _camo;
             return spawnedBloon;
         }
     }

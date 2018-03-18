@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Tower;
 using UnityEngine;
 
 namespace Bloon {
     public class LeadBloon : StandardBloon {
 
-        [SerializeField]
+        [SerializeField, Header("Lead Bloon specifics:")]
         private AudioClip metalHitAudioClip;
 
         protected override void Start() {
             bloonEnum = GameControl.BloonSpawner.Bloons.LeadBloon;
-            bloonChildToSpawn = GameControl.BloonSpawner.Bloons.BlackBloon;
+            amountOfBloonsToSpawn = 1;
+            RBE = 23;
             base.Start();
         }
 
@@ -19,9 +21,9 @@ namespace Bloon {
             audioSource.Play();
         }
 
-        protected override void OnPopped(Tower.StandardTower tower, GameObject projectileObject) {
-            base.OnPopped(tower, projectileObject);
-            
+        public override void PopBloonGameObject(StandardTower _tower, ParentController _projectileParent, int _penetration) {
+            base.PopBloonGameObject(_tower, _projectileParent, _penetration);
+
             GetComponent<LeadBloon>().MetalHitBySharpObject(audioSource);
         }
     }

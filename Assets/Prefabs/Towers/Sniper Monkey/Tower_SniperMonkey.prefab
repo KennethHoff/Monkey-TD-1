@@ -9,75 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1085285421249984}
+  m_RootGameObject: {fileID: 1343762546216302}
   m_IsPrefabParent: 1
---- !u!1 &1085285421249984
+--- !u!1 &1343762546216302
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4842266828596512}
-  - component: {fileID: 114529633537408546}
-  m_Layer: 0
-  m_Name: Parent_DartMonkey
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1286009400241712
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4244811652102874}
-  - component: {fileID: 212409412278437088}
-  - component: {fileID: 61174419228909942}
-  - component: {fileID: 114691436920196926}
+  - component: {fileID: 4768638977822354}
+  - component: {fileID: 212397186900912182}
+  - component: {fileID: 61285715903385014}
+  - component: {fileID: 114585116653941910}
   m_Layer: 8
-  m_Name: Tower_DartMonkey
+  m_Name: Tower_SniperMonkey
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4244811652102874
+--- !u!4 &4768638977822354
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1286009400241712}
+  m_GameObject: {fileID: 1343762546216302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4842266828596512}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4842266828596512
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1085285421249984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4244811652102874}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61174419228909942
+--- !u!61 &61285715903385014
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1286009400241712}
+  m_GameObject: {fileID: 1343762546216302}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -88,7 +58,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96999997, y: 1.06}
+    oldSize: {x: 0.87, y: 1.4}
     newSize: {x: 0.96999997, y: 1.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -97,43 +67,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 1.25}
   m_EdgeRadius: 0
---- !u!114 &114529633537408546
+--- !u!114 &114585116653941910
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1085285421249984}
+  m_GameObject: {fileID: 1343762546216302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b46c3196298a0dc40ab8de0226287f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 022a7bc4a4569d8468cee67703762408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114691436920196926
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1286009400241712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be630a3d7a7a174583a886579339561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerEnum: 1
-  goldCost: 200
-  attackSpeed: 0.9708738
-  firingRange: 3
-  PoppingPower: 1
-  layersToPop: 1
+  towerEnum: 3
+  goldCost: 350
+  CamoDetection: 0
+  attackSpeed: 2.2222223
+  firingRange: -1
+  projectilePoppingPower: 1
+  projectilePenetration: 2
+  damageType: 0
   drawGizmos: 0
   targetting: 0
-  projectile: {fileID: 1184816750078510, guid: 1112fc4d90799f145823466b83df03da, type: 2}
---- !u!212 &212409412278437088
+  projectileToFire: {fileID: 0}
+--- !u!212 &212397186900912182
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1286009400241712}
+  m_GameObject: {fileID: 1343762546216302}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -162,7 +123,7 @@ SpriteRenderer:
   m_SortingLayerID: 128189803
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 379ef1f520d10864abd69117928e9ffd, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 379ef1f520d10864abd69117928e9ffd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

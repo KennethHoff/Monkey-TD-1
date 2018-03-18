@@ -20,7 +20,7 @@ namespace GameControl {
 
         public TowerList TowerDict_DartMonkey;
         public TowerList TowerDict_TackShooter;
-        // public TowerList TowerDict_SniperMonkey;
+        public TowerList TowerDict_SniperMonkey;
         public TowerList TowerDict_NinjaMonkey;
 
         private GameObject currentlySelectedTemplate;

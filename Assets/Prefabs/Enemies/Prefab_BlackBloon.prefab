@@ -106,19 +106,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38a0536936ae8a409e7561cac9e8042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfBloonsToSpawn: 1
-  childSpawningSpacing: 0.25
   regrowthSprite: {fileID: 21300000, guid: 132c7033a972ac340bc79ab3a17b269b, type: 3}
-  RBE: 0
-  maxHealth: 0
+  popSounds: []
+  RBE: 5
   regrowth: 0
   camo: 0
   immuneToSharpObjects: 0
   immuneToExplosions: 0
-  health: 0
-  damageable: 0
-  familyTree: 
-  popSounds: []
+  completeFamilyTree: 060000000500000004000000030000000200000001000000
+  currentFamilyTreeIndex: 0
 --- !u!212 &212089159163422696
 SpriteRenderer:
   m_ObjectHideFlags: 1

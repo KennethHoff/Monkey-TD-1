@@ -311,6 +311,9 @@
     <Compile Include="Assets\Scripts\GameControl\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\GameControl\TextController.cs" />
     <Compile Include="Assets\Scripts\GameControl\WaveSpawner.cs" />
+    <Compile Include="Assets\Scripts\Parent\ParentController.cs" />
+    <Compile Include="Assets\Scripts\Parent\ProjectileParent.cs" />
+    <Compile Include="Assets\Scripts\Parent\TowerParent.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\PathController.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\PathingParent.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\SpawnPoint.cs" />
@@ -324,12 +327,12 @@
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\NinjaMonkey.cs" />
     <Compile Include="Assets\Scripts\Tower\Nova Tower\NovaTower.cs" />
     <Compile Include="Assets\Scripts\Tower\Nova Tower\TackShooter.cs" />
-    <Compile Include="Assets\Scripts\Tower\ParentController.cs" />
     <Compile Include="Assets\Scripts\Tower\StandardTower.cs" />
     <Compile Include="Assets\Scripts\Tower\TemplateScript.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsMenuButton.cs" />
     <Compile Include="Assets\Scripts\UI\TowerSelector.cs" />
     <Compile Include="Assets\Scripts\UI\WaveButton.cs" />
+    <Compile Include="Assets\SniperMonkey.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
