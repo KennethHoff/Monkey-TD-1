@@ -22,7 +22,7 @@ public class TowerSelector : MonoBehaviour {
     public UITowerStates state;
     [SerializeField]
     private Sprite defaultSprite, greyedOutSprite;
-
+    
     private Image imageRenderer;
 
     private bool hovering;

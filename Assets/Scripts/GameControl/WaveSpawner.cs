@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace GameControl {
 
+    [System.Serializable]
     public class WaveSpawner : MonoBehaviour {
 
-        // TODO: Add a custom Property Drawer for the Wave Editor
+        // Incomplete: Add a custom Property Drawer for the Wave Editor (Tried doing this : Super cancer.
 
 
         // This is a robust controller that is used to spawn waves.
@@ -24,69 +25,6 @@ namespace GameControl {
         public delegate void RoundEnded();
 
         public static event RoundEnded RoundEndedEvent;
-
-        #region Classes
-        [System.Serializable]
-        public class WaveTypeAmount {
-            public BloonSpawner.Bloons bloonEnum;
-            
-            public int amount;
-            public float secondsBetweenBloons;
-            public bool regrowth;
-            public bool camo;
-            [Space(5f)]
-            public float secondsToWaitAfterSet; //LowPrio: If (last set in wave) { hide in inspector }
-
-            [HideInInspector]
-            public Bloon.StandardBloon bloon;
-            [Space]
-            public int TotalSetRBE;
-
-            public WaveTypeAmount(BloonSpawner.Bloons _bloonEnum, int _amount, float _secondsBetweenBloons, float _SecondsToWaitAfterSet, bool _regrowth, bool _camo) {
-                bloonEnum = _bloonEnum; // Which bloon to spawn (enum value)
-                amount = _amount; // How many bloons to spawn
-                secondsBetweenBloons = _secondsBetweenBloons; // How often to spawn the bloons
-                secondsToWaitAfterSet = _SecondsToWaitAfterSet; // How long to wait until next 'set' of bloons to spawn
-                regrowth = _regrowth;
-                camo = _camo;
-            }
-
-            public void SetDerivedAttributes() {
-                bloon = DictionaryController.bloonDictionary[bloonEnum];
-                TotalSetRBE = bloon.RBE * amount;
-            }
-        }
-
-        [System.Serializable]
-        public class Wave {
-            public List<WaveTypeAmount> waveTypeList = new List<WaveTypeAmount>();
-
-            public int TotalBloons {
-                get {
-                    int bloons = 0;
-
-                    for (int i = 0; i < waveTypeList.Count; i++) {
-                        WaveTypeAmount set = waveTypeList[i];
-                        bloons += set.amount;
-                    }
-                    return bloons;
-                }
-            }
-
-            public int TotalRBE {
-                get {
-                    int RBE = 0;
-
-                    for (int i = 0; i < waveTypeList.Count; i++) {
-                        WaveTypeAmount set = waveTypeList[i];
-                        set.SetDerivedAttributes();
-                        RBE += set.TotalSetRBE;
-                    }
-                    return RBE;
-                }
-            }
-        }
-        #endregion
 
         #region variables
 
@@ -107,21 +45,22 @@ namespace GameControl {
         public int totalWaves = 0;
 
         [Header("Bloon info:")]
-        // Changed this to only change if a Red bloon dies (fixes regrowth)
         public int totalBloonsThisWave;
         public int remainingBloonsThisWave;
         public int bloonsKilledThisWave;
-        public int bloonsReachedFinalDestination; 
+        public int bloonsReachedFinalDestinationThisWave; 
 
         public int totalRBEThisWave;
         public int RBEKilledThisWave;
         public int RBERemainingThisWave;
-        public int bloonsOnScreen;
         public int RBEReachedFinalDestinationThisWave;
         public int RBERegeneratedThisWave;
 
+        public int bloonsOnScreen;
+
         [Header("Wave Editor:")]
         public Wave[] waves;
+        //public WaveList waves;
 
         #endregion
 
@@ -135,12 +74,12 @@ namespace GameControl {
         }
 
         private void Update() {
-            remainingBloonsThisWave = totalBloonsThisWave - (bloonsKilledThisWave + bloonsReachedFinalDestination);
+            remainingBloonsThisWave = totalBloonsThisWave - (bloonsKilledThisWave + bloonsReachedFinalDestinationThisWave);
             RBERemainingThisWave = totalRBEThisWave - (RBEKilledThisWave + RBEReachedFinalDestinationThisWave - RBERegeneratedThisWave);
             bloonsOnScreen = GameController.enemyParent.transform.childCount;
             
             if (state == SpawnState.RoundEnded) {
-                // RoundEnded - AutoStart if autostart is active, otherwise wait.
+                // RoundEnded - AutoStart if autostart is active, otherwise do nothing.
                 if (!waveActive) { 
                     if (GameController.controllerObject.AutoStartNextWave) {
                         StartNextWave();
@@ -165,27 +104,25 @@ namespace GameControl {
 
         public void StartNextWave() {
             if (state == SpawnState.RoundEnded) {
-                if (waves[currentWave] != null) {
-                    bloonsKilledThisWave = 0;
-                    bloonsReachedFinalDestination = 0;
-                    StartCoroutine(SpawnWave(waves[currentWave]));
-                    currentWave++;
-                    //Debug.Log("Started a new wave...");
-                    waveActive = true;
-                }
+                StartWave(currentWave);
+                currentWave++;
             }
             else if (state == SpawnState.GameStart) {
-                if (waves[currentWave-1] != null) {
-                    bloonsKilledThisWave = 0;
-                    bloonsReachedFinalDestination = 0;
-                    StartCoroutine(SpawnWave(waves[currentWave-1]));
-                    //Debug.Log("Started first wave...");
-                    waveActive = true;
-                }
+                StartWave(currentWave - 1);
             }
         }
 
-        // TODO: Fix this to better scale with gameSpeed
+        public void StartWave(int _waveToSpawn) {
+            if (waves[_waveToSpawn] != null) {
+                bloonsKilledThisWave = 0;
+                bloonsReachedFinalDestinationThisWave = 0;
+                StartCoroutine(SpawnWave(waves[_waveToSpawn]));
+                waveActive = true;
+            }
+        }
+
+
+        // TODO: Fix this to better scale with (a changing) gameSpeed
         private IEnumerator SpawnWave(Wave _waveToSpawn) {
 
             totalRBEThisWave = _waveToSpawn.TotalRBE;
@@ -195,12 +132,13 @@ namespace GameControl {
             for (int i = 0; i < _waveToSpawn.waveTypeList.Count; i++) {
                 for (int j = 0; j < _waveToSpawn.waveTypeList[i].amount; j++) {
                     BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
-                    yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].secondsBetweenBloons / GameController.controllerObject.currentGameSpeed); 
+                    yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].interval / GameController.controllerObject.currentGameSpeed); 
                 }
-                yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].secondsToWaitAfterSet / GameController.controllerObject.currentGameSpeed);
+                yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].delay / GameController.controllerObject.currentGameSpeed);
             }
             state = SpawnState.WaitingForBloonsToDie;
             yield break;
         }
+        
     }
 }

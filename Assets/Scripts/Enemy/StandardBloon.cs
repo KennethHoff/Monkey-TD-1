@@ -165,7 +165,7 @@ namespace Bloon {
             GameControl.WaveSpawner.controllerObject.RBEReachedFinalDestinationThisWave += RBE;
             Debug.Log("Final destination reached. Lost " + RBE + " life. Currently on: " + GameControl.InventoryController.controllerObject.life);
             Destroy(gameObject);
-            GameControl.WaveSpawner.controllerObject.bloonsReachedFinalDestination++;
+            GameControl.WaveSpawner.controllerObject.RBEReachedFinalDestinationThisWave++;
         }
 
         public virtual void FinalPop() { // Complete removal off the bloon (loses all health)

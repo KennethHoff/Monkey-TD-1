@@ -347,174 +347,29 @@ MonoBehaviour:
   totalBloonsThisWave: 0
   remainingBloonsThisWave: 0
   bloonsKilledThisWave: 0
-  bloonsReachedFinalDestination: 0
+  bloonsReachedFinalDestinationThisWave: 0
   totalRBEThisWave: 0
   RBEKilledThisWave: 0
   RBERemainingThisWave: 0
-  bloonsOnScreen: 0
   RBEReachedFinalDestinationThisWave: 0
   RBERegeneratedThisWave: 0
+  bloonsOnScreen: 0
   waves:
   - waveTypeList:
     - bloonEnum: 1
-      amount: 20
-      secondsBetweenBloons: 0.75
-      regrowth: 1
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 30
-      secondsBetweenBloons: 0.4
       regrowth: 0
       camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 20
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 5
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 30
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 15
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 5
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 25
-      secondsBetweenBloons: 0.4
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 15
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 15
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 3
       amount: 4
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
+      interval: 0.4
+      delay: 0
       bloon: {fileID: 0}
       TotalSetRBE: 0
-  - waveTypeList:
     - bloonEnum: 1
-      amount: 20
-      secondsBetweenBloons: 0.3
       regrowth: 0
       camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 25
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 3
-      amount: 5
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 1
-      amount: 10
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 2
-      amount: 20
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-    - bloonEnum: 3
-      amount: 14
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 3
-      amount: 30
-      secondsBetweenBloons: 0.3
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
-      bloon: {fileID: 0}
-      TotalSetRBE: 0
-  - waveTypeList:
-    - bloonEnum: 2
-      amount: 102
-      secondsBetweenBloons: 0.15
-      regrowth: 0
-      camo: 0
-      secondsToWaitAfterSet: 0
+      amount: 4
+      interval: 0.4
+      delay: 0
       bloon: {fileID: 0}
       TotalSetRBE: 0
 --- !u!114 &25067669

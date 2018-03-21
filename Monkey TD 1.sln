@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monkey TD 1", "Monkey TD 1.csproj", "{F2894B36-3D2B-76AC-2BEC-58FCDEBBBD70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monkey TD 1.Editor", "Monkey TD 1.Editor.csproj", "{39BF8F4E-D208-A48F-3F3F-885DAB8CA027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{F2894B36-3D2B-76AC-2BEC-58FCDEBBBD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2894B36-3D2B-76AC-2BEC-58FCDEBBBD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2894B36-3D2B-76AC-2BEC-58FCDEBBBD70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39BF8F4E-D208-A48F-3F3F-885DAB8CA027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39BF8F4E-D208-A48F-3F3F-885DAB8CA027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39BF8F4E-D208-A48F-3F3F-885DAB8CA027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39BF8F4E-D208-A48F-3F3F-885DAB8CA027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

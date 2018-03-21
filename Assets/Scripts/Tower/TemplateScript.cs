@@ -6,7 +6,7 @@ public class TemplateScript : MonoBehaviour {
 
     [SerializeField]
     private GameControl.PlacementController.Towers towerEnum;
-    private ParentController parentObject; // COMPLETED: Make it use the Dictionary instead of dragging.
+    private ParentController parentObject;
     private Tower.StandardTower tower;
 
     private Vector2 mousePos;
