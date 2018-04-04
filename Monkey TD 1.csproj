@@ -319,10 +319,12 @@
     <Compile Include="Assets\Scripts\Pathfinding\PathingParent.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\SpawnPoint.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\WayPoints.cs" />
-    <Compile Include="Assets\Scripts\Projectiles\DartMonkeyDart.cs" />
-    <Compile Include="Assets\Scripts\Projectiles\NinjaMonkeyThrowingStar.cs" />
+    <Compile Include="Assets\Scripts\Projectiles\Boomerang.cs" />
+    <Compile Include="Assets\Scripts\Projectiles\Dart.cs" />
     <Compile Include="Assets\Scripts\Projectiles\StandardProjectile.cs" />
-    <Compile Include="Assets\Scripts\Projectiles\TackShooterTack.cs" />
+    <Compile Include="Assets\Scripts\Projectiles\Tack.cs" />
+    <Compile Include="Assets\Scripts\Projectiles\ThrowingStar.cs" />
+    <Compile Include="Assets\Scripts\Tower\Monkey Tower\BoomerangThrower.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\DartMonkey.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\MonkeyTower.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\NinjaMonkey.cs" />

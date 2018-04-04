@@ -10,11 +10,7 @@ public class TemplateScript : MonoBehaviour {
     private Tower.StandardTower tower;
 
     private Vector2 mousePos;
-    [SerializeField]
-    private LayerMask environmentLayer, towerLayer;
-
-    // Update is called once per frame
-
+    
     private void Start() {
         tower = GameControl.DictionaryController.placementDictionary[towerEnum].towerPrefab;
     }
@@ -23,7 +19,7 @@ public class TemplateScript : MonoBehaviour {
         transform.position = new Vector2(mousePos.x, mousePos.y);
 
         if (GameControl.GameController.WithinMapWorldPoint(mousePos, 0)) {
-            if (!(Physics2D.OverlapCircle(transform.position, 0.125f, environmentLayer) || (Physics2D.OverlapCircle(transform.position, 0, towerLayer) ))) {
+            if (!(Physics2D.OverlapCircle(transform.position, 0.125f, GameControl.GameController.controllerObject.environmentLayer) || (Physics2D.OverlapCircle(transform.position, 0, GameControl.GameController.controllerObject.towerLayer)) || (Physics2D.OverlapCircle(transform.position, 0, GameControl.GameController.controllerObject.waterLayer)))) {
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
                 if (Input.GetMouseButtonDown(0)) {

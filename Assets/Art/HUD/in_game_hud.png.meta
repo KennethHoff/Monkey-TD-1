@@ -32,6 +32,18 @@ TextureImporter:
     21300050: ff_icon
     21300052: ff_icon_locked
     21300054: ff_icon_red
+    21300056: boomerang_icon
+    21300058: boomerang_icon_greyed
+    21300060: bomb_icon
+    21300062: bomb_icon_greyed
+    21300064: ice_icon
+    21300066: ice_icon_greyed
+    21300068: glue_gunner_icon
+    21300070: glue_gunner_icon_greyed
+    21300072: buccaneer_icon
+    21300074: buccaneer_icon_greyed
+    21300076: monkey_ace_icon
+    21300078: monkey_ace_icon_greyed
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -505,6 +517,174 @@ TextureImporter:
         height: 129
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_icon
+      rect:
+        serializedVersion: 2
+        x: 3264
+        y: 717
+        width: 99
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 2659
+        y: 116
+        width: 99
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bomb_icon
+      rect:
+        serializedVersion: 2
+        x: 3565
+        y: 3159
+        width: 90
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: bomb_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 2761
+        y: 93
+        width: 90
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: glue_gunner_icon
+      rect:
+        serializedVersion: 2
+        x: 2866
+        y: 124
+        width: 87
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: glue_gunner_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 3491
+        y: 691
+        width: 87
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ice_icon
+      rect:
+        serializedVersion: 2
+        x: 2956
+        y: 50
+        width: 81
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ice_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 3041
+        y: 137
+        width: 81
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: buccaneer_icon
+      rect:
+        serializedVersion: 2
+        x: 3488
+        y: 1243
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: buccaneer_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 2893
+        y: 618
+        width: 110
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: monkey_ace_icon
+      rect:
+        serializedVersion: 2
+        x: 2926
+        y: 741
+        width: 121
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: monkey_ace_icon_greyed
+      rect:
+        serializedVersion: 2
+        x: 2307
+        y: 180
+        width: 122
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

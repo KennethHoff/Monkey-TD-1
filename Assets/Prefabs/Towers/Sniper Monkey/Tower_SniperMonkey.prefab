@@ -89,6 +89,7 @@ MonoBehaviour:
   drawGizmos: 0
   targetting: 0
   projectileToFire: {fileID: 0}
+  state: 0
 --- !u!212 &212397186900912182
 SpriteRenderer:
   m_ObjectHideFlags: 1

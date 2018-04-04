@@ -11,6 +11,7 @@ TextureImporter:
     21300008: dart_monkey_dart
     21300010: ninja_throwing_start
     21300012: tack_shooter_tack
+    21300014: boomerang
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -161,7 +162,7 @@ TextureImporter:
         width: 24
         height: 79
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -175,7 +176,7 @@ TextureImporter:
         width: 50
         height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,6 +189,20 @@ TextureImporter:
         y: 911
         width: 18
         height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 129
+        width: 70
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

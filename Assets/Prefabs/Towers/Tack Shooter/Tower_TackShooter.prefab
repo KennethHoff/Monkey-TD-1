@@ -73,8 +73,9 @@ MonoBehaviour:
   CamoDetection: 0
   attackSpeed: 1.6666666
   firingRange: 2
-  PoppingPower: 1
-  layersToPop: 1
+  projectilePoppingPower: 1
+  projectilePenetration: 1
+  damageType: 0
   drawGizmos: 0
   targetting: 0
   projectileToFire: {fileID: 114893572832495076, guid: 0b48ca6a1db997649a746a2a76440acf,

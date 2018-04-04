@@ -44,18 +44,22 @@ namespace GameControl {
         public int currentWave = 1;
         public int totalWaves = 0;
 
-        [Header("Bloon info:")]
+        [Header("Bloon Info:")]
         public int totalBloonsThisWave;
-        public int remainingBloonsThisWave;
         public int bloonsKilledThisWave;
-        public int bloonsReachedFinalDestinationThisWave; 
+        public int bloonsReachedFinalDestinationThisWave;
+        public int bloonsSpawnedThisWave;
+        public int bloonSpawnsLeftThisWave;
 
+        [Header("RBE Info:")]
         public int totalRBEThisWave;
         public int RBEKilledThisWave;
-        public int RBERemainingThisWave;
         public int RBEReachedFinalDestinationThisWave;
         public int RBERegeneratedThisWave;
+        public int RBESpawnedThisWave;
+        public int RBESpawnsLeftThisWave;
 
+        [Space(10)]
         public int bloonsOnScreen;
 
         [Header("Wave Editor:")]
@@ -74,8 +78,9 @@ namespace GameControl {
         }
 
         private void Update() {
-            remainingBloonsThisWave = totalBloonsThisWave - (bloonsKilledThisWave + bloonsReachedFinalDestinationThisWave);
-            RBERemainingThisWave = totalRBEThisWave - (RBEKilledThisWave + RBEReachedFinalDestinationThisWave - RBERegeneratedThisWave);
+            bloonSpawnsLeftThisWave = totalBloonsThisWave - bloonsSpawnedThisWave;
+            RBESpawnsLeftThisWave = totalRBEThisWave - RBESpawnedThisWave;
+
             bloonsOnScreen = GameController.enemyParent.transform.childCount;
             
             if (state == SpawnState.RoundEnded) {
@@ -88,17 +93,24 @@ namespace GameControl {
             }
             else if (state == SpawnState.WaitingForBloonsToDie) {
 
-                if (remainingBloonsThisWave <= 0) {
+                if (bloonSpawnsLeftThisWave <= 0 && bloonsOnScreen <= 0) {
                     waveActive = false;
+                    GameControl.GameController.controllerObject.fastForward = false;
                     RoundEndedEvent();
-                    state = SpawnState.RoundEnded;
+
+                    if (currentWave < totalWaves) { 
+                        state = SpawnState.RoundEnded;
+                    }
+                    else {
+                        state = SpawnState.GameOver;
+                    }
                 }
             }
             else if (state == SpawnState.Spawning) {
                 // Actively Spawning Bloons -- Do nothing
             }
             else if (state == SpawnState.GameOver) {
-                // Life is at 0
+                // Life is at 0 || CurrentRound = maxRounds
             }
         }
 
@@ -116,6 +128,8 @@ namespace GameControl {
             if (waves[_waveToSpawn] != null) {
                 bloonsKilledThisWave = 0;
                 bloonsReachedFinalDestinationThisWave = 0;
+                bloonsSpawnedThisWave = 0;
+                RBESpawnedThisWave = 0;
                 StartCoroutine(SpawnWave(waves[_waveToSpawn]));
                 waveActive = true;
             }
@@ -131,7 +145,9 @@ namespace GameControl {
             
             for (int i = 0; i < _waveToSpawn.waveTypeList.Count; i++) {
                 for (int j = 0; j < _waveToSpawn.waveTypeList[i].amount; j++) {
-                    BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
+                    Bloon.StandardBloon spawnedBloon =  BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
+                    WaveSpawner.controllerObject.bloonsSpawnedThisWave++;
+                    WaveSpawner.controllerObject.RBESpawnedThisWave += spawnedBloon.RBE;
                     yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].interval / GameController.controllerObject.currentGameSpeed); 
                 }
                 yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].delay / GameController.controllerObject.currentGameSpeed);

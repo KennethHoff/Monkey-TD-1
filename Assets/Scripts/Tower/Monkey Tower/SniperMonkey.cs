@@ -13,6 +13,7 @@ namespace Tower {
         protected override void Shoot() {
             target.GetComponent<Bloon.StandardBloon>().HitScanShot(this);
             Debug.Log("Sniper Monkey shot!");
+
             base.Shoot();
         }
         

@@ -12,16 +12,53 @@ namespace GameControl {
             DartMonkey,
             TackShooter,
             SniperMonkey,
-            NinjaMonkey
+            BoomerangThrower,
+            NinjaMonkey,
+            BombTower,
+            IceTower,
+            GlueGunner,
+            MonkeyBuccaneer,
+            MonkeyAce,
+            SuperMonkey,
+            MonkeyApprentice,
+            MonkeyVillage,
+            BananaFarm,
+            MortarTower,
+            DartlingGun,
+            SpikeFactory,
+            HeliPilot,
+            MonkeyEngineer,
+            Bloonchipper,
+            MonkeySub
         }
 
-        public Towers selectedObjectInArray;
-        [Space(10f)]
-
+        #region TowerLists
         public TowerList TowerDict_DartMonkey;
         public TowerList TowerDict_TackShooter;
         public TowerList TowerDict_SniperMonkey;
+        public TowerList TowerDict_BoomerangThrower;
         public TowerList TowerDict_NinjaMonkey;
+        // public TowerList TowerDict_BombTower;
+        // public TowerList TowerDict_IceTower;
+        // public TowerList TowerDict_GlueGunner;
+        // public TowerList TowerDict_MonkeyBuccaneer;
+        // public TowerList TowerDict_MonkeyAce;
+        // public TowerList TowerDict_SuperMonkey;
+        // public TowerList TowerDict_MonkeyApprentice;
+        // public TowerList TowerDict_MonkeyVillage;
+        // public TowerList TowerDict_BananaFarm;
+        // public TowerList TowerDict_MortarTower;
+        // public TowerList TowerDict_DartlingGun;
+        // public TowerList TowerDict_SpikeFactory;
+        // public TowerList TowerDict_HeliPilot;
+        // public TowerList TowerDict_MonkeyEngineer;
+        // public TowerList TowerDict_Bloonchipper;
+        // public TowerList TowerDict_MonkeySub;
+
+        #endregion
+
+        public Towers selectedObjectInArray;
+        [Space(10f)]
 
         private GameObject currentlySelectedTemplate;
         private GameObject currentlySelectedUIButton;

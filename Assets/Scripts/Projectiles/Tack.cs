@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Projectile {
-    public class DartMonkeyDart : StandardProjectile {
+    public class Tack : StandardProjectile {
 
         protected override void Start() {
-            towerEnum = GameControl.PlacementController.Towers.DartMonkey;
+            towerEnum = GameControl.PlacementController.Towers.TackShooter;
             base.Start();
         }
     }

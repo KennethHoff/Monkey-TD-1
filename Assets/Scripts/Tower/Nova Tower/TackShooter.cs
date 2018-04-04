@@ -10,7 +10,7 @@ namespace Tower {
             base.Start();
         }
 
-        [SerializeField, Space(10)]
+        [SerializeField, Header("Tack Shooter Specifics:")]
         protected int tacksToFire;
 
         protected override void Shoot() {

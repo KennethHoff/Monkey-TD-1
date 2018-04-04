@@ -7,17 +7,24 @@ namespace Projectile {
 
         public GameControl.PlacementController.Towers towerEnum;
         
+        [HideInInspector]
         public Tower.StandardTower tower;
         public float despawnDistance;
         protected float distanceFromSpawn;
         protected Vector2 spawnPoint;
-        
+
+        [HideInInspector]
         public ParentController parent;
 
         public float moveSpd;
 
+        [HideInInspector]
         public int penetration; // How many layers it pops.
+
+        [HideInInspector]
         public int totalPower;
+        
+        [HideInInspector]
         public int remainingPower;
 
         protected Rigidbody2D rbody;

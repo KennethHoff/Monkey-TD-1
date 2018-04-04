@@ -9,11 +9,12 @@ namespace Tower {
         protected Collider2D target;
 
         protected enum TargettingStates {
-            Closest,
             First,
             Last,
+            Closest,
             Toughest
         }
+        [SerializeField]
         protected TargettingStates state;
 
 
@@ -26,11 +27,18 @@ namespace Tower {
                 if (justShot < 0) {
                     if (aimCooldown < 0) {
                         targetting = true;
-                        aimCooldown = GameControl.GameController.controllerObject.aimTimer;
+
+                        if (attackSpeed < GameControl.GameController.controllerObject.aimTimer)
+                            aimCooldown = attackSpeed * 2 / 3;
+
+                        else
+                            aimCooldown = GameControl.GameController.controllerObject.aimTimer;
+
                         target = SearchForEnemiesInRange();
 
                         if (target != null) {
-                            if (justShot <= 0) AimAt(target.gameObject);
+                            if (justShot <= 0)
+                                AimAt(target.gameObject);
                         }
                     }
                 }
@@ -53,20 +61,22 @@ namespace Tower {
             switch (state) {
                 case TargettingStates.Closest:
                     _target = SearchForClosestEnemy(allCollisions);
-
                     break;
                 case TargettingStates.First:
+                    _target = SearchForFirstEnemy(allCollisions);
                     break;
                 case TargettingStates.Last:
+                    // _target = SearchForLastEnemy(allCollisions);
                     break;
                 case TargettingStates.Toughest:
+                    // _target = SearchForToughestEnemy(allCollisions);
                     break;
             }
             return _target;
         }
 
         protected virtual Collider2D SearchForClosestEnemy(Collider2D[] allCollisions) {
-            Collider2D closestEnemy = null;
+            Collider2D enemy = null;
             float closestEnemyDistance = float.MaxValue;
 
             foreach (Collider2D target in allCollisions) {
@@ -74,14 +84,100 @@ namespace Tower {
 
                     float absDist = Vector2.Distance(target.transform.position, transform.position);
                     if (absDist < closestEnemyDistance) {
-                        closestEnemy = target;
+                        enemy = target;
                         closestEnemyDistance = absDist;
                     }
                 }
             }
-            return closestEnemy;
+            return enemy;
         }
 
+        protected virtual Collider2D SearchForFirstEnemy(Collider2D[] allCollisions) {
+
+            Collider2D enemy = null;
+            float firstEnemyDistance = 0;
+            int firstEnemyWaypoint = 0;
+
+            foreach (Collider2D target in allCollisions) {
+                if (target.tag == "Enemy") {
+
+                    int currentWayPoint = target.GetComponent<WayPoints>().currentWayPoint;
+
+                    float distanceToPreviousWaypoint = target.GetComponent<WayPoints>().distanceToPreviousWaypoint;
+
+                    if (currentWayPoint > firstEnemyWaypoint) {
+                        enemy = target;
+                        firstEnemyWaypoint = currentWayPoint;
+                        firstEnemyDistance = distanceToPreviousWaypoint;
+                    }
+                    else if (currentWayPoint == firstEnemyWaypoint) {
+                        if (distanceToPreviousWaypoint > firstEnemyDistance) {
+                            enemy = target;
+                            firstEnemyWaypoint = currentWayPoint;
+                            firstEnemyDistance = distanceToPreviousWaypoint;
+                        }
+                    }
+                }
+            }
+
+            return enemy;
+        }
+
+        protected virtual Collider2D SearchForLastEnemy(Collider2D[] allCollisions) {
+
+            Collider2D enemy = null;
+            float firstEnemyDistance = 0;
+            int firstEnemyWaypoint = 0;
+
+            foreach (Collider2D target in allCollisions) {
+                if (target.tag == "Enemy") {
+
+                    int currentWayPoint = target.GetComponent<WayPoints>().currentWayPoint;
+
+                    Vector2 currentWayPointPos = GameControl.PathController.controllerObject.wayPointList[currentWayPoint].position;
+
+                    float absDist = Vector2.Distance(currentWayPointPos, transform.position);
+
+                    if (currentWayPoint >= firstEnemyWaypoint) {
+                        if (absDist >= firstEnemyDistance) {
+                            firstEnemyWaypoint = currentWayPoint;
+                            firstEnemyDistance = absDist;
+                            enemy = target;
+                        }
+                    }
+                }
+            }
+
+            return enemy;
+        }
+
+        protected virtual Collider2D SearchForToughestEnemy(Collider2D[] allCollisions) {
+
+            Collider2D enemy = null;
+            float firstEnemyDistance = 0;
+            int firstEnemyWaypoint = 0;
+
+            foreach (Collider2D target in allCollisions) {
+                if (target.tag == "Enemy") {
+
+                    int currentWayPoint = target.GetComponent<WayPoints>().currentWayPoint;
+
+                    Vector2 currentWayPointPos = GameControl.PathController.controllerObject.wayPointList[currentWayPoint].position;
+
+                    float absDist = Vector2.Distance(currentWayPointPos, transform.position);
+
+                    if (currentWayPoint >= firstEnemyWaypoint) {
+                        if (absDist >= firstEnemyDistance) {
+                            firstEnemyWaypoint = currentWayPoint;
+                            firstEnemyDistance = absDist;
+                            enemy = target;
+                        }
+                    }
+                }
+            }
+
+            return enemy;
+        }
 
         protected virtual void AimAt(GameObject target) {
 
@@ -89,12 +185,20 @@ namespace Tower {
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + rotationOffset;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (firingCooldown <= 0) Shoot();
+            if (firingCooldown < 0) {
+                Shoot();
+            }
         }
 
         protected override void Shoot() {
+            firingCooldown = attackSpeed;
+
             base.Shoot();
-            justShot = rotationDurationAfterShooting;
+
+            if (attackSpeed < rotationDurationAfterShooting)
+                justShot = attackSpeed * 1 / 3;
+            else
+                justShot = rotationDurationAfterShooting;
         }
 
     }

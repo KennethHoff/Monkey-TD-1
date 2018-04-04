@@ -68,7 +68,7 @@ namespace GameControl {
         }
         public void AwardGoldAtEndOfRound() {
             gold += 99 + WaveSpawner.controllerObject.currentWave;
-            Debug.Log("Awarded gold at end of round: " + WaveSpawner.controllerObject.currentWave);
+            Debug.Log("Awarded gold at end of round " + WaveSpawner.controllerObject.currentWave);
         }
     }
 }

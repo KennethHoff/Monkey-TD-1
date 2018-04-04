@@ -52,13 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5684ed6c64f84914badb2cedec920b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 4
-  environmentLayer:
-    serializedVersion: 2
-    m_Bits: 7168
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  towerEnum: 5
 --- !u!212 &212103772721811444
 SpriteRenderer:
   m_ObjectHideFlags: 1

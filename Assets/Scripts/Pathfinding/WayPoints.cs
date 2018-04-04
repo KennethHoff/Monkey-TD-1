@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class WayPoints : MonoBehaviour {
     // TODO: Find a way to check if Transform is under an "Underpass" Collider (but not on the Path above it), and if it is, make it invisible, untargettable and invincible.
-
-    private GameControl.PathController pc;
-        
+            
     public int currentWayPoint = 0;
+    public float distanceToPreviousWaypoint = 0;
     Transform targetWayPoint;
 
     [SerializeField]
@@ -26,7 +25,7 @@ public class WayPoints : MonoBehaviour {
     public Direction dir;
     
     void Start() {
-        pc = FindObjectOfType<GameControl.PathController>();
+        GameControl.PathController.controllerObject = FindObjectOfType<GameControl.PathController>();
         moveSpdOffSet = 2f; // Do not change
         actualMoveSpd = moveSpd * moveSpdOffSet;
 
@@ -40,49 +39,32 @@ public class WayPoints : MonoBehaviour {
 
     }
 
-    void NewWalk() {
+    void Walk() {
+        // Debug.Log("New moving...");
+
+        if (currentWayPoint > 0)
+            distanceToPreviousWaypoint = Vector2.Distance(transform.position, GameControl.PathController.controllerObject.wayPointList[currentWayPoint-1].position);
 
         Vector3 thing = MoveTowardsNew(transform.position, targetWayPoint.position, finalMoveSpd);
         if (thing == Vector3.zero) {
-            thing = MoveTowardsNew(transform.position, pc.wayPointList[currentWayPoint + 1].position, finalMoveSpd);
+            thing = MoveTowardsNew(transform.position, GameControl.PathController.controllerObject.wayPointList[currentWayPoint + 1].position, finalMoveSpd);
         }
         transform.position = thing;
 
-
+        /*
         float xDist = targetWayPoint.position.x - transform.position.x; // X axis
         float yDist = targetWayPoint.position.y - transform.position.y; // Y Axis
         float dist = Mathf.Pow(xDist, 2) + Mathf.Pow(yDist, 2);
+        */
+
+        float dist = Vector2.Distance(targetWayPoint.position, transform.position);
 
         if (dist < finalMoveSpd) {
             currentWayPoint++;
-            targetWayPoint = pc.wayPointList[currentWayPoint];
+            targetWayPoint = GameControl.PathController.controllerObject.wayPointList[currentWayPoint];
         }
     }
 
-    void Walk() {
-        Debug.Log("Moving...");
-        // move towards the target
-        // transform.position = Vector3.MoveTowards(transform.position, targetWayPoint.position, finalMoveSpd);
-
-
-        if (targetWayPoint.position.x - transform.position.x > 0) {
-            dir = Direction.Right;
-        }
-        else if (targetWayPoint.position.x - transform.position.x < 0) {
-            dir = Direction.Left;
-        }
-        else if (targetWayPoint.position.y - transform.position.y > 0) {
-            dir = Direction.Down;
-        }
-        else if (targetWayPoint.position.y- transform.position.y < 0) {
-            dir = Direction.Up;
-        }
-
-        if (transform.position == targetWayPoint.position) {
-            currentWayPoint++;
-            targetWayPoint = pc.wayPointList[currentWayPoint];
-        }
-    }
 
     private void FinalDestinationReached() {
         GetComponent<Bloon.StandardBloon>().FinalDestinationReached();
@@ -91,11 +73,10 @@ public class WayPoints : MonoBehaviour {
     private void StartMoving() {
         // Check if we have somewhere to walk
 
-        if (currentWayPoint < pc.wayPointList.Count - 1) {
+        if (currentWayPoint < GameControl.PathController.controllerObject.wayPointList.Count - 1) {
             if (targetWayPoint == null)
-                targetWayPoint = pc.wayPointList[currentWayPoint];
-            // Walk();
-            NewWalk();
+                targetWayPoint = GameControl.PathController.controllerObject.wayPointList[currentWayPoint];
+            Walk();
         }
         else
             FinalDestinationReached();

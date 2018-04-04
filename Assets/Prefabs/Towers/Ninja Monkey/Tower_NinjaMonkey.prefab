@@ -78,17 +78,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435a677bcb96e844ab46da956e3ec26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 4
+  towerEnum: 5
   goldCost: 500
   CamoDetection: 0
   attackSpeed: 0.5988024
   firingRange: 3
-  PoppingPower: 2
-  layersToPop: 1
+  projectilePoppingPower: 2
+  projectilePenetration: 1
+  damageType: 0
   drawGizmos: 0
   targetting: 0
   projectileToFire: {fileID: 114841212826720866, guid: 5aecd58afd389f94a9c7d916900ed52f,
     type: 2}
+  state: 0
 --- !u!212 &212336938512004356
 SpriteRenderer:
   m_ObjectHideFlags: 1

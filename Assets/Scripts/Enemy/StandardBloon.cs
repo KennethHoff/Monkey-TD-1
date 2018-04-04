@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Projectile;
-using System;
-using Tower;
 
 namespace Bloon {
     public class StandardBloon : MonoBehaviour {
@@ -12,7 +9,9 @@ namespace Bloon {
         #region variables
         protected GameControl.BloonSpawner.Bloons bloonEnum;
 
-        protected int amountOfBloonsToSpawn = 1;
+        [SerializeField]
+        protected int childrenAmount = 1;
+        [SerializeField]
         protected float childSpawningSpacing = 0.25f;
 
         protected float regenerationCooldown;
@@ -29,8 +28,9 @@ namespace Bloon {
         public bool regrowth;
         public bool camo;
 
-        protected int maxHealth;
-        protected int currHealth;
+        [SerializeField]
+        protected int startArmor;
+        protected int currArmor;
         [SerializeField]
         protected bool immuneToSharpObjects, immuneToExplosions;
         protected bool hitThisFrame;
@@ -45,6 +45,7 @@ namespace Bloon {
         #endregion
 
         protected virtual void Start() {
+            currArmor = startArmor;
 
             for (int i = 0; i < completeFamilyTree.Count; i++) {
                 if (completeFamilyTree[i] == bloonEnum) {
@@ -80,44 +81,31 @@ namespace Bloon {
             GameControl.DictionaryController.controllerObject.AddChildrenToDictionaryGameObject(_childrenListGameObject, _projectileParent);
         }
 
-        public virtual void PopBloonGameObject(Tower.StandardTower _tower, ParentController _projectileParent, int _penetration) { // When the bloon gets killed
-
-            // COMPLETED: Implement penetration (Currently no idea how I would go about doing it.)
-            // Was done by changing "regrowthFamilyTree"(a list that showed the order of which bloons would be regrown) to a "completeFamilyTree" (a list that shows the order of the children. 
-            // So: Pink > Yellow > Green > Blue > Red.
-            // When regrow: Go up. 
-            // When pop: Go down by the _penetration value
+        public virtual void PopBloonGameObject(Tower.StandardTower _tower, ParentController _projectileParent, int _overkill) {
 
             int soundToPlay = Mathf.RoundToInt(UnityEngine.Random.Range(0, popSounds.Count)); // tilfeldig tall mellom 0 og antallet lyder i listen av lyder.
             audioSource.clip = popSounds[soundToPlay];
             Destroy(gameObject);
 
-
-
             audioSource.Play();
+            List<StandardBloon> childrenList;
 
-            if (_penetration >= RBE) { 
-                FinalPop();
-                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave++;
-                GameControl.InventoryController.controllerObject.gold += 1 * GameControl.InventoryController.controllerObject.goldGainMultiplier;
-            }
+            if (_projectileParent != null && _overkill > 0)
+                childrenList = CreateChildren(_overkill);
 
-            else if (completeFamilyTree[1] != GameControl.BloonSpawner.Bloons.Undefined) {
-                Bloon.StandardBloon bloonToSpawn = GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + _penetration]];
-                List<Bloon.StandardBloon> childrenList = SpawnMultipleListGameObject(bloonToSpawn, amountOfBloonsToSpawn);
+            else
+                childrenList = null;
+
+            if (childrenList != null)
                 GameControl.DictionaryController.controllerObject.AddChildrenToDictionaryGameObject(childrenList, _projectileParent);
-
-                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave += _penetration;
-                GameControl.InventoryController.controllerObject.gold += _penetration * GameControl.InventoryController.controllerObject.goldGainMultiplier;
-            }
         }
 
-        protected virtual List<Bloon.StandardBloon> SpawnMultipleListGameObject(Bloon.StandardBloon _bloonToSpawn, int _amount) {
-            Vector2 movingDir = Vector3.zero;
+        protected virtual List<Bloon.StandardBloon> SpawnMultipleListGameObject(Bloon.StandardBloon _bloonToSpawn, int _amount, float _spacing) {
+            Vector2 movingDir = Vector2.one;
             List<Bloon.StandardBloon> childrenList = new List<Bloon.StandardBloon>();
 
             for (int i = 0; i < _amount; i++) {
-                Vector2 PosToSpawn = new Vector2(transform.position.x, transform.position.y) + (movingDir * i * childSpawningSpacing);
+                Vector2 PosToSpawn = new Vector2(transform.position.x, transform.position.y) + (movingDir * i * _spacing);
                 Bloon.StandardBloon child = SpawnSingleGameObject(PosToSpawn, _bloonToSpawn);
                 childrenList.Add(child);
             }
@@ -134,10 +122,10 @@ namespace Bloon {
             return childBloon;
         }
 
-        protected virtual void DamageBloonGameObject(StandardProjectile projectile) {
-            currHealth -= projectile.penetration;
-            if (currHealth < 0) {
-                PopBloonGameObject(projectile.tower, projectile.parent, -currHealth);
+        protected virtual void DamageBloonGameObject(Projectile.StandardProjectile projectile) {
+            currArmor -= projectile.penetration;
+            if (currArmor < 0) {
+                PopBloonGameObject(projectile.tower, projectile.parent, 0-currArmor);
             }
         }
 
@@ -199,6 +187,9 @@ namespace Bloon {
             }
         }
 
+
+        #region collision detection
+
         protected virtual void OnTriggerStay2D(Collider2D collision) {
             if (hitThisFrame) return;
             if (collision.gameObject.tag == "Projectile") {
@@ -221,33 +212,9 @@ namespace Bloon {
             }
         }
 
+        #endregion
 
         #region hitscan detection
-
-        private void PopBloonHitscanGameObject(StandardTower tower, int _overkill) {
-            int soundToPlay = Mathf.RoundToInt(UnityEngine.Random.Range(0, popSounds.Count)); // tilfeldig tall mellom 0 og antallet lyder i listen av lyder.
-            audioSource.clip = popSounds[soundToPlay];
-            Destroy(gameObject);
-
-
-
-            audioSource.Play();
-
-            if (_overkill >= RBE) {
-                FinalPop();
-                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave++;
-                GameControl.InventoryController.controllerObject.gold += 1 * GameControl.InventoryController.controllerObject.goldGainMultiplier;
-            }
-
-            else if (completeFamilyTree[1] != GameControl.BloonSpawner.Bloons.Undefined) {
-                Bloon.StandardBloon bloonToSpawn = GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + _overkill]];
-                List<Bloon.StandardBloon> childrenList = SpawnMultipleListGameObject(bloonToSpawn, amountOfBloonsToSpawn);
-
-                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave += _overkill;
-                GameControl.InventoryController.controllerObject.gold += _overkill * GameControl.InventoryController.controllerObject.goldGainMultiplier;
-            }
-        }
-
 
         public virtual void HitScanShot(Tower.StandardTower _tower) {
             if (Damageable(_tower.damageType)) {
@@ -257,13 +224,129 @@ namespace Bloon {
 
 
         protected virtual void DamageBloonHitscanGameObject(Tower.StandardTower _tower) {
-            currHealth -= _tower.projectilePenetration;
-            if (currHealth < 0) {
-                PopBloonHitscanGameObject(_tower, -currHealth);
+            currArmor -= _tower.projectilePenetration;
+            if (currArmor < 0) {
+                PopBloonHitscanGameObject(_tower, -currArmor);
             }
         }
 
-        #endregion
-    }
+        private void PopBloonHitscanGameObject(Tower.StandardTower tower, int _overkill) {
+            int soundToPlay = Mathf.RoundToInt(UnityEngine.Random.Range(0, popSounds.Count)); // tilfeldig tall mellom 0 og antallet lyder i listen av lyder.
+            audioSource.clip = popSounds[soundToPlay];
+            Destroy(gameObject);
+            
+            audioSource.Play();
+            if (tower != null && _overkill > 0)
+                CreateChildren(_overkill);
+        }
 
+
+    #endregion
+
+        private List<Bloon.StandardBloon> CreateChildren(int _overkill) {
+
+            List<Bloon.StandardBloon> childrenList = new List<Bloon.StandardBloon>();
+            
+            int layersToGoThrough = 0;
+
+            if (currentFamilyTreeIndex < completeFamilyTree.Count - 1) { 
+                for (int i = 0; i < _overkill; i++) {
+                    if (GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].startArmor > 0) {
+                        _overkill -= GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].startArmor;
+                    }
+                    else layersToGoThrough++;
+                }
+            }
+            else layersToGoThrough = 1;
+
+            if (layersToGoThrough >= completeFamilyTree.Count - currentFamilyTreeIndex) {
+                FinalPop();
+                int count = completeFamilyTree.Count - currentFamilyTreeIndex;
+                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave += count;
+                GameControl.InventoryController.controllerObject.gold += count * GameControl.InventoryController.controllerObject.goldGainMultiplier;
+                GameControl.WaveSpawner.controllerObject.bloonsKilledThisWave++;
+                return null;
+            }
+            else {
+                GameControl.WaveSpawner.controllerObject.RBEKilledThisWave += layersToGoThrough;
+                GameControl.InventoryController.controllerObject.gold += layersToGoThrough * GameControl.InventoryController.controllerObject.goldGainMultiplier;
+            }
+
+
+            // TODO: Make Children Spawn Amount work correctly. (See under for details)
+
+            // Currently:
+            // 2 + 2         = 4 § Riktig  (4)
+            // 1 Lead > 2 Black. 1 Black > 2 Pink. Therefore 1 Lead > 4 Pink.
+            // 1 + 1 + 1 + 1 = 4 § Feil    (1)
+            // 1 Pink > 1 Yellow. 1 Yellow > 1 Green. 1 Green > 1 Blue. 1 Blue > 1 Red. Therefore 1 Pink > 1 Red.
+            // 2 + 2 + 1 + 1 = 6 § Feil (4)
+            // 1 Lead > 2 Black. 1 Black > 2 Pink. 1 Pink > 1 Yellow. 1 Yellow > 1 Green. Therefore 1 Lead > 4 Yellow.
+
+
+
+            // What I want:
+            // 2 + 2 = 4
+            // 1 + 1 + 1 + 1 = 1
+            // 2 + 2 + 1 + 1 = 4
+            // 1 + 1 + 1 + 0 = 0 (burde aldri komme hit, da en tidligere sjekk burde allerede fjernet objektet.
+            // 4 + 4 + 2 + 2 + 1 + 1 + 1 = 12
+
+
+
+            // If (EndResult > 1) 1 = 0
+
+            // 2 + 2 + 1(0) = 4 § Korrekt
+            // 2 + 1(0) + 1(0) + 1(0) = 2 § Korrekt
+            // 1(0) + 1(0) + 1(0) + 1(0) + 1(0) = 0 § Feil
+
+            // If (EndResult > 1 && highestChildAmount == 2+) 1 = 0
+            // Else If (EndResult > 1 && highestChildAmount == 1) EndResult = 1
+
+            // 2 + 2 + 1(0) = 4 § Korrekt
+            // 2 + 1(0) + 1(0) + 1(0) = 2 § Korrekt
+            // 1 + 1 + 1 + 1 = 4(1) § Korrekt
+            // 4 + 4 + 3 + 2 + 1(0) + 1(0) = 13 § Korrekt
+
+            // Seems like it should work.
+
+            // It looks like it does :D
+
+            int _amountOfChildren = 0;
+            int _highestChildrenAmount = 0;
+            float _spacing = 0;
+
+
+            for (int i = 0; i < layersToGoThrough; i++) {
+                _amountOfChildren += GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childrenAmount;
+                if (GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childrenAmount > _highestChildrenAmount)
+                    _highestChildrenAmount = _amountOfChildren;
+
+                if (GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childSpawningSpacing != 0)
+                    _spacing = GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childSpawningSpacing;
+            }
+
+            if (_amountOfChildren > 1 && _highestChildrenAmount >= 2) {
+                _amountOfChildren = 0;
+                for (int i = 0; i < layersToGoThrough; i++) {
+                    if (GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childrenAmount > 1) {
+                        _amountOfChildren += GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childrenAmount;
+
+                        if (GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childSpawningSpacing != 0) {
+                            _spacing = GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + i]].childSpawningSpacing;
+                        }
+
+                    }
+                }
+            }
+            else if (_amountOfChildren > 1 && _highestChildrenAmount == 1)
+                _amountOfChildren = 1;
+
+
+            StandardBloon bloonToSpawn = GameControl.DictionaryController.bloonDictionary[completeFamilyTree[currentFamilyTreeIndex + layersToGoThrough]];
+            childrenList = SpawnMultipleListGameObject(bloonToSpawn, _amountOfChildren, _spacing);
+
+            return childrenList;
+        }
+    }
 }

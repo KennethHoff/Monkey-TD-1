@@ -59,9 +59,7 @@ namespace Tower {
         }
         
         protected virtual void Shoot() {
-            //Projectile.StandardProjectile shotProjectile = CreateProjectile();
 
-            firingCooldown = attackSpeed;
         }
 
         protected virtual List<Projectile.StandardProjectile> CreateProjectiles(Projectile.StandardProjectile _projectile, Vector2 _position, Quaternion _rotation, Transform _parent, int _amount) {
@@ -80,6 +78,7 @@ namespace Tower {
 
                 projectile.totalPower = totalPierces;
                 projectile.penetration = projectilePenetration;
+                projectile.damageType = damageType;
             }
             return projectileList;
         }

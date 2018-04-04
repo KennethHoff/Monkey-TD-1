@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2aa42f7685ef854b91b914511539a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  childrenAmount: 2
+  childSpawningSpacing: 0.25
   regrowthSprite: {fileID: 21300004, guid: 132c7033a972ac340bc79ab3a17b269b, type: 3}
   popSounds:
   - {fileID: 8300000, guid: 826a9016f7560ee46b0b1100168b5574, type: 3}
@@ -99,6 +101,7 @@ MonoBehaviour:
   RBE: 23
   regrowth: 0
   camo: 0
+  startArmor: 0
   immuneToSharpObjects: 1
   immuneToExplosions: 0
   completeFamilyTree: 07000000060000000500000004000000030000000200000001000000
@@ -116,6 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWayPoint: 0
+  distanceToPreviousWaypoint: 0
   moveSpd: 1.8
   spdMultiplier: 1
   finalMoveSpd: 0

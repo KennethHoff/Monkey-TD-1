@@ -24,11 +24,15 @@ namespace GameControl {
 
         [Header("Universal Game Information")]
         public LayerMask enemyLayer;
+        public LayerMask environmentLayer;
+        public LayerMask waterLayer;
+        public LayerMask towerLayer;
         public bool UseGameObjectBasedCollisionDictionary;
 
         [SerializeField]
         private ProjectileParent ProjectileContainer;
         [SerializeField]
+
         private TowerParent towerContainer;
 
         [Header("Current Game Information:")]
@@ -82,7 +86,7 @@ namespace GameControl {
 
         public List<Projectile.StandardProjectile> CreateProjectileFamilyTree(Projectile.StandardProjectile _projectile, Vector3 _position, Quaternion _rotation, Tower.StandardTower _tower, int _amount) {
 
-            ParentController parentContainer = Instantiate(towerContainer, _position, _rotation, _tower.transform);
+            ParentController parentContainer = Instantiate(towerContainer, _position, _rotation, _tower.transform.parent.transform);
             parentContainer.name = "ProjectileParent_" + _projectile.name;
             List<Projectile.StandardProjectile> projectileList = new List<Projectile.StandardProjectile>();
 

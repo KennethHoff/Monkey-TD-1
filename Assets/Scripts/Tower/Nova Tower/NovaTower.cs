@@ -35,6 +35,8 @@ namespace Tower {
 
         protected override void Shoot() {
             // Different from Ice Tower and Tack Shooter - therefore nothing here.
+            firingCooldown = attackSpeed;
+
             base.Shoot();
         }
     }

@@ -46,6 +46,7 @@ namespace GameControl {
             placementDictionary.Add(key: PlacementController.Towers.DartMonkey, value: PlacementController.controllerObject.TowerDict_DartMonkey);
             placementDictionary.Add(key: PlacementController.Towers.TackShooter, value: PlacementController.controllerObject.TowerDict_TackShooter);
             placementDictionary.Add(key: PlacementController.Towers.SniperMonkey, value: PlacementController.controllerObject.TowerDict_SniperMonkey);
+            placementDictionary.Add(key: PlacementController.Towers.BoomerangThrower, value: PlacementController.controllerObject.TowerDict_BoomerangThrower);
             placementDictionary.Add(key: PlacementController.Towers.NinjaMonkey, value: PlacementController.controllerObject.TowerDict_NinjaMonkey);
         }
         #endregion
@@ -54,7 +55,7 @@ namespace GameControl {
 
         // Originally only used as a debugger.
         // As I wrote this however, due to the debugging, this now works, but the ID-based one doesn't.. Gotta fix that (as I can only assume it is less resource-intensive (stores less info (1 int vs an entire GameObject))
-        // but not now, as process intensiveness is not a concern right now.
+        // but not now, as processing power is not a concern right now.
 
 
         public void OnProjectileParentDestroyedGameObject(ParentController _projectileParent) {
