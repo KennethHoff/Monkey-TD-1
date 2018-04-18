@@ -263,6 +263,12 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Mini Profiler">
+      <HintPath>Assets/Mini Profiler/Mini Profiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Mini Profiler Editor">
+      <HintPath>Assets/Mini Profiler/Editor/Mini Profiler Editor.dll</HintPath>
+    </Reference>
     <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
       <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
     </Reference>
@@ -294,6 +300,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Classes\DifficultyList.cs" />
     <Compile Include="Assets\Scripts\Classes\TowerList.cs" />
+    <Compile Include="Assets\Scripts\Classes\Vector2Extension.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\BlackBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\BlueBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\GreenBloon.cs" />
@@ -302,6 +309,7 @@
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\RedBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\YellowBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\StandardBloon.cs" />
+    <Compile Include="Assets\Scripts\GameControl\BloonInfo.cs" />
     <Compile Include="Assets\Scripts\GameControl\BloonSpawner.cs" />
     <Compile Include="Assets\Scripts\GameControl\DictionaryController.cs" />
     <Compile Include="Assets\Scripts\GameControl\GameController.cs" />
@@ -371,6 +379,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Mini Profiler\CHANGELOG.txt" />
+    <None Include="Assets\Mini Profiler\README.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />

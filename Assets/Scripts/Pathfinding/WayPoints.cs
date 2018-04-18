@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WayPoints : MonoBehaviour {
-    // TODO: Find a way to check if Transform is under an "Underpass" Collider (but not on the Path above it), and if it is, make it invisible, untargettable and invincible.
+    // TODO: Find a way to check if Transform is under an "Underpass" Collider (but not on the Path above it), and if it is, make it invisible, untargettable and invincible. (Layer a photo of the underpass over them.
             
     public int currentWayPoint = 0;
     public float distanceToPreviousWaypoint = 0;

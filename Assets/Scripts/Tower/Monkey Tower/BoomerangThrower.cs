@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Projectile;
 using UnityEngine;
 
 namespace Tower {
@@ -20,6 +22,10 @@ namespace Tower {
 
             Debug.Log("Boomerang Thrower shot!");
             base.Shoot();
+        }
+
+        private List<StandardProjectile> CreateProjectiles(StandardProjectile projectileToFire, Vector3 position, Quaternion rotation, Transform parent, int v) {
+            throw new NotImplementedException();
         }
     }
 }

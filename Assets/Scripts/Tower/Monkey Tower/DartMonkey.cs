@@ -11,9 +11,11 @@ namespace Tower {
         }
 
         protected override void Shoot() {
+            List<Projectile.StandardProjectile> shotProjectileList = new List<Projectile.StandardProjectile>();
 
-            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectiles(projectileToFire, transform.position, transform.rotation, transform.parent, 1);
-
+            for (int i = 0; i < projectileSpawnPoints.Length; i++) {
+                shotProjectileList.Add(CreateProjectile(projectileToFire, projectileSpawnPoints[i].position, transform.rotation, transform.parent));
+            }
 
             foreach (Projectile.StandardProjectile projectile in shotProjectileList) {
                 projectile.despawnDistance = firingRange * 2.0f;

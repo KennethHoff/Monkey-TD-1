@@ -86,10 +86,10 @@ MonoBehaviour:
   projectilePoppingPower: 1
   projectilePenetration: 2
   damageType: 0
-  drawGizmos: 0
-  targetting: 0
   projectileToFire: {fileID: 0}
-  state: 0
+  drawGizmos: 0
+  aiming: 0
+  state: 3
 --- !u!212 &212397186900912182
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWayPoint: 5
+  distanceToPreviousWaypoint: 0
   moveSpd: 3.2
   spdMultiplier: 1
   finalMoveSpd: 0
@@ -106,18 +107,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0782421181624e543bfc14e8ca5b2b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloonEnum: 5
+  childrenAmount: 1
+  childSpawningSpacing: 0.25
   regrowthSprite: {fileID: 21300000, guid: 132c7033a972ac340bc79ab3a17b269b, type: 3}
   popSounds:
   - {fileID: 8300000, guid: 826a9016f7560ee46b0b1100168b5574, type: 3}
   - {fileID: 8300000, guid: fb6c488a875bbd544a32c3e535a60785, type: 3}
   - {fileID: 8300000, guid: 9f56318836e41664ea160c4e56bfbdba, type: 3}
   - {fileID: 8300000, guid: d89d56f8a2a896f4e843fa69a061b7ac, type: 3}
-  RBE: 4
+  RBE: 0
   regrowth: 0
   camo: 0
+  startArmor: 0
+  currArmor: 0
   immuneToSharpObjects: 0
   immuneToExplosions: 0
-  completeFamilyTree: 0500000004000000030000000200000001000000
+  originalFamilyTreeIndex: 0
   currentFamilyTreeIndex: 0
 --- !u!212 &212738563245277952
 SpriteRenderer:

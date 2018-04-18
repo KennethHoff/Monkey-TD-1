@@ -89,11 +89,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b8ad8d4f441c84fac717647d63ced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 0
+  towerEnum: 5
   tower: {fileID: 0}
   despawnDistance: 0
   parent: {fileID: 0}
   moveSpd: 3750
+  penetration: 0
   totalPower: 0
   remainingPower: 0
   damageType: 0

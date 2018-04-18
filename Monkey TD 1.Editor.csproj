@@ -263,6 +263,12 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Mini Profiler">
+      <HintPath>Assets/Mini Profiler/Mini Profiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Mini Profiler Editor">
+      <HintPath>Assets/Mini Profiler/Editor/Mini Profiler Editor.dll</HintPath>
+    </Reference>
     <Reference Include="TextMeshPro-2017.3-1.0.56-Editor">
       <HintPath>Assets/TextMesh Pro/Plugins/Editor DLL/TextMeshPro-2017.3-1.0.56-Editor.dll</HintPath>
     </Reference>
@@ -301,6 +307,8 @@
     <Compile Include="Assets\Editor\WaveDrawer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Mini Profiler\CHANGELOG.txt" />
+    <None Include="Assets\Mini Profiler\README.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />

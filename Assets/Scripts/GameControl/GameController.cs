@@ -40,7 +40,7 @@ namespace GameControl {
 
         public bool AutoStartNextWave = false;
 
-        public bool fastForward = false; // TODO: Make Fast Forward not suck ( Spawning, collision detection)
+        public bool fastForward = false;
 
         public float currentGameSpeed;
 

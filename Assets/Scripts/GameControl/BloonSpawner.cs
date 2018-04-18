@@ -26,6 +26,14 @@ namespace GameControl {
         public Bloon.BlackBloon blackBloonPrefab;
         public Bloon.LeadBloon leadBloonPrefab;
 
+        public BloonInfo BloonInfo_RedBloon;
+        public BloonInfo BloonInfo_BlueBloon;
+        public BloonInfo BloonInfo_GreenBloon;
+        public BloonInfo BloonInfo_YellowBloon;
+        public BloonInfo BloonInfo_PinkBloon;
+        public BloonInfo BloonInfo_BlackBloon;
+        public BloonInfo BloonInfo_LeadBloon;
+
         public void Awake() {
             controllerObject = GetComponent<BloonSpawner>();
         }

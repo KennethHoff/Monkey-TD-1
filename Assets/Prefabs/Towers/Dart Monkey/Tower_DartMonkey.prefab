@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1579758348886274}
   m_IsPrefabParent: 1
+--- !u!1 &1040439460583792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4811448160845324}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1579758348886274
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,8 +53,22 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4811448160845324}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4811448160845324
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1040439460583792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.295, y: 0.368, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4026233842169134}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &61422905692990790
@@ -79,6 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerEnum: 1
+  projectileSpawnPoints:
+  - {fileID: 4811448160845324}
   goldCost: 200
   CamoDetection: 0
   attackSpeed: 0.9708738
@@ -86,10 +117,10 @@ MonoBehaviour:
   projectilePoppingPower: 1
   projectilePenetration: 1
   damageType: 0
-  drawGizmos: 0
-  targetting: 0
   projectileToFire: {fileID: 114061909978748754, guid: 1112fc4d90799f145823466b83df03da,
     type: 2}
+  drawGizmos: 0
+  aiming: 0
   state: 0
 --- !u!212 &212989710197649708
 SpriteRenderer:

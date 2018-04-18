@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Projectile;
 using Tower;
 using UnityEngine;
 
@@ -11,24 +12,18 @@ namespace Bloon {
 
         protected override void Start() {
             bloonEnum = GameControl.BloonSpawner.Bloons.LeadBloon;
-
-            /*
-            startArmor = 0;
-            childrenAmount = 2;
-            RBE = 23;
-            */
             base.Start();
         }
 
-        public void MetalHitBySharpObject(AudioSource audioSource) {
+        private void MetalHitBySharpObject() {
             audioSource.clip = metalHitAudioClip;
             audioSource.Play();
+            Debug.Log("plink...");
         }
+        protected override void CollidedWithProjectile(StandardProjectile projectile) {
+            base.CollidedWithProjectile(projectile);
 
-        public override void PopBloonGameObject(StandardTower _tower, ParentController _projectileParent, int _penetration) {
-            base.PopBloonGameObject(_tower, _projectileParent, _penetration);
-
-            GetComponent<LeadBloon>().MetalHitBySharpObject(audioSource);
+            MetalHitBySharpObject();
         }
     }
 }

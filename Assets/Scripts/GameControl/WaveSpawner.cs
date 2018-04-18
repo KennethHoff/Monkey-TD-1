@@ -22,9 +22,8 @@ namespace GameControl {
         // I want to be able to: "spawn x Number of Y Bloon, with a delay of Z seconds between, followed by X number of Y Bloon, with a delay of Z seconds, followed by..." ((Maybe allow multiple to spawn at the same time? - Not important)) 
         // Currently I do: "Spawn X number of Y Bloon, then spawn X number of Y Bloon, then... all with a delay of Z seconds between bloons"
 
-        public delegate void RoundEnded();
-
-        public static event RoundEnded RoundEndedEvent;
+        public delegate void RoundEndedDelegate();
+            public static event RoundEndedDelegate RoundEndedEvent;
 
         #region variables
 
@@ -61,6 +60,15 @@ namespace GameControl {
 
         [Space(10)]
         public int bloonsOnScreen;
+
+        //[SerializeField]
+        private int currentSet = 0;
+        //[SerializeField]
+        private float delayTimer = 0;
+        //[SerializeField]
+        private int currentBloon = 0;
+        //[SerializeField]
+        private float intervalTimer = 0;
 
         [Header("Wave Editor:")]
         public Wave[] waves;
@@ -107,10 +115,10 @@ namespace GameControl {
                 }
             }
             else if (state == SpawnState.Spawning) {
-                // Actively Spawning Bloons -- Do nothing
+                // Actively spawning bloons
             }
             else if (state == SpawnState.GameOver) {
-                // Life is at 0 || CurrentRound = maxRounds
+                // Life is at 0 || CurrentRound == maxRounds
             }
         }
 
@@ -131,30 +139,110 @@ namespace GameControl {
                 bloonsSpawnedThisWave = 0;
                 RBESpawnedThisWave = 0;
                 StartCoroutine(SpawnWave(waves[_waveToSpawn]));
+
+                //InitiateWave(waves[currentWave]);
                 waveActive = true;
             }
         }
+        
+    private IEnumerator SpawnWave(Wave _waveToSpawn) {
 
+        totalRBEThisWave = _waveToSpawn.TotalRBE;
+        totalBloonsThisWave = _waveToSpawn.TotalBloons;
+        state = SpawnState.Spawning;
+        int checksPerSecond = 10;
 
-        // TODO: Fix this to better scale with (a changing) gameSpeed
+        for (int i = 0; i < _waveToSpawn.waveTypeList.Count; i++) {
+            for (int j = 0; j < _waveToSpawn.waveTypeList[i].amount; j++) {
+                Bloon.StandardBloon spawnedBloon = BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
+                    spawnedBloon.originalFamilyTreeIndex = -1;
+                WaveSpawner.controllerObject.bloonsSpawnedThisWave++;
+                WaveSpawner.controllerObject.RBESpawnedThisWave += spawnedBloon.RBE;
+
+                for (int k = 0; k < checksPerSecond; k++)
+                    yield return new WaitForSeconds( (_waveToSpawn.waveTypeList[i].interval / GameController.controllerObject.currentGameSpeed) / checksPerSecond);
+            }
+            yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].delay / GameController.controllerObject.currentGameSpeed);
+        }
+        state = SpawnState.WaitingForBloonsToDie;
+        yield break;
+    }
+
+        /*
         private IEnumerator SpawnWave(Wave _waveToSpawn) {
 
             totalRBEThisWave = _waveToSpawn.TotalRBE;
             totalBloonsThisWave = _waveToSpawn.TotalBloons;
             state = SpawnState.Spawning;
-            
+
             for (int i = 0; i < _waveToSpawn.waveTypeList.Count; i++) {
                 for (int j = 0; j < _waveToSpawn.waveTypeList[i].amount; j++) {
-                    Bloon.StandardBloon spawnedBloon =  BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
+                    Bloon.StandardBloon spawnedBloon = BloonSpawner.SpawnBloon(_waveToSpawn.waveTypeList[i].bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveToSpawn.waveTypeList[i].regrowth, _waveToSpawn.waveTypeList[i].camo);
                     WaveSpawner.controllerObject.bloonsSpawnedThisWave++;
                     WaveSpawner.controllerObject.RBESpawnedThisWave += spawnedBloon.RBE;
-                    yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].interval / GameController.controllerObject.currentGameSpeed); 
+                    yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].interval / GameController.controllerObject.currentGameSpeed);
                 }
                 yield return new WaitForSeconds(_waveToSpawn.waveTypeList[i].delay / GameController.controllerObject.currentGameSpeed);
             }
             state = SpawnState.WaitingForBloonsToDie;
             yield break;
         }
+        */
         
+        /*
+        
+        private void InitiateWave(Wave _waveToSpawn) {
+
+            totalRBEThisWave = _waveToSpawn.TotalRBE;
+            totalBloonsThisWave = _waveToSpawn.TotalBloons;
+            state = SpawnState.Spawning;
+
+            SpawnWave(_waveToSpawn);
+        }
+
+        private void SpawnWave(Wave _waveToSpawn) {
+
+            delayTimer += Time.fixedDeltaTime * (GameControl.GameController.controllerObject.currentGameSpeed * 2);
+
+            if (currentSet <= _waveToSpawn.waveTypeList.Count - 1) {
+                if (delayTimer > _waveToSpawn.waveTypeList[currentSet].delay) { 
+                    if (currentSet <= 0) {
+                        SpawnSet(0, _waveToSpawn);
+                    }
+                    else if (_waveToSpawn.waveTypeList[currentSet - 1].delay < delayTimer) {
+                        SpawnSet(currentSet, _waveToSpawn);
+                    }
+                    delayTimer = 0;
+                }
+            }
+            else {
+                state = SpawnState.WaitingForBloonsToDie;
+                currentSet = 0;
+            }
+        }
+
+        private void SpawnSet(int _setToSpawn, Wave _waveToSpawn) {
+
+            intervalTimer += Time.fixedDeltaTime * (GameControl.GameController.controllerObject.currentGameSpeed * 2);
+
+            if (_waveToSpawn.waveTypeList[_setToSpawn].amount > currentBloon) {
+                if ( intervalTimer > _waveToSpawn.waveTypeList[currentSet].interval) { 
+                    SpawnBloon(_waveToSpawn.waveTypeList[_setToSpawn]);
+                    currentBloon++;
+                    intervalTimer = 0;
+                }
+            }
+            else {
+                currentSet++;
+                currentBloon = 0;
+            }
+        }
+
+        private void SpawnBloon(WaveTypeAmount _waveTypeAmount) {
+            Bloon.StandardBloon spawnedBloon = BloonSpawner.SpawnBloon(_waveTypeAmount.bloon, PathController.spawnPoint.position, Quaternion.identity, 0, _waveTypeAmount.regrowth, _waveTypeAmount.camo);
+            WaveSpawner.controllerObject.bloonsSpawnedThisWave++;
+            WaveSpawner.controllerObject.RBESpawnedThisWave += spawnedBloon.RBE;
+        }
+        */
     }
 }

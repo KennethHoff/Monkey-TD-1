@@ -9,6 +9,8 @@ namespace Tower {
 
         public GameControl.PlacementController.Towers towerEnum;
 
+
+        public Transform[] projectileSpawnPoints;
         public int goldCost;
         public bool CamoDetection;
         public float attackSpeed = 0.25f;
@@ -18,21 +20,22 @@ namespace Tower {
         
         public GameControl.GameController.DamageTypes damageType;
 
+        [SerializeField]
+        protected Projectile.StandardProjectile projectileToFire;
+
         [Header("Debugging:")]
         public bool drawGizmos;
 
-        public bool targetting;
+        public bool aiming;
         protected float rotationDurationAfterShooting = 1 / 3f; // Time the Tower Stays aiming at the same spot after shooting (looks jiterry otherwise)
 
         protected float justShot;
 
-        protected float firingCooldown;
+        public float firingCooldown;
         protected float aimCooldown;
 
         protected int totalPierces;
 
-        [SerializeField]
-        protected Projectile.StandardProjectile projectileToFire;
 
         protected float rotationOffset = -90f; // Sprite is 90° "skewed"
 
@@ -62,27 +65,40 @@ namespace Tower {
 
         }
 
-        protected virtual List<Projectile.StandardProjectile> CreateProjectiles(Projectile.StandardProjectile _projectile, Vector2 _position, Quaternion _rotation, Transform _parent, int _amount) {
+        protected virtual List<Projectile.StandardProjectile> CreateProjectiles(Projectile.StandardProjectile _projectile, Transform[] _spawnPoints, Quaternion _rotation, Transform _parent, int _amount) {
+            List<Projectile.StandardProjectile> projectileList = new List<Projectile.StandardProjectile>();
 
-            List<Projectile.StandardProjectile> projectileList = GameControl.GameController.controllerObject.CreateProjectileFamilyTree(_projectile, _position, _rotation, this, _amount);
-
-            foreach (Projectile.StandardProjectile projectile in projectileList) {
-                totalPierces = Mathf.FloorToInt(projectilePoppingPower);
-
-                int pierceCheck = UnityEngine.Random.Range(0, 100);
-
-                if (pierceCheck < (projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower) * 100)) {
-                    totalPierces++;
-                    Debug.Log("Added an extra pierce on a roll of " + pierceCheck + ".\nChance of " + projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower));
-                }
-
-                projectile.totalPower = totalPierces;
-                projectile.penetration = projectilePenetration;
-                projectile.damageType = damageType;
+            foreach (Transform spawnPoint in _spawnPoints) {
+                CreateProjectile(_projectile, spawnPoint.position, _rotation, _parent);
             }
             return projectileList;
         }
-        
+
+        // TODO: Make a method that allows (info inside):
+        // Some projectiles are meant to be mutually inclusive in the "CanCollide" dictionary (Tack Shooter tacks comes to mind - If multiples hit the same bloon, only one of them should be able to do damage)
+        // Some projectiles comes from the same pool, but are *not* mutually inclusive in the dictionary. (Probably multi-throw monkeys)
+        // Gigantic Bloons (MOAB-Class) are meant to be hit by the same tower. (Tack Shooter can hit them multiple times..)
+
+        protected virtual Projectile.StandardProjectile CreateProjectile(Projectile.StandardProjectile _projectile, Vector2 _position, Quaternion _rotation, Transform _parent) {
+
+            var projectile = Instantiate(_projectile, _position, _rotation, _parent);
+            
+            totalPierces = Mathf.FloorToInt(projectilePoppingPower);
+
+            int pierceCheck = UnityEngine.Random.Range(0, 100);
+
+            if (pierceCheck < (projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower) * 100)) {
+                totalPierces++;
+                Debug.Log("Added an extra pierce on a roll of " + pierceCheck + ".\nChance of " + projectilePoppingPower % Mathf.FloorToInt(projectilePoppingPower));
+            }
+
+            projectile.totalPower = totalPierces;
+            projectile.penetration = projectilePenetration;
+            projectile.damageType = damageType;
+
+            return projectile;
+        }
+
         protected virtual void OnDrawGizmos() {
             if (drawGizmos) Gizmos.DrawWireSphere(transform.position, firingRange);
         }
