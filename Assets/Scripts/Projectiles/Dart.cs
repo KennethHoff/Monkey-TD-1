@@ -6,8 +6,11 @@ namespace Projectile {
     public class Dart : StandardProjectile {
 
         protected override void Start() {
-            towerEnum = GameControl.PlacementController.Towers.DartMonkey;
             base.Start();
+        }
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
+            DestroyAtDespawnDistance();
         }
     }
 }

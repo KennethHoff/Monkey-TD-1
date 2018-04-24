@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Projectile;
 using UnityEngine;
 
 namespace Tower {
 
     public class BoomerangThrower : MonkeyTower {
+
+        public int numberOfSpins = 1;
 
         protected override void Start() {
             base.Start();
@@ -14,18 +15,19 @@ namespace Tower {
 
         protected override void Shoot() {
 
-            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectiles(projectileToFire, transform.position, transform.rotation, transform.parent, 1);
-
-            foreach (Projectile.StandardProjectile projectile in shotProjectileList) {
-                projectile.despawnDistance = firingRange * 2.0f;
+            if (!(generalStats.projectileObject is Projectile.Boomerang)) {
+                Debug.LogError("Not shooting a boomerang!");
+                return;
+            }
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(generalStats.projectileObject, transform.position, transform.rotation, generalStats.projectileSpawnPoints);
+            
+            foreach (Projectile.Boomerang projectile in shotProjectileList) {
+                projectile.despawnDistance = generalStats.firingRange * 0.8f;
+                projectile.totalSpins = numberOfSpins;
             }
 
-            Debug.Log("Boomerang Thrower shot!");
+            Debug.Log("Boomerang Thrower #" + GetInstanceID() + " shot!");
             base.Shoot();
-        }
-
-        private List<StandardProjectile> CreateProjectiles(StandardProjectile projectileToFire, Vector3 position, Quaternion rotation, Transform parent, int v) {
-            throw new NotImplementedException();
         }
     }
 }

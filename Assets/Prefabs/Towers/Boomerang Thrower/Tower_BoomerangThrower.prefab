@@ -29,6 +29,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1926542915574572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4594221689695856}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4415613717502244
 Transform:
   m_ObjectHideFlags: 1
@@ -38,8 +53,22 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4594221689695856}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4594221689695856
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926542915574572}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4415613717502244}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &61786886302560980
@@ -78,19 +107,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf0ef3fc2bc2b740953187d2cc271c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 4
-  goldCost: 400
-  CamoDetection: 0
-  attackSpeed: 1.3333334
-  firingRange: 3
-  projectilePoppingPower: 3
-  projectilePenetration: 1
-  damageType: 0
-  drawGizmos: 0
-  targetting: 0
-  projectileToFire: {fileID: 114373952091795824, guid: 96eda38647afd2547902d17643c6e873,
-    type: 2}
-  state: 0
+  generalStats:
+    attackSpeed: 1.3333334
+    goldCost: 400
+    firingRange: 3
+    CamoDetection: 0
+    poppingPower: 3
+    penetration: 1
+    damageType: 0
+    projectileEnum: 3
+    target: {fileID: 0}
+    towerPops: 0
+    sellValue: 0
+    targettingState: 0
+    towerEnum: 4
+    towerIcon: {fileID: 0}
+    upgradePaths:
+      currentLeftUpgrade: 0
+      currentRightUpgrade: 0
+      leftUpgradePath:
+      - upgradeIcon: {fileID: 21300068, guid: 379ef1f520d10864abd69117928e9ffd, type: 3}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      rightUpgradePath:
+      - upgradeIcon: {fileID: 21300008, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+    priceModifier: 1
+    sellValueModifier: 0.8
+    projectileSpawnPoints:
+    - {fileID: 4594221689695856}
+    rotationOffset: -90
+    projectileObject: {fileID: 0}
+    aiming: 0
+    rotationDurationAfterShooting: 0.33333334
+    justShot: 0
+    firingCooldown: 0
+    aimCooldown: 0
+  numberOfSpins: 1
 --- !u!212 &212655057898887332
 SpriteRenderer:
   m_ObjectHideFlags: 1

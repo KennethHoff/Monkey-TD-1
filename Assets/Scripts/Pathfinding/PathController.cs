@@ -7,12 +7,12 @@ namespace GameControl {
 
         public static PathController controllerObject;
 
-        public List<Transform> wayPointList;
-        public GameObject pathingParent;
+        [ReadOnly] public List<Transform> wayPointList;
+        [ReadOnly] public GameObject pathingParent;
 
         public static Transform spawnPoint;
 
-        public List<Transform> underpassesList;
+        [ReadOnly] public List<Transform> underpassesList;
 
         // Use this for initialization
         private void Awake() {

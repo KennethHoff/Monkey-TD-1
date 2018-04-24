@@ -300,28 +300,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0811438fca055794b984cf28f5df2db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 2
-  projectileSpawnPoints:
-  - {fileID: 4570814033281886}
-  - {fileID: 4580122704636310}
-  - {fileID: 4653066054885830}
-  - {fileID: 4100573088662994}
-  - {fileID: 4040030611442282}
-  - {fileID: 4834712424051310}
-  - {fileID: 4642064273576900}
-  - {fileID: 4267925319768342}
-  goldCost: 360
-  CamoDetection: 0
-  attackSpeed: 1.6666666
-  firingRange: 2
-  projectilePoppingPower: 1
-  projectilePenetration: 1
-  damageType: 0
-  projectileToFire: {fileID: 114893572832495076, guid: 0b48ca6a1db997649a746a2a76440acf,
-    type: 2}
-  drawGizmos: 0
-  aiming: 0
-  tacksToFire: 8
+  generalStats:
+    attackSpeed: 1.6666666
+    goldCost: 360
+    firingRange: 2
+    CamoDetection: 0
+    poppingPower: 1
+    penetration: 1
+    damageType: 0
+    projectileEnum: 2
+    target: {fileID: 0}
+    towerPops: 0
+    sellValue: 0
+    targettingState: 0
+    towerEnum: 2
+    upgradePaths:
+      currentLeftUpgrade: 0
+      currentRightUpgrade: 0
+      leftUpgradePath:
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      rightUpgradePath:
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+    priceModifier: 0
+    sellValueModifier: 0
+    projectileSpawnPoints:
+    - {fileID: 4570814033281886}
+    - {fileID: 4580122704636310}
+    - {fileID: 4653066054885830}
+    - {fileID: 4100573088662994}
+    - {fileID: 4040030611442282}
+    - {fileID: 4834712424051310}
+    - {fileID: 4642064273576900}
+    - {fileID: 4267925319768342}
+    rotationOffset: -90
+    projectileObject: {fileID: 0}
+    aiming: 0
+    rotationDurationAfterShooting: 0.33333334
+    justShot: 0
+    firingCooldown: 0
+    aimCooldown: 0
 --- !u!212 &212541558449283224
 SpriteRenderer:
   m_ObjectHideFlags: 1

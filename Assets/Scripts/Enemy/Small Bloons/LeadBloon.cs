@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Projectile;
-using Tower;
 using UnityEngine;
 
 namespace Bloon {
@@ -11,7 +9,6 @@ namespace Bloon {
         private AudioClip metalHitAudioClip;
 
         protected override void Start() {
-            bloonEnum = GameControl.BloonSpawner.Bloons.LeadBloon;
             base.Start();
         }
 
@@ -20,10 +17,11 @@ namespace Bloon {
             audioSource.Play();
             Debug.Log("plink...");
         }
-        protected override void CollidedWithProjectile(StandardProjectile projectile) {
+        protected override void CollidedWithProjectile(Projectile.StandardProjectile projectile) {
             base.CollidedWithProjectile(projectile);
 
-            MetalHitBySharpObject();
+            if (!Damageable(projectile.damageType))
+                MetalHitBySharpObject();
         }
     }
 }

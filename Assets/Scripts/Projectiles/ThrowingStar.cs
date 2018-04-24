@@ -6,8 +6,11 @@ namespace Projectile {
     public class ThrowingStar : StandardProjectile {
 
         protected override void Start() {
-            towerEnum = GameControl.PlacementController.Towers.NinjaMonkey;
             base.Start();
+        }
+        protected override void FixedUpdate() {
+            base.FixedUpdate();
+            DestroyAtDespawnDistance();
         }
     }
 }

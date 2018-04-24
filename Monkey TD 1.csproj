@@ -298,8 +298,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Classes\Dictionaries\BloonInfo.cs" />
+    <Compile Include="Assets\Scripts\Classes\Dictionaries\BloonPrefabs.cs" />
+    <Compile Include="Assets\Scripts\Classes\Dictionaries\ProjectilePrefabs.cs" />
+    <Compile Include="Assets\Scripts\Classes\Dictionaries\TowerLists.cs" />
     <Compile Include="Assets\Scripts\Classes\DifficultyList.cs" />
+    <Compile Include="Assets\Scripts\Classes\ReadOnlyAttribute.cs" />
+    <Compile Include="Assets\Scripts\Classes\StringFast.cs" />
+    <Compile Include="Assets\Scripts\Classes\TargetHUD.cs" />
     <Compile Include="Assets\Scripts\Classes\TowerList.cs" />
+    <Compile Include="Assets\Scripts\Classes\TowerUpgrade.cs" />
+    <Compile Include="Assets\Scripts\Classes\TowerUpgradePath.cs" />
     <Compile Include="Assets\Scripts\Classes\Vector2Extension.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\BlackBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\BlueBloon.cs" />
@@ -309,7 +318,6 @@
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\RedBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\Small Bloons\YellowBloon.cs" />
     <Compile Include="Assets\Scripts\Enemy\StandardBloon.cs" />
-    <Compile Include="Assets\Scripts\GameControl\BloonInfo.cs" />
     <Compile Include="Assets\Scripts\GameControl\BloonSpawner.cs" />
     <Compile Include="Assets\Scripts\GameControl\DictionaryController.cs" />
     <Compile Include="Assets\Scripts\GameControl\GameController.cs" />
@@ -317,7 +325,7 @@
     <Compile Include="Assets\Scripts\GameControl\InventoryController.cs" />
     <Compile Include="Assets\Scripts\GameControl\PlacementController.cs" />
     <Compile Include="Assets\Scripts\GameControl\SceneLoader.cs" />
-    <Compile Include="Assets\Scripts\GameControl\TextController.cs" />
+    <Compile Include="Assets\Scripts\GameControl\UIController.cs" />
     <Compile Include="Assets\Scripts\GameControl\Waves.cs" />
     <Compile Include="Assets\Scripts\GameControl\WaveSpawner.cs" />
     <Compile Include="Assets\Scripts\Parent\ParentController.cs" />
@@ -332,6 +340,8 @@
     <Compile Include="Assets\Scripts\Projectiles\StandardProjectile.cs" />
     <Compile Include="Assets\Scripts\Projectiles\Tack.cs" />
     <Compile Include="Assets\Scripts\Projectiles\ThrowingStar.cs" />
+    <Compile Include="Assets\Scripts\Tower Upgrades\IUpgradeBase.cs" />
+    <Compile Include="Assets\Scripts\Tower Upgrades\Upgrader.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\BoomerangThrower.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\DartMonkey.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\MonkeyTower.cs" />
@@ -341,6 +351,7 @@
     <Compile Include="Assets\Scripts\Tower\Nova Tower\TackShooter.cs" />
     <Compile Include="Assets\Scripts\Tower\StandardTower.cs" />
     <Compile Include="Assets\Scripts\Tower\TemplateScript.cs" />
+    <Compile Include="Assets\Scripts\Tower\TowerStats.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsMenuButton.cs" />
     <Compile Include="Assets\Scripts\UI\TowerSelector.cs" />
     <Compile Include="Assets\Scripts\UI\WaveButton.cs" />

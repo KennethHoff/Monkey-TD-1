@@ -9,9 +9,4 @@ public class TowerList {
     public TemplateScript templatePrefab;
     public TowerSelector UIButton;
 
-    public TowerList(Tower.StandardTower _towerPrefab, TemplateScript _templatePrefab, TowerSelector _UIButton) {
-        towerPrefab = _towerPrefab;
-        templatePrefab = _templatePrefab;
-        UIButton = _UIButton;
-    }
 }

@@ -25,6 +25,11 @@ public class WaveButton : MonoBehaviour {
         button.onClick.AddListener(ButtonClicked);
     }
     private void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            ButtonClicked();
+        }
+
         if ((GameControl.WaveSpawner.controllerObject.state == GameControl.WaveSpawner.SpawnState.RoundEnded) || (GameControl.WaveSpawner.controllerObject.state == GameControl.WaveSpawner.SpawnState.GameStart)) {
             ChangeState(ButtonStates.StartWave);
         }

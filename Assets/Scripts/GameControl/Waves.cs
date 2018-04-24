@@ -7,7 +7,7 @@ namespace GameControl {
     [System.Serializable]
     public class WaveTypeAmount {
 
-        public BloonSpawner.Bloons bloonEnum;
+        public DictionaryController.Bloons bloonEnum;
         public bool regrowth;
         public bool camo;
         public int amount;
@@ -17,13 +17,13 @@ namespace GameControl {
         public float delay;
 
         [HideInInspector]
-        public Bloon.StandardBloon bloon;
+        public Bloon.StandardBloon bloonPrefab;
         [Space]
         public int TotalSetRBE;
 
         public void SetDerivedAttributes() {
-            bloon = DictionaryController.bloonDictionary[bloonEnum];
-            TotalSetRBE = bloon.RBE * amount;
+            bloonPrefab = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Enum(bloonEnum);
+            TotalSetRBE = bloonPrefab.RBE * amount;
         }
     }
 

@@ -7,14 +7,79 @@ namespace GameControl {
 
     public class DictionaryController : MonoBehaviour {
 
+        #region Towers
+
+        public enum Towers {
+            Undefined,
+            Dart_Monkey,
+            Tack_Shooter,
+            Sniper_Monkey,
+            Boomerang_Thrower,
+            Ninja_Monkey,
+            Bomb_Tower,
+            Ice_Tower,
+            Glue_Gunner,
+            Monkey_Buccaneer,
+            Monkey_Ace,
+            Super_Monkey,
+            Monkey_Apprentice,
+            Monkey_Village,
+            Banana_Farm,
+            Mortar_Tower,
+            Dartling_Gun,
+            Spike_Factory,
+            Heli_Pilot,
+            Monkey_Engineer,
+            Bloonchipper,
+            Monkey_Sub
+        }
+
+        public Dictionaries.TowerLists towerLists = new Dictionaries.TowerLists();
+
+        #endregion
+
+
+        #region Projectiles
+
+        public enum Projectiles {
+            Undefined,
+            Dart_Monkey_Default,
+            Tack_Shooter_Default,
+            Boomerang_Thrower_Default,
+            Ninja_Monkey_Default,
+        }
+
+        public Dictionaries.ProjectilePrefabs projectilePrefabs = new Dictionaries.ProjectilePrefabs();
+
+        #endregion
+
+
+        #region Bloons
+
+        public enum Bloons {
+            Undefined,
+            RedBloon,
+            BlueBloon,
+            GreenBloon,
+            YellowBloon,
+            PinkBloon,
+            BlackBloon,
+            LeadBloon
+        }
+        
+        public Dictionaries.BloonPrefabs bloonPrefabs = new Dictionaries.BloonPrefabs();
+
+        #endregion
+
         public static DictionaryController controllerObject;
 
-        private Dictionary<ParentController, List<Bloon.StandardBloon>> collisionDictionaryGameObject;
-        public static Dictionary<BloonSpawner.Bloons, Bloon.StandardBloon> bloonDictionary;
-        public static Dictionary<BloonSpawner.Bloons, BloonInfo> bloonFamilyTreeDictionary;
-        public static Dictionary<PlacementController.Towers, TowerList> placementDictionary; // Element 0 = Tower, element 1 = Template, element 2 = UI Button
+        private Dictionary<ParentController, List<Bloon.StandardBloon>> collisionDictionary;
 
-        public Bloon.StandardBloon[] BloonFamilyTreeArray;
+        public static Dictionary<Towers,        TowerList>                      towerListDictionary;
+        public static Dictionary<Bloons,        Bloon.StandardBloon>            bloonDictionary;
+        public static Dictionary<Projectiles,   Projectile.StandardProjectile>  projectileDictionary;
+
+        public Bloons[] BloonFamilyTreeArray;
         // public static Dictionary<GameController.Difficulties, > // TODO: Add Difficulty Dictionary. (Key = difficulty, value = new Class (Towers and upgrades change their cost.)
 
         private void Awake() {
@@ -23,106 +88,126 @@ namespace GameControl {
 
         public void Start() {
 
-            collisionDictionaryGameObject = new Dictionary<ParentController, List<Bloon.StandardBloon>>();
-            bloonDictionary = new Dictionary<BloonSpawner.Bloons, Bloon.StandardBloon>();
-            placementDictionary = new Dictionary<PlacementController.Towers, TowerList>();
+            collisionDictionary = new Dictionary<ParentController, List<Bloon.StandardBloon>>();
+            bloonDictionary = new Dictionary<Bloons, Bloon.StandardBloon>();
+            projectileDictionary = new Dictionary<Projectiles, Projectile.StandardProjectile>();
+            towerListDictionary = new Dictionary<Towers, TowerList>();
 
-            BloonFamilyTreeArray = GetBloonFamilyTreeList();
-
-            AddBloonsToDictionary();
-            AddTowersToDictionary();
-            FillBloonInfos();
+            AddBloonsToBloonDictionary();
+            AddTowerListsToTowerListDictionary();
+            AddProjectilesToProjectileDictionary();
         }
 
+        #region collisionDictionary
 
-        #region bloonDictionary
-        private void AddBloonsToDictionary() {
-            bloonDictionary.Add(key: BloonSpawner.Bloons.RedBloon, value: BloonSpawner.controllerObject.redBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.BlueBloon, value: BloonSpawner.controllerObject.blueBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.GreenBloon, value: BloonSpawner.controllerObject.greenBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.YellowBloon, value: BloonSpawner.controllerObject.yellowBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.PinkBloon, value: BloonSpawner.controllerObject.pinkBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.BlackBloon, value: BloonSpawner.controllerObject.blackBloonPrefab);
-            bloonDictionary.Add(key: BloonSpawner.Bloons.LeadBloon, value: BloonSpawner.controllerObject.leadBloonPrefab);
-        }
-
-        private void FillBloonInfos() {
-            BloonSpawner.controllerObject.BloonInfo_RedBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.RedBloon];
-            BloonSpawner.controllerObject.BloonInfo_BlueBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.BlueBloon];
-            BloonSpawner.controllerObject.BloonInfo_GreenBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.GreenBloon];
-            BloonSpawner.controllerObject.BloonInfo_YellowBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.YellowBloon];
-            BloonSpawner.controllerObject.BloonInfo_PinkBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.PinkBloon];
-            BloonSpawner.controllerObject.BloonInfo_BlackBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.BlackBloon];
-            BloonSpawner.controllerObject.BloonInfo_LeadBloon.bloonPrefab = bloonDictionary[BloonSpawner.Bloons.LeadBloon];
-        }
-
-        public Bloon.StandardBloon[] GetBloonFamilyTreeList() { // TODO: Complete this
-            List<Bloon.StandardBloon> _list = new List<Bloon.StandardBloon> {
-                BloonSpawner.controllerObject.redBloonPrefab,
-                BloonSpawner.controllerObject.blueBloonPrefab,
-                BloonSpawner.controllerObject.greenBloonPrefab,
-                BloonSpawner.controllerObject.yellowBloonPrefab,
-                BloonSpawner.controllerObject.pinkBloonPrefab,
-                BloonSpawner.controllerObject.blackBloonPrefab,
-                BloonSpawner.controllerObject.leadBloonPrefab
-            };
-            return _list.ToArray();
-        }
-        #endregion
-
-        #region placementDictionary
-        private void AddTowersToDictionary() {
-            placementDictionary.Add(key: PlacementController.Towers.DartMonkey, value: PlacementController.controllerObject.TowerDict_DartMonkey);
-            placementDictionary.Add(key: PlacementController.Towers.TackShooter, value: PlacementController.controllerObject.TowerDict_TackShooter);
-            placementDictionary.Add(key: PlacementController.Towers.SniperMonkey, value: PlacementController.controllerObject.TowerDict_SniperMonkey);
-            placementDictionary.Add(key: PlacementController.Towers.BoomerangThrower, value: PlacementController.controllerObject.TowerDict_BoomerangThrower);
-            placementDictionary.Add(key: PlacementController.Towers.NinjaMonkey, value: PlacementController.controllerObject.TowerDict_NinjaMonkey);
-        }
-        #endregion
-        
-        #region ProjectileDictionaryGameObject
-
-        // Originally only used as a debugger.
-        // As I wrote this however, due to the debugging, this now works, but the ID-based one doesn't.. Gotta fix that (as I can only assume it is less resource-intensive (stores less info (1 int vs an entire GameObject))
-        // but not now, as processing power is not a concern right now.
-
-
-        public void OnProjectileParentDestroyedGameObject(ParentController _projectileParent) {
+        public void OnProjectileParentDestroyed(ParentController _projectileParent) {
             // Whenever a projectile (Dart) is destroyed. Call this function
-            if (collisionDictionaryGameObject.ContainsKey(_projectileParent)) {
-                collisionDictionaryGameObject.Remove(_projectileParent);
+            if (collisionDictionary.ContainsKey(_projectileParent)) {
+                collisionDictionary.Remove(_projectileParent);
             }
         }
 
-        public void AddProjectileToDictionaryGameObject(ParentController _projectileParent) {
-            collisionDictionaryGameObject.Add(_projectileParent, new List<Bloon.StandardBloon>());
+        public void AddProjectileParentToCollisionDictionary(ParentController _projectileParent) {
+            collisionDictionary.Add(_projectileParent, new List<Bloon.StandardBloon>());
         }
 
-        public void OnBloonHitGameObject(ParentController _projectileParent, Bloon.StandardBloon _bloon) {
+        public void OnBloonHit(ParentController _projectileParent, Bloon.StandardBloon _bloon) {
             // Whenever a Bloon is hit. Call this function.
-            collisionDictionaryGameObject[_projectileParent].Add(_bloon);
+            collisionDictionary[_projectileParent].Add(_bloon);
         }
 
-        public bool CanCollideGameObject(ParentController _projectileParent, Bloon.StandardBloon _bloon) {
+        public bool CanCollide(ParentController _projectileParent, Bloon.StandardBloon _bloon) {
 
-            if (!collisionDictionaryGameObject.ContainsKey(_projectileParent)) {
-                AddProjectileToDictionaryGameObject(_projectileParent);
+            if (!collisionDictionary.ContainsKey(_projectileParent)) {
+                AddProjectileParentToCollisionDictionary(_projectileParent);
             }
-            
-            if (!collisionDictionaryGameObject[_projectileParent].Contains(_bloon))
+
+            if (!collisionDictionary[_projectileParent].Contains(_bloon))
                 return true;
             return false;
         }
-        public void AddChildrenToDictionaryGameObject(List<Bloon.StandardBloon> _childrenList, ParentController _projectileParent) {
-            if (collisionDictionaryGameObject.ContainsKey(_projectileParent))
+        public void AddChildrenToCollisionDictionary(List<Bloon.StandardBloon> _childrenList, ParentController _projectileParent) {
+            if (collisionDictionary.ContainsKey(_projectileParent))
                 foreach (Bloon.StandardBloon child in _childrenList)
-                    collisionDictionaryGameObject[_projectileParent].Add(child);
+                    collisionDictionary[_projectileParent].Add(child);
         }
-        public void RemoveProjectileFromDictionaryGameObject(ParentController _projectileParent) {
-            if (collisionDictionaryGameObject.ContainsKey(_projectileParent))
-                collisionDictionaryGameObject.Remove(_projectileParent);
+        public void RemoveProjectileFromCollisionDictionary(ParentController _projectileParent) {
+            if (collisionDictionary.ContainsKey(_projectileParent))
+                collisionDictionary.Remove(_projectileParent);
         }
 
         #endregion
+
+        
+        #region bloonDictionary
+
+        private void AddBloonsToBloonDictionary() {
+            AddBloonToBloonDictionary(Bloons.RedBloon,      bloonPrefabs.RedBloon);
+            AddBloonToBloonDictionary(Bloons.BlueBloon,     bloonPrefabs.BlueBloon);
+            AddBloonToBloonDictionary(Bloons.GreenBloon,    bloonPrefabs.GreenBloon);
+            AddBloonToBloonDictionary(Bloons.YellowBloon,   bloonPrefabs.YellowBloon);
+            AddBloonToBloonDictionary(Bloons.PinkBloon,     bloonPrefabs.PinkBloon);
+            AddBloonToBloonDictionary(Bloons.BlackBloon,    bloonPrefabs.BlackBloon);
+            AddBloonToBloonDictionary(Bloons.LeadBloon,     bloonPrefabs.LeadBloon);
+        }
+        private void AddBloonToBloonDictionary(Bloons _Key, Bloon.StandardBloon _value) {
+            bloonDictionary.Add(_Key, _value);
+        }
+
+        public static Bloon.StandardBloon RetrieveBloonFromBloonDictionary_Enum(Bloons _BloonsEnum) {
+            if (bloonDictionary[_BloonsEnum] != null) {
+                return bloonDictionary[_BloonsEnum];
+            }
+            else {
+                Debug.LogError("No Projectile set for: " + _BloonsEnum);
+                return null;
+            }
+        }
+        public static Bloon.StandardBloon RetrieveBloonFromBloonDictionary_Index(int _Index) {
+            return RetrieveBloonFromBloonDictionary_Enum(controllerObject.BloonFamilyTreeArray[_Index]);
+        }
+        #endregion
+
+
+        #region towerListDictionary
+
+        private void AddTowerListsToTowerListDictionary() {
+            AddTowerListToTowerListDictionary(Towers.Dart_Monkey,       towerLists.Dart_Monkey);
+            AddTowerListToTowerListDictionary(Towers.Tack_Shooter,      towerLists.Tack_Shooter);
+            AddTowerListToTowerListDictionary(Towers.Sniper_Monkey,     towerLists.Sniper_Monkey);
+            AddTowerListToTowerListDictionary(Towers.Boomerang_Thrower, towerLists.Boomerang_Thrower);
+            AddTowerListToTowerListDictionary(Towers.Ninja_Monkey,      towerLists.Ninja_Monkey);
+        }
+
+        private void AddTowerListToTowerListDictionary(Towers _Key, TowerList _Value) {
+            towerListDictionary.Add(_Key, _Value);
+        }
+        #endregion
+
+
+        #region projectileDictionary
+
+        private void AddProjectilesToProjectileDictionary() {
+            AddProjectileToProjectileDictionary(Projectiles.Dart_Monkey_Default, projectilePrefabs.Dart_Monkey_Default);
+            AddProjectileToProjectileDictionary(Projectiles.Tack_Shooter_Default, projectilePrefabs.Tack_Shooter_Default);
+            AddProjectileToProjectileDictionary(Projectiles.Boomerang_Thrower_Default, projectilePrefabs.Boomerang_Thrower_Default);
+            AddProjectileToProjectileDictionary(Projectiles.Ninja_Monkey_Default, projectilePrefabs.Ninja_Monkey_Default);
+        }
+        private void AddProjectileToProjectileDictionary(Projectiles _Key, Projectile.StandardProjectile _value) {
+            projectileDictionary.Add(_Key, _value);
+        }
+
+        public static Projectile.StandardProjectile RetrieveProjectileFromProjectileDictionary_Enum(Projectiles _ProjectilesEnum) {
+            if (projectileDictionary[_ProjectilesEnum] != null) { 
+                return projectileDictionary[_ProjectilesEnum];
+            }
+            else {
+                Debug.LogError("No Projectile set for: " + _ProjectilesEnum);
+                return null;
+            }
+        }
+
+        #endregion
+        
     }
 }

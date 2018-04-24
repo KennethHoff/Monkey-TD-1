@@ -107,22 +107,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435a677bcb96e844ab46da956e3ec26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 5
-  projectileSpawnPoints:
-  - {fileID: 4313639374713698}
-  goldCost: 500
-  CamoDetection: 0
-  attackSpeed: 0.5988024
-  firingRange: 3
-  projectilePoppingPower: 2
-  projectilePenetration: 1
-  damageType: 0
-  projectileToFire: {fileID: 114841212826720866, guid: 5aecd58afd389f94a9c7d916900ed52f,
-    type: 2}
-  drawGizmos: 0
-  aiming: 0
-  firingCooldown: 0
-  state: 0
+  generalStats:
+    attackSpeed: 0.5988024
+    goldCost: 500
+    firingRange: 3
+    CamoDetection: 0
+    poppingPower: 1
+    penetration: 1
+    damageType: 0
+    projectileEnum: 4
+    target: {fileID: 0}
+    towerPops: 0
+    sellValue: 0
+    targettingState: 0
+    towerEnum: 5
+    upgradePaths:
+      currentLeftUpgrade: 0
+      currentRightUpgrade: 0
+      leftUpgradePath:
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      rightUpgradePath:
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+      - upgradeIcon: {fileID: 0}
+        upgradeName: 
+        upgradeCost: 0
+        upgradeDescription: 
+    priceModifier: 0
+    sellValueModifier: 0
+    projectileSpawnPoints:
+    - {fileID: 4313639374713698}
+    rotationOffset: -90
+    projectileObject: {fileID: 0}
+    aiming: 0
+    rotationDurationAfterShooting: 0.33333334
+    justShot: 0
+    firingCooldown: 0
+    aimCooldown: 0
 --- !u!212 &212925051706932782
 SpriteRenderer:
   m_ObjectHideFlags: 1

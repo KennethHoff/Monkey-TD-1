@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4277019667406048}
   - component: {fileID: 212551266954199130}
-  - component: {fileID: 70051583996039586}
   - component: {fileID: 50006841086613806}
   - component: {fileID: 114373952091795824}
+  - component: {fileID: 70744601493313480}
   m_Layer: 0
   m_Name: Prefab_BoomerangThrower_Boomerang_Default
   m_TagString: Projectile
@@ -36,7 +36,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1184816750078510}
-  m_LocalRotation: {x: 0, y: 0, z: 0.3826835, w: -0.9238795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -63,7 +63,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &70051583996039586
+--- !u!70 &70744601493313480
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,8 +76,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.25, y: 0.5}
-  m_Direction: 0
+  m_Size: {x: 0.8, y: 0.4}
+  m_Direction: 1
 --- !u!114 &114373952091795824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,15 +89,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963874b17069da34da243ea218c73345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerEnum: 4
   tower: {fileID: 0}
   despawnDistance: 0
+  distanceFromSpawn: 0
   parent: {fileID: 0}
-  moveSpd: 3250
+  moveSpd: 1000
   penetration: 0
   totalPower: 0
   remainingPower: 0
   damageType: 0
+  currentSpins: 0
+  spinning: 0
+  spinSpeed: 300
+  totalSpins: 0
 --- !u!212 &212551266954199130
 SpriteRenderer:
   m_ObjectHideFlags: 1

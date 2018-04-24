@@ -44,6 +44,27 @@ TextureImporter:
     21300074: buccaneer_icon_greyed
     21300076: monkey_ace_icon
     21300078: monkey_ace_icon_greyed
+    21300080: dart_monkey_avatar_small
+    21300082: tower_profile_pic_box
+    21300084: pops_icon
+    21300086: direction_arrow
+    21300088: abilities_arrow
+    21300090: in_game_hud_0
+    21300092: scroll_arrow_left_small
+    21300094: target_box
+    21300096: scroll_arrow_right_small
+    21300098: red_box
+    21300100: sell_box
+    21300102: upgrade_box_cant
+    21300104: upgrade_box_buy
+    21300106: in_game_hud_1
+    21300108: in_game_hud_2
+    21300110: upgrade_path_bg
+    21300112: upgrade_path_end_bg
+    21300114: upgrade_path_end_green_cell
+    21300116: upgrade_path_green_cell
+    21300118: new_tower_icon
+    21300120: drag_lock_no
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -614,7 +635,7 @@ TextureImporter:
         width: 81
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -628,7 +649,7 @@ TextureImporter:
         width: 81
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -642,7 +663,7 @@ TextureImporter:
         width: 110
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -656,7 +677,7 @@ TextureImporter:
         width: 110
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -670,7 +691,7 @@ TextureImporter:
         width: 121
         height: 112
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -683,6 +704,300 @@ TextureImporter:
         y: 180
         width: 122
         height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: dart_monkey_avatar_small
+      rect:
+        serializedVersion: 2
+        x: 3359
+        y: 2132
+        width: 197
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_profile_pic_box
+      rect:
+        serializedVersion: 2
+        x: 2890
+        y: 1299
+        width: 195
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: pops_icon
+      rect:
+        serializedVersion: 2
+        x: 3279
+        y: 479
+        width: 83
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: direction_arrow
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 1135
+        width: 68
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: abilities_arrow
+      rect:
+        serializedVersion: 2
+        x: 3574
+        y: 315
+        width: 64
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: in_game_hud_0
+      rect:
+        serializedVersion: 2
+        x: 3592
+        y: 73
+        width: 40
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: scroll_arrow_left_small
+      rect:
+        serializedVersion: 2
+        x: 3208
+        y: 157
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: target_box
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2806
+        width: 516
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: scroll_arrow_right_small
+      rect:
+        serializedVersion: 2
+        x: 3311
+        y: 229
+        width: 70
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: red_box
+      rect:
+        serializedVersion: 2
+        x: 1881
+        y: 2322
+        width: 76
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sell_box
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2250
+        width: 288
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_box_cant
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 2778
+        width: 284
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_box_buy
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 2484
+        width: 284
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: in_game_hud_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1228
+        width: 230
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: in_game_hud_2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2636
+        width: 485
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_path_bg
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 2250
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_path_end_bg
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 2250
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_path_end_green_cell
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 1036
+        width: 76
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: upgrade_path_green_cell
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 2286
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: new_tower_icon
+      rect:
+        serializedVersion: 2
+        x: 3050
+        y: 717
+        width: 106
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: drag_lock_no
+      rect:
+        serializedVersion: 2
+        x: 3449
+        y: 454
+        width: 73
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

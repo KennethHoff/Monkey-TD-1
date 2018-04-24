@@ -6,7 +6,11 @@ public class ParentController : MonoBehaviour {
 
     protected virtual void LateUpdate() {
 
-        if (transform.childCount <= 0) 
-            Destroy(gameObject);
+        if (transform.childCount <= 0)
+            NoChildren();
+    }
+
+    protected virtual void NoChildren() {
+        Destroy(gameObject);
     }
 }

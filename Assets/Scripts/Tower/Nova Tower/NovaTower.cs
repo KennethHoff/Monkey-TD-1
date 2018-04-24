@@ -12,19 +12,19 @@ namespace Tower {
 
         protected override void FixedUpdate() {
 
-            if (GameControl.WaveSpawner.controllerObject.waveActive) 
-                firingCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
-                if (firingCooldown < 0) 
+            if (GameControl.WaveSpawner.controllerObject.waveActive)
+                generalStats.firingCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
+                if (generalStats.firingCooldown < 0) 
                     if (IsEnemyInRange()) 
                         Shoot();
-            else 
-                firingCooldown = -1;
+            else
+                    generalStats.firingCooldown = -1;
             
         }
 
         protected virtual bool IsEnemyInRange() {
 
-            Collider2D[] allCollisions = Physics2D.OverlapCircleAll(transform.position, firingRange, GameControl.GameController.controllerObject.enemyLayer);
+            Collider2D[] allCollisions = Physics2D.OverlapCircleAll(transform.position, generalStats.firingRange, GameControl.PlacementController.controllerObject.enemyLayer);
 
             foreach (Collider2D collision in allCollisions) 
                 if (!collision.gameObject.GetComponent<Bloon.StandardBloon>().camo) 
@@ -35,7 +35,7 @@ namespace Tower {
 
         protected override void Shoot() {
             // Different from Ice Tower and Tack Shooter - therefore nothing here.
-            firingCooldown = attackSpeed;
+            generalStats.firingCooldown = generalStats.attackSpeed;
 
             base.Shoot();
         }

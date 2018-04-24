@@ -5,43 +5,34 @@ using UnityEngine;
 namespace Tower {
 
     public class MonkeyTower : StandardTower {
-
-        protected Collider2D target;
-
-
-        protected enum TargettingStates {
-            First,
-            Last,
-            Closest,
-            Toughest
-        }
-        [SerializeField, Header("Monkey Tower Specifics:")]
-        protected TargettingStates state;
+        
+        
+        // [SerializeField, Header("Monkey Tower Specifics:")]
 
         protected override void FixedUpdate() {
 
             if (GameControl.WaveSpawner.controllerObject.waveActive) {
-                justShot -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
-                firingCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
-                aimCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
+                generalStats.justShot -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
+                generalStats.firingCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
+                generalStats.aimCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
 
-                if (justShot < 0) {
+                if (generalStats.justShot < 0) {
 
-                    if (aimCooldown < 0)
-                        aiming = true;
+                    if (generalStats.aimCooldown < 0)
+                        generalStats.aiming = true;
                     else
-                        aiming = false;
+                        generalStats.aiming = false;
 
-                    if (aiming)
+                    if (generalStats.aiming)
                         AttemptTargetting();
                 }
             }
 
             else {
-                aiming = false;
-                justShot = -1;
-                firingCooldown = -1;
-                aimCooldown = -1;
+                generalStats.aiming = false;
+                generalStats.justShot = -1;
+                generalStats.firingCooldown = -1;
+                generalStats.aimCooldown = -1;
             }
         }
 
@@ -49,17 +40,17 @@ namespace Tower {
 
             Collider2D _target = null;
 
-            switch (state) {
-                case TargettingStates.Closest:
+            switch (generalStats.targettingState) {
+                case TowerStats.TargettingStates.Close:
                     _target = SearchForClosestEnemy(base.GetEnemiesInRange());
                     break;
-                case TargettingStates.First:
+                case TowerStats.TargettingStates.First:
                     _target = SearchForFirstEnemy(base.GetEnemiesInRange());
                     break;
-                case TargettingStates.Last:
-                    // _target = SearchForLastEnemy(base.GetEnemiesInRange());
+                case TowerStats.TargettingStates.Last:
+                    _target = SearchForLastEnemy(base.GetEnemiesInRange());
                     break;
-                case TargettingStates.Toughest:
+                case TowerStats.TargettingStates.Strong:
                     _target = SearchForToughestEnemy(base.GetEnemiesInRange());
                     break;
             }
@@ -84,13 +75,39 @@ namespace Tower {
         }
 
         protected virtual Collider2D SearchForFirstEnemy(Collider2D[] allCollisions) {
-            Collider2D enemy = GetFirstEnemy(allCollisions);
-
-            return enemy;
+            return GetFirstEnemy(allCollisions);
         }
 
-        protected virtual Collider2D SearchForLastEnemy(Collider2D[] allCollisions) { // TODO: COMPLETE (Currently same as First)
+        protected virtual Collider2D SearchForLastEnemy(Collider2D[] allCollisions) {
+            return GetLastEnemy(allCollisions);
+        }
 
+        private Collider2D GetLastEnemy(Collider2D[] allCollisions) {
+            Collider2D enemy = null;
+            float lastEnemyDistance = float.MaxValue;
+            int lastEnemyWayPoint = int.MaxValue;
+
+            foreach (Collider2D target in allCollisions) {
+                if (target.tag == "Enemy") {
+
+                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPoint;
+
+                    Vector2 currentWayPointPos = GameControl.PathController.controllerObject.wayPointList[currentWayPoint].position;
+
+                    float absDist = Vector2.Distance(currentWayPointPos, transform.position);
+
+                    if (currentWayPoint <= lastEnemyWayPoint) {
+                        if (absDist <= lastEnemyWayPoint) {
+                            lastEnemyWayPoint = currentWayPoint;
+                            lastEnemyDistance = absDist;
+                            enemy = target;
+                        }
+                    }
+                }
+            }
+            return enemy;
+        }
+        protected static Collider2D GetFirstEnemy(Collider2D[] allCollisions) {
             Collider2D enemy = null;
             float firstEnemyDistance = 0;
             int firstEnemyWaypoint = 0;
@@ -98,22 +115,24 @@ namespace Tower {
             foreach (Collider2D target in allCollisions) {
                 if (target.tag == "Enemy") {
 
-                    int currentWayPoint = target.GetComponent<WayPoints>().currentWayPoint;
+                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPoint;
 
-                    Vector2 currentWayPointPos = GameControl.PathController.controllerObject.wayPointList[currentWayPoint].position;
+                    float distanceToPreviousWaypoint = target.GetComponent<Bloon.WayPoints>().distanceToPreviousWaypoint;
 
-                    float absDist = Vector2.Distance(currentWayPointPos, transform.position);
-
-                    if (currentWayPoint >= firstEnemyWaypoint) {
-                        if (absDist >= firstEnemyDistance) {
-                            firstEnemyWaypoint = currentWayPoint;
-                            firstEnemyDistance = absDist;
+                    if (currentWayPoint > firstEnemyWaypoint) {
+                        enemy = target;
+                        firstEnemyWaypoint = currentWayPoint;
+                        firstEnemyDistance = distanceToPreviousWaypoint;
+                    }
+                    else if (currentWayPoint == firstEnemyWaypoint) {
+                        if (distanceToPreviousWaypoint > firstEnemyDistance) {
                             enemy = target;
+                            firstEnemyWaypoint = currentWayPoint;
+                            firstEnemyDistance = distanceToPreviousWaypoint;
                         }
                     }
                 }
             }
-
             return enemy;
         }
 
@@ -140,69 +159,41 @@ namespace Tower {
 
         protected void AttemptTargetting() {
 
-            if (attackSpeed < GameControl.GameController.controllerObject.aimTimer)
-                aimCooldown = attackSpeed * 2 / 3;
+            if (generalStats.attackSpeed < GameControl.GameController.controllerObject.aimTimer)
+                generalStats.aimCooldown = generalStats.attackSpeed * 2 / 3;
             else
-                aimCooldown = GameControl.GameController.controllerObject.aimTimer;
+                generalStats.aimCooldown = GameControl.GameController.controllerObject.aimTimer;
 
-            target = SearchForEnemiesInRange();
+            generalStats.target = SearchForEnemiesInRange();
 
-            if (target != null) {
-                if (justShot <= 0)
-                    AimAt(target.gameObject);
+            if (generalStats.target != null) {
+                if (generalStats.justShot <= 0)
+                    AimAt(generalStats.target.gameObject);
             }
         }
 
         protected virtual void AimAt(GameObject target) {
 
             var dir = target.transform.position - transform.position;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + rotationOffset;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + generalStats.rotationOffset;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (firingCooldown < 0) {
+            if (generalStats.firingCooldown < 0) {
                 Shoot();
             }
         }
 
         protected override void Shoot() {
-            firingCooldown = attackSpeed;
+            generalStats.firingCooldown = generalStats.attackSpeed;
 
             base.Shoot();
 
-            if (attackSpeed < rotationDurationAfterShooting)
-                justShot = attackSpeed * 1 / 3;
+            if (generalStats.attackSpeed < generalStats.rotationDurationAfterShooting)
+                generalStats.justShot = generalStats.attackSpeed * 1 / 3;
             else
-                justShot = rotationDurationAfterShooting;
+                generalStats.justShot = generalStats.rotationDurationAfterShooting;
         }
 
-        protected static Collider2D GetFirstEnemy(Collider2D[] allCollisions) {
-            Collider2D enemy = null;
-            float firstEnemyDistance = 0;
-            int firstEnemyWaypoint = 0;
-
-            foreach (Collider2D target in allCollisions) {
-                if (target.tag == "Enemy") {
-
-                    int currentWayPoint = target.GetComponent<WayPoints>().currentWayPoint;
-
-                    float distanceToPreviousWaypoint = target.GetComponent<WayPoints>().distanceToPreviousWaypoint;
-
-                    if (currentWayPoint > firstEnemyWaypoint) {
-                        enemy = target;
-                        firstEnemyWaypoint = currentWayPoint;
-                        firstEnemyDistance = distanceToPreviousWaypoint;
-                    }
-                    else if (currentWayPoint == firstEnemyWaypoint) {
-                        if (distanceToPreviousWaypoint > firstEnemyDistance) {
-                            enemy = target;
-                            firstEnemyWaypoint = currentWayPoint;
-                            firstEnemyDistance = distanceToPreviousWaypoint;
-                        }
-                    }
-                }
-            }
-
-            return enemy;
-        }
+        
     }
 }

@@ -11,8 +11,8 @@ namespace Tower {
         }
 
         protected override void Shoot() {
-            target.GetComponent<Bloon.StandardBloon>().HitScanShot(this);
-            Debug.Log("Sniper Monkey shot!");
+            generalStats.target.GetComponent<Bloon.StandardBloon>().HitScanShot(this);
+            Debug.Log("Sniper Monkey #" + GetInstanceID() + " shot!");
 
             base.Shoot();
         }

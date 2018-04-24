@@ -304,6 +304,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\ReadOnlyDrawer.cs" />
+    <Compile Include="Assets\Editor\TowerUpgradeDrawer.cs" />
     <Compile Include="Assets\Editor\WaveDrawer.cs" />
   </ItemGroup>
   <ItemGroup>

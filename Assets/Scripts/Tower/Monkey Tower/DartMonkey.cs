@@ -11,17 +11,13 @@ namespace Tower {
         }
 
         protected override void Shoot() {
-            List<Projectile.StandardProjectile> shotProjectileList = new List<Projectile.StandardProjectile>();
-
-            for (int i = 0; i < projectileSpawnPoints.Length; i++) {
-                shotProjectileList.Add(CreateProjectile(projectileToFire, projectileSpawnPoints[i].position, transform.rotation, transform.parent));
-            }
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(generalStats.projectileObject, transform.position, transform.rotation, generalStats.projectileSpawnPoints);
 
             foreach (Projectile.StandardProjectile projectile in shotProjectileList) {
-                projectile.despawnDistance = firingRange * 2.0f;
+                projectile.despawnDistance = generalStats.firingRange * 10f;
             }
 
-            Debug.Log("Dart Monkey shot!");
+            Debug.Log("Dart Monkey #" + GetInstanceID() + " shot!");
             base.Shoot();
         }
     }

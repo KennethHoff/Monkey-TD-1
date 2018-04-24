@@ -10,9 +10,9 @@ public class TowerSelector : MonoBehaviour {
     public Vector3 startScale;
 
     [SerializeField]
-    private GameControl.PlacementController.Towers towerToRepresent;
+    private GameControl.DictionaryController.Towers towerEnum;
     
-    private Tower.StandardTower towerScript;
+    private Tower.StandardTower tower;
 
     public enum UITowerStates {
         Clickable,
@@ -29,14 +29,13 @@ public class TowerSelector : MonoBehaviour {
 
     private void Start() {
         state = UITowerStates.Clickable;
-        TowerList towerDict = GameControl.DictionaryController.placementDictionary[towerToRepresent];
-        towerScript = towerDict.towerPrefab;
+        tower = GameControl.DictionaryController.towerListDictionary[towerEnum].towerPrefab;
         startScale = transform.localScale;
         imageRenderer = GetComponent<Image>();
     }
 
     private void Update() {
-        if (towerScript.goldCost <= GameControl.InventoryController.controllerObject.gold) {
+        if (tower.generalStats.goldCost <= GameControl.InventoryController.controllerObject.gold) {
             state = UITowerStates.Clickable;
         }
         else {
@@ -51,7 +50,7 @@ public class TowerSelector : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
                     // Clicking - Instantiate new Tower Template : Make the image blink
                     GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
-                    GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerScript.towerEnum);
+                    GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(tower.generalStats.towerEnum);
                 }
             }
         }

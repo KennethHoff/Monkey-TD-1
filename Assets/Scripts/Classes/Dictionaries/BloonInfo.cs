@@ -6,19 +6,21 @@ using UnityEngine;
 public class BloonInfo {
 
     public Bloon.StandardBloon bloonPrefab;
-    public int rBE;
-    public int toughness;
-    public int familyTreeIndex;
+
+    [ReadOnly] public int RBE;
+    [ReadOnly] public int toughness;
+    [ReadOnly] public int familyTreeIndex;
 
 
-    public BloonInfo(Bloon.StandardBloon _bloonPrefab) {
-        bloonPrefab = _bloonPrefab;
-
+    public BloonInfo(Bloon.StandardBloon _BloonPrefab) {
+        bloonPrefab = _BloonPrefab;
+        /*
         for (int i = 0; i < GameControl.DictionaryController.controllerObject.BloonFamilyTreeArray.Length; i++) {
             if (GameControl.DictionaryController.controllerObject.BloonFamilyTreeArray[i] == bloonPrefab) {
                 familyTreeIndex = i;
                 break;
             }
         }
+        */
     }
 }
