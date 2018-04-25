@@ -21,6 +21,10 @@ namespace GameControl {
         }
         
 
+
+        public Sprite camo_overlay, camo_regen_overlay;
+
+
         [ReadOnly] public Tower.StandardTower towerUnderCursor;
 
         [Header("Current Game Information:")]

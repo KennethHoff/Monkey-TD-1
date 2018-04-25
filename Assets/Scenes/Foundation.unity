@@ -301,6 +301,64 @@ MonoBehaviour:
       type: 2}
     LeadBloon: {fileID: 114114122428065608, guid: 3973dea4258b57c418189a63fbeb030d,
       type: 2}
+  towerUpgrades:
+    monkeyTower:
+      Long_Range_Darts:
+        upgradeIcon: {fileID: 21300000, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Long Range Darts
+        upgradeCost: 90
+        upgradeDescription: Makes the Dart Monkey shoot further than normal.
+        upgradeEnum: 1
+      Enhanced_Eyesight:
+        upgradeIcon: {fileID: 21300004, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Enhanced Eyesight
+        upgradeCost: 120
+        upgradeDescription: Increase attack range even further and allows Dart Monkey
+          to shoot Camo Bloons.
+        upgradeEnum: 2
+      Spike_O_Pult:
+        upgradeIcon: {fileID: 21300010, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Spike-O-Pult
+        upgradeCost: 500
+        upgradeDescription: '[W.I.P] Converts the Dart Monkey into a Spike-O-Pult,
+          a powerful tower that hurls a large spiked ball instead of darts. Good range,
+          but slower attack speed. Each ball can pop 18 bloons. Also increases range
+          slightly.  '
+        upgradeEnum: 3
+      Juggernaut:
+        upgradeIcon: {fileID: 21300012, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Juggernaut
+        upgradeCost: 1500
+        upgradeDescription: '[W.I.P] Hurls a giant unstoppable killer spiked ball
+          that can pop lead bloons and excels at crushing ceramic bloons. 100 pierce,
+          5 damage to ceramics.'
+        upgradeEnum: 4
+      Sharp_Shots:
+        upgradeIcon: {fileID: 21300002, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Sharp Shots
+        upgradeCost: 140
+        upgradeDescription: Can pop 1 extra bloon per shot.
+        upgradeEnum: 5
+      Razor_Sharp_Shots:
+        upgradeIcon: {fileID: 21300006, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Razor Sharp Shots
+        upgradeCost: 170
+        upgradeDescription: '[W.I.P] Can pop 2 extra bloons per shot.  <para> (to
+          a total of 4).'
+        upgradeEnum: 6
+      Triple_Darts:
+        upgradeIcon: {fileID: 21300008, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Triple Darts
+        upgradeCost: 330
+        upgradeDescription: '[W.I.P] Throws 3 darts at a time instead of 1.'
+        upgradeEnum: 7
+      Super_Monkey_Fan_Club:
+        upgradeIcon: {fileID: 21300014, guid: 0d9ca066e44fd394e830d53062c82f36, type: 3}
+        upgradeName: Super Monkey Fan Club
+        upgradeCost: 8000
+        upgradeDescription: '[W.I.P] Super Monkey Fan Club Ability: Converts up to
+          10 nearby dart monkeys into Super Monkeys for 15 seconds.'
+        upgradeEnum: 8
   BloonFamilyTreeArray: 01000000020000000300000004000000050000000600000007000000
 --- !u!114 &25067664
 MonoBehaviour:
@@ -334,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadMap: 1
   MapLoadOffset: {x: -1.224, y: 1.1266}
-  mapToLoad: {fileID: 1567452440662388, guid: 629de89476c8f814084a1cbc6bbe04db, type: 2}
+  mapToLoad: {fileID: 1567452440662388, guid: 288ac499106bdf741ba73fda73aa4631, type: 2}
   mapParent: {fileID: 1971797360}
 --- !u!114 &25067666
 MonoBehaviour:
@@ -347,6 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40028994b3005084aa443a583e6c61e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camo_overlay: {fileID: 21300016, guid: 132c7033a972ac340bc79ab3a17b269b, type: 3}
+  camo_regen_overlay: {fileID: 21300018, guid: 132c7033a972ac340bc79ab3a17b269b, type: 3}
   towerUnderCursor: {fileID: 0}
   difficulty: 1
   AutoStartNextWave: 0
@@ -398,7 +458,7 @@ MonoBehaviour:
       regrowth: 0
       camo: 0
       amount: 200
-      interval: 1.0125
+      interval: 0.675
       delay: 0
       bloonPrefab: {fileID: 0}
       TotalSetRBE: 0

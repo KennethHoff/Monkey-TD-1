@@ -35,7 +35,7 @@ public class TowerSelector : MonoBehaviour {
     }
 
     private void Update() {
-        if (tower.generalStats.goldCost <= GameControl.InventoryController.controllerObject.gold) {
+        if (tower.GetStats<Tower.BaseTowerStats>().goldCost <= GameControl.InventoryController.controllerObject.gold) {
             state = UITowerStates.Clickable;
         }
         else {
@@ -50,7 +50,7 @@ public class TowerSelector : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
                     // Clicking - Instantiate new Tower Template : Make the image blink
                     GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
-                    GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(tower.generalStats.towerEnum);
+                    GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
                 }
             }
         }

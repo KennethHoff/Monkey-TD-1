@@ -66,8 +66,28 @@ namespace GameControl {
             BlackBloon,
             LeadBloon
         }
-        
+
         public Dictionaries.BloonPrefabs bloonPrefabs = new Dictionaries.BloonPrefabs();
+
+        #endregion
+
+
+        #region Tower Upgrades
+
+        public enum TowerUpgrades {
+            Undefined,
+            Monkey_Dart_Long_Range_Darts,
+            Monkey_Dart_Enhanced_Eyesight,
+            Monkey_Dart_Spike_O_Pult,
+            Monkey_Dart_Juggernaut,
+            Monkey_Dart_Sharp_Shots,
+            Monkey_Dart_Razor_Sharp_Shots,
+            Monkey_Dart_Triple_Darts,
+            Monkey_Dart_Super_Monkey_Fan_Club
+
+        }
+
+        public Dictionaries.TowerUpgrades towerUpgrades = new Dictionaries.TowerUpgrades();
 
         #endregion
 
@@ -75,27 +95,30 @@ namespace GameControl {
 
         private Dictionary<ParentController, List<Bloon.StandardBloon>> collisionDictionary;
 
-        public static Dictionary<Towers,        TowerList>                      towerListDictionary;
-        public static Dictionary<Bloons,        Bloon.StandardBloon>            bloonDictionary;
-        public static Dictionary<Projectiles,   Projectile.StandardProjectile>  projectileDictionary;
+        public static Dictionary<Towers, TowerList> towerListDictionary;
+        public static Dictionary<Bloons, Bloon.StandardBloon> bloonDictionary;
+        public static Dictionary<Projectiles, Projectile.StandardProjectile> projectileDictionary;
+        public static Dictionary<TowerUpgrades, TowerUpgrade> towerUpgradeDictionary;
 
         public Bloons[] BloonFamilyTreeArray;
         // public static Dictionary<GameController.Difficulties, > // TODO: Add Difficulty Dictionary. (Key = difficulty, value = new Class (Towers and upgrades change their cost.)
 
         private void Awake() {
             controllerObject = GetComponent<DictionaryController>();
-        }
-
-        public void Start() {
 
             collisionDictionary = new Dictionary<ParentController, List<Bloon.StandardBloon>>();
             bloonDictionary = new Dictionary<Bloons, Bloon.StandardBloon>();
             projectileDictionary = new Dictionary<Projectiles, Projectile.StandardProjectile>();
             towerListDictionary = new Dictionary<Towers, TowerList>();
+            towerUpgradeDictionary = new Dictionary<TowerUpgrades, TowerUpgrade>();
 
             AddBloonsToBloonDictionary();
             AddTowerListsToTowerListDictionary();
             AddProjectilesToProjectileDictionary();
+            AddTowerUpgradesToTowerUpgradeDictionary();
+        }
+
+        public void Start() {
         }
 
         #region collisionDictionary
@@ -138,17 +161,17 @@ namespace GameControl {
 
         #endregion
 
-        
+
         #region bloonDictionary
 
         private void AddBloonsToBloonDictionary() {
-            AddBloonToBloonDictionary(Bloons.RedBloon,      bloonPrefabs.RedBloon);
-            AddBloonToBloonDictionary(Bloons.BlueBloon,     bloonPrefabs.BlueBloon);
-            AddBloonToBloonDictionary(Bloons.GreenBloon,    bloonPrefabs.GreenBloon);
-            AddBloonToBloonDictionary(Bloons.YellowBloon,   bloonPrefabs.YellowBloon);
-            AddBloonToBloonDictionary(Bloons.PinkBloon,     bloonPrefabs.PinkBloon);
-            AddBloonToBloonDictionary(Bloons.BlackBloon,    bloonPrefabs.BlackBloon);
-            AddBloonToBloonDictionary(Bloons.LeadBloon,     bloonPrefabs.LeadBloon);
+            AddBloonToBloonDictionary(Bloons.RedBloon, bloonPrefabs.RedBloon);
+            AddBloonToBloonDictionary(Bloons.BlueBloon, bloonPrefabs.BlueBloon);
+            AddBloonToBloonDictionary(Bloons.GreenBloon, bloonPrefabs.GreenBloon);
+            AddBloonToBloonDictionary(Bloons.YellowBloon, bloonPrefabs.YellowBloon);
+            AddBloonToBloonDictionary(Bloons.PinkBloon, bloonPrefabs.PinkBloon);
+            AddBloonToBloonDictionary(Bloons.BlackBloon, bloonPrefabs.BlackBloon);
+            AddBloonToBloonDictionary(Bloons.LeadBloon, bloonPrefabs.LeadBloon);
         }
         private void AddBloonToBloonDictionary(Bloons _Key, Bloon.StandardBloon _value) {
             bloonDictionary.Add(_Key, _value);
@@ -172,11 +195,11 @@ namespace GameControl {
         #region towerListDictionary
 
         private void AddTowerListsToTowerListDictionary() {
-            AddTowerListToTowerListDictionary(Towers.Dart_Monkey,       towerLists.Dart_Monkey);
-            AddTowerListToTowerListDictionary(Towers.Tack_Shooter,      towerLists.Tack_Shooter);
-            AddTowerListToTowerListDictionary(Towers.Sniper_Monkey,     towerLists.Sniper_Monkey);
+            AddTowerListToTowerListDictionary(Towers.Dart_Monkey, towerLists.Dart_Monkey);
+            AddTowerListToTowerListDictionary(Towers.Tack_Shooter, towerLists.Tack_Shooter);
+            AddTowerListToTowerListDictionary(Towers.Sniper_Monkey, towerLists.Sniper_Monkey);
             AddTowerListToTowerListDictionary(Towers.Boomerang_Thrower, towerLists.Boomerang_Thrower);
-            AddTowerListToTowerListDictionary(Towers.Ninja_Monkey,      towerLists.Ninja_Monkey);
+            AddTowerListToTowerListDictionary(Towers.Ninja_Monkey, towerLists.Ninja_Monkey);
         }
 
         private void AddTowerListToTowerListDictionary(Towers _Key, TowerList _Value) {
@@ -198,7 +221,8 @@ namespace GameControl {
         }
 
         public static Projectile.StandardProjectile RetrieveProjectileFromProjectileDictionary_Enum(Projectiles _ProjectilesEnum) {
-            if (projectileDictionary[_ProjectilesEnum] != null) { 
+            if (projectileDictionary[_ProjectilesEnum] != null) {
+                Debug.Log("Projectile " + _ProjectilesEnum + " Set");
                 return projectileDictionary[_ProjectilesEnum];
             }
             else {
@@ -208,6 +232,36 @@ namespace GameControl {
         }
 
         #endregion
-        
+
+        #region towerUpgradeDictionary 
+
+        private void AddTowerUpgradesToTowerUpgradeDictionary() {
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Long_Range_Darts, towerUpgrades.monkeyTower.Long_Range_Darts);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Enhanced_Eyesight, towerUpgrades.monkeyTower.Enhanced_Eyesight);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Spike_O_Pult, towerUpgrades.monkeyTower.Spike_O_Pult);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Juggernaut, towerUpgrades.monkeyTower.Juggernaut);
+
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Sharp_Shots, towerUpgrades.monkeyTower.Sharp_Shots);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Razor_Sharp_Shots, towerUpgrades.monkeyTower.Razor_Sharp_Shots);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Triple_Darts, towerUpgrades.monkeyTower.Triple_Darts);
+            AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades.Monkey_Dart_Super_Monkey_Fan_Club, towerUpgrades.monkeyTower.Super_Monkey_Fan_Club);
+        }
+
+        private void AddTowerUpgradeToTowerUpgradeDictionary(TowerUpgrades _Key, TowerUpgrade _Value) {
+            towerUpgradeDictionary.Add(_Key, _Value);
+        }
+
+        public static TowerUpgrade RetrieveTowerUpgradeFromTowerUpgradeDictionary_Enum(TowerUpgrades _Enum) {
+            if (towerUpgradeDictionary[_Enum] != null) {
+                return towerUpgradeDictionary[_Enum];
+            }
+
+            Debug.LogWarning("Tower Upgrade Dictionary does not contain: " + _Enum);
+            return null;
+                
+        }
+
+        #endregion
+
     }
 }

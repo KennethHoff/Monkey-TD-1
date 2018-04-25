@@ -14,7 +14,7 @@ namespace Projectile {
         [HideInInspector]
         public ParentController parent;
 
-        public float moveSpd;
+        [ReadOnly] public float moveSpd;
         
         [ReadOnly] public int penetration; // How many layers it pops.
 
@@ -22,7 +22,7 @@ namespace Projectile {
         
         [ReadOnly] public int remainingPower;
 
-        protected Rigidbody2D rbody;
+        [ReadOnly] protected Rigidbody2D rbody;
 
         [ReadOnly] public GameControl.GameController.DamageTypes damageType;
 

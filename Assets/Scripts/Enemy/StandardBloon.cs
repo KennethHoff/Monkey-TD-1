@@ -17,6 +17,8 @@ namespace Bloon {
 
         public int startArmor;
 
+        protected GameObject overlayChildGameObject;
+
         public int childrenAmount;
         public float childSpawningSpacing = 0.25f;
         public int RBE;
@@ -47,6 +49,8 @@ namespace Bloon {
         #endregion
 
         protected virtual void Start() {
+
+            overlayChildGameObject = transform.GetChild(0).gameObject;
             currArmor = startArmor;
 
             SetFamilyTreeIndex();
@@ -63,9 +67,13 @@ namespace Bloon {
             if (regrowth) {
                 GetComponent<SpriteRenderer>().sprite = regrowthSprite;
             }
+            if (camo) {
+                SetCamo();
+            }
             audioSource = FindObjectOfType<AudioSource>();
 
         }
+
 
         private void SetFamilyTreeIndex() {
             for (int i = 0; i < GameControl.DictionaryController.controllerObject.BloonFamilyTreeArray.Length; i++) {
@@ -240,7 +248,7 @@ namespace Bloon {
         #region Hitscan Detection
 
         public virtual void HitScanShot(Tower.StandardTower _Tower) {
-            if (Damageable(_Tower.generalStats.damageType)) {
+            if (Damageable(_Tower.GetStats<Tower.BaseTowerStats>().damageType)) {
                 DamageBloon(_Tower.gameObject);
             }
         }
@@ -250,7 +258,7 @@ namespace Bloon {
 
                 if (obj.GetComponent<Projectile.StandardProjectile>() != null) {
                     var _Proj = obj.GetComponent<Projectile.StandardProjectile>();
-                    currArmor -= _Proj.tower.generalStats.penetration;
+                    currArmor -= _Proj.tower.GetStats<Tower.BaseTowerStats>().penetration;
 
                     if (currArmor < 0) {
                         PopBloon(-currArmor, _Proj.gameObject);
@@ -258,7 +266,7 @@ namespace Bloon {
                 }
                 else if (obj.GetComponent<Tower.StandardTower>() != null) {
                     var _Tower = obj.GetComponent<Tower.StandardTower>();
-                    currArmor -= _Tower.generalStats.penetration;
+                    currArmor -= _Tower.GetStats<Tower.BaseTowerStats>().penetration;
 
                     if (currArmor < 0) {
                         PopBloon(-currArmor, _Tower.gameObject);
@@ -365,5 +373,14 @@ namespace Bloon {
             }
         }
         #endregion
+
+        private void SetCamo() {
+            if (regrowth) {
+                overlayChildGameObject.GetComponent<SpriteRenderer>().sprite = GameControl.GameController.controllerObject.camo_regen_overlay;
+            }
+            else {
+                overlayChildGameObject.GetComponent<SpriteRenderer>().sprite = GameControl.GameController.controllerObject.camo_overlay;
+            }
+        }
     }
 }

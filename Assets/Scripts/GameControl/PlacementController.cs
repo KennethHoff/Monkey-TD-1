@@ -32,15 +32,20 @@ namespace GameControl {
                 DestroyTowerTemplate();
             }
         }
-        public void InstantiateTowerTemplate(DictionaryController.Towers enumIndex) {
+        public void InstantiateTowerTemplate(DictionaryController.Towers _EnumIndex) {
+            if (_EnumIndex == DictionaryController.Towers.Undefined) {
+                Debug.LogWarning("No Enum Selected.");
+                return;
+            }
+
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            TemplateScript dictTemplate = DictionaryController.towerListDictionary[enumIndex].templatePrefab;
-            TowerSelector dictButton = DictionaryController.towerListDictionary[enumIndex].UIButton;
-            currentlySelectedTemplate = Instantiate(dictTemplate.gameObject, mousePos, Quaternion.identity);
-            currentlySelectedUIButton = dictButton.gameObject;
+            TemplateScript template = DictionaryController.towerListDictionary[_EnumIndex].templatePrefab;
+            TowerSelector button = DictionaryController.towerListDictionary[_EnumIndex].UIButton;
+            currentlySelectedTemplate = Instantiate(GameControl.DictionaryController.towerListDictionary[_EnumIndex].templatePrefab.gameObject, mousePos, Quaternion.identity);
+            currentlySelectedUIButton = button.gameObject;
             currentlySelectedUIButton.GetComponent<TowerSelector>().ButtonPressed();
             currentlySelectedUIButton.gameObject.SetActive(false);
-            selectedObjectInArray = enumIndex;
+            selectedObjectInArray = _EnumIndex;
         }
 
         public void DestroyTowerTemplate() {
@@ -55,7 +60,7 @@ namespace GameControl {
         public ParentController CreateTowerFamilyTree(Tower.StandardTower _tower, Vector3 _position, Quaternion _rotation) {
 
             ParentController parentContainer = Instantiate(PlacementController.controllerObject.towerContainer, _position, _rotation, GameController.towerParent.transform);
-            parentContainer.name = "TowerParent_" + _tower.generalStats.towerEnum.ToString();
+            parentContainer.name = "TowerParent_" + _tower.GetStats<Tower.BaseTowerStats>().towerEnum.ToString();
             Instantiate(_tower, _position, _rotation, parentContainer.transform);
 
             return parentContainer;

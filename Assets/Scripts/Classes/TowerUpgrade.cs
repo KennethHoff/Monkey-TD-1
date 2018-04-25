@@ -10,5 +10,5 @@ public class TowerUpgrade {
     public string upgradeName;
     public int upgradeCost;
     public string upgradeDescription;
-
+    public GameControl.DictionaryController.TowerUpgrades upgradeEnum;
 }

@@ -30,7 +30,7 @@ namespace Projectile {
         
         
         protected void CurveProjectile() {
-            float timeBeforeStartCurving = 0.2f;
+            float timeBeforeStartCurving = 0.25f;
 
             if (false) {
                 Debug.Log("Tower in front.");

@@ -1,27 +1,243 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Powerups;
 using UnityEngine;
 
-namespace Tower { 
-    [System.Serializable]
-    public class TowerStats {
+namespace Tower {
+
+    public class BaseTowerStats : TowerStats, Powerups.IPowerupable<BaseTowerStats> {
+
+        public BaseTowerStats() {
+            SetDefaultStats();
+            //Debug.Log("Default: " + attackSpeed);
+        }
+
+        protected void SetProjectile() {
+            if (projectileEnum != GameControl.DictionaryController.Projectiles.Undefined) { 
+                projectileObject = GameControl.DictionaryController.RetrieveProjectileFromProjectileDictionary_Enum(projectileEnum);
+                Debug.Log("Projectile set: " + projectileEnum);
+            }
+            else Debug.LogWarning("No Projectile set for: " + towerEnum);
+        }
+
+        public void AddPowerup(PowerupBase<BaseTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public virtual void OnStart() {
+            DebugPrintStats();
+        }
+
+        public virtual TowerUpgrade GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades _enum) {
+            return GameControl.DictionaryController.RetrieveTowerUpgradeFromTowerUpgradeDictionary_Enum(_enum);
+        }
+    }
+
+    public class DartMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<DartMonkeyTowerStats> {
+        
+        public DartMonkeyTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Dart_Monkey;
+            this.projectileEnum = GameControl.DictionaryController.Projectiles.Dart_Monkey_Default;
+            
+            SetStats(_GoldCost: 200, _attackSpeed: 1 / 1.03f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 1, _penetration: 1, _projectileSpeed: 2500);
+
+        }
+        public void AddPowerup(PowerupBase<DartMonkeyTowerStats> _Powerup) {
+            this.Powerups.Add(_Powerup);
+        }
+
+        public override void OnStart() {
+            SetProjectile();
+            SetUpgradePaths();
+            base.OnStart();
+        }
+
+
+        private void SetUpgradePaths() {
+
+            var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Long_Range_Darts);
+            var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Enhanced_Eyesight);
+            var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Spike_O_Pult);
+            var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Juggernaut);
+
+
+
+            var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Sharp_Shots);
+            var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Razor_Sharp_Shots);
+            var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Triple_Darts);
+            var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Super_Monkey_Fan_Club);
+
+            List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
+                upgrade_Left_1,
+                upgrade_Left_2,
+                upgrade_Left_3,
+                upgrade_Left_4
+            };
+            List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
+                upgrade_Right_1,
+                upgrade_Right_2,
+                upgrade_Right_3,
+                upgrade_Right_4
+            };
+            SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
+        }
+    }
+
+    public class BoomerangThrowerTowerStats : BaseTowerStats, Powerups.IPowerupable<BoomerangThrowerTowerStats> {
+        public BoomerangThrowerTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Boomerang_Thrower;
+            this.projectileEnum = GameControl.DictionaryController.Projectiles.Boomerang_Thrower_Default;
+
+            SetStats(_GoldCost: 400, _attackSpeed: 1/0.75f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 3, _penetration: 1, _projectileSpeed: 1000);
+        }
+
+        public void AddPowerup(PowerupBase<BoomerangThrowerTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public override void OnStart() {
+            SetProjectile();
+            base.OnStart();
+        }
+    }
+
+    public class NinjaMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<NinjaMonkeyTowerStats> {
+        public NinjaMonkeyTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Ninja_Monkey;
+            this.projectileEnum = GameControl.DictionaryController.Projectiles.Ninja_Monkey_Default;
+
+            SetStats(_GoldCost: 500, _attackSpeed: 1 / 1.67f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 2, _penetration: 1, _projectileSpeed: 4000);
+        }
+        public void AddPowerup(PowerupBase<NinjaMonkeyTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public override void OnStart() {
+            SetProjectile();
+            base.OnStart();
+        }
+    }
+
+    public class SniperMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<SniperMonkeyTowerStats> {
+        public SniperMonkeyTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Sniper_Monkey;
+
+            SetStats(_GoldCost: 350, _attackSpeed: 1 / 1.67f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: -1, _poppingPower: 1, _penetration: 2, _projectileSpeed: -1);
+        }
+        public void AddPowerup(PowerupBase<SniperMonkeyTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+    }
+
+    public class TackShooterTowerStats : BaseTowerStats, Powerups.IPowerupable<TackShooterTowerStats> {
+        public TackShooterTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Tack_Shooter;
+            this.projectileEnum = GameControl.DictionaryController.Projectiles.Tack_Shooter_Default;
+
+            SetStats(_GoldCost: 360, _attackSpeed: 1 / 0.6f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 2, _poppingPower: 1, _penetration: 1, _projectileSpeed: 1500);
+        }
+        public void AddPowerup(PowerupBase<TackShooterTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public override void OnStart() {
+            SetProjectile();
+            base.OnStart();
+        }
+    }
+    
+    public class TowerStats : Powerups.ITowerBase {
+
+        public TowerStats() {
+
+            Powerups = new List<IPowerup>();
+            projectileSpawnPoints = new List<Transform>();
+
+            }
+
+        public void SetDefaultStats() {
+
+            this.rotationOffset = -90f;
+            this.goldCost = 100;
+            this.attackSpeed = 0.5f;
+            this.damageType = GameControl.GameController.DamageTypes.Sharp;
+            this.firingRange = 3;
+            this.CamoDetection = false;
+            this.poppingPower = 1;
+            this.penetration = 1;
+            this.priceModifier = 1;
+            this.sellValueModifier = 0.8f;
+            this.upgradePaths = new TowerUpgradePath();
+
+        }
+
+        public void SetStats(int _GoldCost, float _attackSpeed, GameControl.GameController.DamageTypes _DamageType, float _firingRange, float _poppingPower, int _penetration, int _projectileSpeed) {
+            this.goldCost = _GoldCost;
+            this.attackSpeed = _attackSpeed;
+            this.damageType = _DamageType;
+            this.firingRange = _firingRange;
+            this.poppingPower = _poppingPower;
+            this.penetration = _penetration;
+            this.projectileSpeed = _projectileSpeed;
+        }
+
+        public void SetUpgradePaths(TowerUpgrade[] _leftUpgrades, TowerUpgrade[] _rightUpgrades) {
+            for (int i = 0; i < _leftUpgrades.Length; i++) {
+                if (_leftUpgrades[i] == null) return;
+                upgradePaths.leftUpgradePath[i] = _leftUpgrades[i];
+            }
+
+            for (int i = 0; i < _rightUpgrades.Length; i++) {
+                if (_rightUpgrades[i] == null) return;
+                upgradePaths.rightUpgradePath[i] = _rightUpgrades[i];
+            }
+            
+        }
+
+        public void DebugPrintStats() {
+            Debug.Log(this.towerEnum + ": Range: " + firingRange + ". Attack Speed: " + attackSpeed + ". Projectile: " + projectileEnum);
+        }
+
+        public Powerups.IPowerup GetPowerup(GameControl.DictionaryController.TowerUpgrades i) {
+            
+            foreach (Powerups.IPowerup _powerup in Powerups) {
+                if (_powerup.GetType() == i) {
+                    Debug.Log("Powerup : " + i);
+                    return _powerup;
+                }
+            }
+            return null;
+            // return Powerups.First(pu => pu.GetType() == i);
+        }
+
+        protected List<Powerups.IPowerup> Powerups { get; set; }
+        
+
 
         /// <summary>
         /// How quickly a Tower will shoot (in seconds).
         /// </summary>
         [Header("Balancing stats:")]
-        public float attackSpeed = 0.25f;
+        public float attackSpeed;
         
         /// <summary>
         /// Base Cost of the Tower.
         /// </summary>
         public int goldCost;
-        
+
         /// <summary>
         /// How far a tower is able to see, and by extension, how far it is able to damage. (Some exceptions to this rule, mainly Sniper Monkey).
         /// <para>This is directly altered by <see cref="EffectiveFiringRange"/>.</para>
         /// </summary>
-        public float firingRange = 3f;
+        public float firingRange;
+
+
+        public float despawnDistance;
+
+        public int projectileSpeed;
+        
+
     
         /// <summary>
         /// Whether a Tower can see Camo Bloons. If a projectile goes through a Camo bloon, it will be hit, however.
@@ -33,13 +249,13 @@ namespace Tower {
         /// Total number of pops one projectile can do before the projectile dissapears. This has no effect on some towers (primarily the Sniper Monkey)
         /// <para>A popping power of 10 will pop 10 different bloons before being removed from the game.</para>
         /// </summary>
-        public float poppingPower = 1;
+        public float poppingPower;
 
         /// <summary>
         /// Total number of layers each 'pop' will do to each bloon.
         /// <para>A penetration of 3 will completely remove 3 layers off of a bloon.</para>
         /// </summary>
-        public int penetration = 1;
+        public int penetration;
 
         /// <summary>
         /// There are 3 types of DamageTypes in this game. ('Sharp', 'Explosive' and 'Both). This determines which bloons the different Towers can damage.
@@ -110,10 +326,12 @@ namespace Tower {
         /// <summary>
         /// Pre-placed Transforms that represent where to spawn Projectiles, and which direction.
         /// </summary>
+        // public PositionRotationList projectileSpawnPoints;
+
         public List<Transform> projectileSpawnPoints;
 
         /// <summary>
-        /// Due to the way targetting works, if two colliders collide, it will target the Bloon. I want to use Round Numbers, and to do so, I have to adjust it so it scales to only target if the Collider is halfway in.
+        /// Due to the way targetting works, if two colliders collide, it will target the Bloon. Round Numbers are used for consistency, and to do so, it needs to be adjusted so it scales to only target if the Collider is halfway in.
         /// <para>See: <see cref="firingRange"/></para>
         /// </summary>
         public float EffectiveFiringRange {
@@ -156,7 +374,17 @@ namespace Tower {
         /// <para>See: <see cref="justShot"/></para>
         /// <para>See also: <seealso cref="aiming"/></para>
         /// </summary>
-        public float rotationDurationAfterShooting = 1 / 3f; // Time the Tower Stays aiming at the same spot after shooting (looks jiterry otherwise)
+        public float RotationDurationAfterShooting { // Time the Tower Stays aiming at the same spot after shooting (looks jiterry otherwise)
+            get {
+                if (attackSpeed > 1) {
+                    return 1 / 3;
+                }
+                else {
+                    return attackSpeed * 0.5f;
+                }
+                
+            }
+        }
 
         /// <summary>
         /// <para>For some time after shooting, The Tower will not change 'look direction'. This is to easily remember which Target it hit. </para>
@@ -175,5 +403,7 @@ namespace Tower {
         /// Only aims under 0 (Looks sharper and performs a lot better)
         /// </summary>
         public float aimCooldown;
+
+
     }
 }

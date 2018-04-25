@@ -34,9 +34,9 @@ public class TemplateScript : MonoBehaviour {
                 if (Input.GetMouseButtonDown(0)) {
 
                     GameControl.PlacementController.controllerObject.CreateTowerFamilyTree(tower, transform.position, Quaternion.identity);
-                    GameControl.InventoryController.controllerObject.gold -= tower.generalStats.goldCost;
+                    GameControl.InventoryController.controllerObject.gold -= tower.GetStats<Tower.BaseTowerStats>().goldCost;
 
-                    if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) || (tower.generalStats.goldCost > GameControl.InventoryController.controllerObject.gold)) {
+                    if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) || (tower.GetStats<Tower.BaseTowerStats>().goldCost > GameControl.InventoryController.controllerObject.gold)) {
                         GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
                     }
                 }

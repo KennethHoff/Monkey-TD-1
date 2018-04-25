@@ -50,7 +50,7 @@ namespace GameControl {
         public Image RightUpgrade_Upgrade4;
 
         Tower.StandardTower targettedTower;
-        TowerUpgradePath upgradePath;
+        TowerUpgradePath upgradePaths;
 
         private void Start() {
             UIC = GetComponent<UIController>();
@@ -59,24 +59,25 @@ namespace GameControl {
 
         private void LateUpdate() {
             if (UIC.targettedTower != null) {
+                
                 targettedTower = UIC.targettedTower;
-                upgradePath = targettedTower.generalStats.upgradePaths;
-                var name = UIC.targettedTower.generalStats.towerEnum.ToString();
+                upgradePaths = targettedTower.GetStats<Tower.BaseTowerStats>().upgradePaths;
+                var name = UIC.targettedTower.GetStats<Tower.BaseTowerStats>().towerEnum.ToString();
 
                 var newName = name.Replace("_", " ");
                 
-
-                WriteTowerIcon(targettedTower.generalStats.towerIcon);
                 WriteTowerName(newName);
-                WriteTowerPops(targettedTower.generalStats.towerPops);
-                WriteTowerSell(Mathf.RoundToInt(targettedTower.generalStats.sellValue));
-                WriteTargettingMode(targettedTower.generalStats.targettingState.ToString());
+                WriteTowerPops(targettedTower.GetStats<Tower.BaseTowerStats>().towerPops);
+                WriteTowerSell(Mathf.RoundToInt(targettedTower.GetStats<Tower.BaseTowerStats>().sellValue));
+                WriteTargettingMode(targettedTower.GetStats<Tower.BaseTowerStats>().targettingState.ToString());
 
-                WriteUpgradeInfo(true, targettedTower.generalStats.upgradePaths.currentLeftUpgrade);
+                if (upgradePaths != null) {
+                    WriteUpgradeInfo(true, upgradePaths.currentLeftUpgrade);
+                }
 
-                WriteUpgradeInfo(false, targettedTower.generalStats.upgradePaths.currentRightUpgrade);
-
-                //  ShowTargettingArea();
+                if (upgradePaths != null) {
+                    WriteUpgradeInfo(false, upgradePaths.currentRightUpgrade);
+                }
             }
         }
 
@@ -107,18 +108,22 @@ namespace GameControl {
             TMPro.TextMeshProUGUI _NextUpgrade_Name;
             TMPro.TextMeshProUGUI _NextUpgrade_Cost;
 
-            if (_Left) { 
-                _UpgradePath = upgradePath.leftUpgradePath;
+            if (_Left && (upgradePaths.leftUpgradePath[_currentUpgradeIndex] != null)) { 
+                _UpgradePath = upgradePaths.leftUpgradePath;
                 _NextUpgrade_Image = LeftUpgrade_Next_Image;
                 _NextUpgrade_Name = LeftUpgrade_Next_Name;
                 _NextUpgrade_Cost = LeftUpgrade_Next_Cost;
             }
-            else {
-                _UpgradePath = upgradePath.rightUpgradePath;
+            else if (upgradePaths.rightUpgradePath[_currentUpgradeIndex] != null) {
+                _UpgradePath = upgradePaths.rightUpgradePath;
                 _NextUpgrade_Image = RightUpgrade_Next_Image;
                 _NextUpgrade_Name = RightUpgrade_Next_Name;
                 _NextUpgrade_Cost = RightUpgrade_Next_Cost;
             }
+            else {
+                return;
+            }
+
 
             TowerUpgrade _CurrentUpgrade = null;
 

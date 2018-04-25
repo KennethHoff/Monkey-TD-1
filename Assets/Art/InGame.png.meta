@@ -12,6 +12,8 @@ TextureImporter:
     21300010: ninja_throwing_start
     21300012: tack_shooter_tack
     21300014: boomerang
+    21300016: camo_overlay
+    21300018: camo_regen_overlay
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -203,6 +205,34 @@ TextureImporter:
         y: 129
         width: 70
         height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: camo_overlay
+      rect:
+        serializedVersion: 2
+        x: 2870
+        y: 1282
+        width: 77
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: camo_regen_overlay
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 494
+        width: 117
+        height: 102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

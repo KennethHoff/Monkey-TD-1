@@ -4,25 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tower {
-
     public class BoomerangThrower : MonkeyTower {
-
-        public int numberOfSpins = 1;
+        public override T GetStats<T>() {
+            return boomerangThrowerTowerStats as T;
+        }
+        public BoomerangThrowerTowerStats boomerangThrowerTowerStats = new BoomerangThrowerTowerStats();
 
         protected override void Start() {
+            boomerangThrowerTowerStats = new BoomerangThrowerTowerStats();
+            Debug.Log(boomerangThrowerTowerStats.attackSpeed);
             base.Start();
         }
+        public int numberOfSpins = 1;
 
         protected override void Shoot() {
 
-            if (!(generalStats.projectileObject is Projectile.Boomerang)) {
+            if (!(boomerangThrowerTowerStats.projectileObject is Projectile.Boomerang)) {
                 Debug.LogError("Not shooting a boomerang!");
                 return;
             }
-            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(generalStats.projectileObject, transform.position, transform.rotation, generalStats.projectileSpawnPoints);
-            
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(GetStats<Tower.BaseTowerStats>().projectileObject, transform.position, transform.rotation);
+
             foreach (Projectile.Boomerang projectile in shotProjectileList) {
-                projectile.despawnDistance = generalStats.firingRange * 0.8f;
+                projectile.despawnDistance = GetStats<Tower.BaseTowerStats>().firingRange * 0.8f;
                 projectile.totalSpins = numberOfSpins;
             }
 

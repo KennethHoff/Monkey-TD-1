@@ -7,6 +7,8 @@ namespace GameControl {
     [CustomPropertyDrawer(typeof(TowerUpgrade))]
     public class TowerUpgradeDrawer : PropertyDrawer {
 
+        private float relativeHeight = 4;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             // base.OnGUI(position, property, label);
             // Using BeginProperty / EndProperty on the parent property means that
@@ -19,37 +21,50 @@ namespace GameControl {
             int indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-            Rect iconRect           = new Rect(position.x,                              position.y + 5,                             position.width * 0.5f - 5,  position.height/2.5f);
+            float ySpacing = 7.5f;
+            float positionHeight = position.height / relativeHeight;
 
-            Rect nameRect           = new Rect(position.x + position.width * 0.5f,      position.y + 5,                             position.width * 0.35f,     position.height/2.5f);
 
-            Rect costRect           = new Rect(position.x + position.width * 0.85f + 5, position.y + 5,                             position.width * 0.15f - 5, position.height/2.5f);
+            Rect nameRect           = new Rect(position.x,                              position.y + 5,                                     position.width * 0.6f - 5,  positionHeight);
 
-            Rect descriptionRect    = new Rect(position.x,                              position.y + 5 + position.height/2.5f+2.5f, position.width,             position.height/2.5f);
+            Rect iconRect           = new Rect(position.x + position.width * 0.6f,      position.y + 5,                                     position.width * 0.4f,      positionHeight);
 
-            SerializedProperty iconProperty = property.FindPropertyRelative("upgradeIcon");
-            SerializedProperty nameProperty = property.FindPropertyRelative("upgradeName");
-            SerializedProperty costProperty = property.FindPropertyRelative("upgradeCost");
-            SerializedProperty descriptionPropery = property.FindPropertyRelative("upgradeDescription");
 
-            EditorGUIUtility.labelWidth = 35;
-            EditorGUI.PropertyField(iconRect, iconProperty, new GUIContent("Icon"));
+            Rect enumRect           = new Rect(position.x,                              position.y + positionHeight + ySpacing,             position.width * 0.75f,     positionHeight);
+
+            Rect costRect           = new Rect(position.x + position.width * 0.75f + 5, position.y + positionHeight + ySpacing,             position.width * 0.25f - 5, positionHeight);
+
+
+            Rect descriptionRect    = new Rect(position.x,                              position.y + 2 * positionHeight + ySpacing*1.5f,    position.width,             positionHeight);
+
+            SerializedProperty iconProperty         = property.FindPropertyRelative("upgradeIcon");
+            SerializedProperty nameProperty         = property.FindPropertyRelative("upgradeName");
+            SerializedProperty enumProperty         = property.FindPropertyRelative("upgradeEnum");
+            SerializedProperty costProperty         = property.FindPropertyRelative("upgradeCost");
+            SerializedProperty descriptionPropery   = property.FindPropertyRelative("upgradeDescription");
+
+            float labelWidth = EditorGUIUtility.labelWidth;
 
             EditorGUIUtility.labelWidth = 40;
+            EditorGUI.PropertyField(iconRect, iconProperty, new GUIContent("Icon"));
+            
             EditorGUI.PropertyField(nameRect, nameProperty, new GUIContent("Name"));
-
-            EditorGUIUtility.labelWidth = 35;
+            
             EditorGUI.PropertyField(costRect, costProperty, new GUIContent("Cost"));
 
-            EditorGUIUtility.labelWidth = 70;
+            EditorGUIUtility.labelWidth = 75;
             EditorGUI.PropertyField(descriptionRect, descriptionPropery, new GUIContent("Description"));
+            
+            EditorGUI.PropertyField(enumRect, enumProperty, new GUIContent("Enum"));
+
+            EditorGUIUtility.labelWidth = labelWidth;
 
             EditorGUI.EndProperty();
 
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) {
-            return base.GetPropertyHeight(property, label)*2.5f;
+            return base.GetPropertyHeight(property, label) * relativeHeight;
         }
     }
 }
