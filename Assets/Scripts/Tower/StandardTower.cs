@@ -16,6 +16,7 @@ namespace Tower {
 
         protected virtual void Start() {
 
+
             GetStats<BaseTowerStats>().OnStart();
 
 
@@ -44,33 +45,50 @@ namespace Tower {
         }
 
         protected virtual void FixedUpdate() {
+            var towerStats = GetStats<BaseTowerStats>();
+            towerStats.SetUpgradeIndex();
             // Barebones implementation -- Override at your leasure
             // Everything else depends on the Tower. (Nova Towers do not aim, therefore all of that is unnecessary. 
             // The only thing that is universal for every kind of tower, is that all of them does something on a regular basis ("firing cooldown"), be it shooting, freezing etc..
             // ... Except for Monkey Village, which is just a Area-of-Effect Buff (will do that if/when I get there..)
 
             if (GameControl.WaveSpawner.controllerObject.waveActive) {
-                GetStats<BaseTowerStats>().firingCooldown -= Time.fixedDeltaTime;
+                 towerStats.firingCooldown -= Time.fixedDeltaTime;
             }
-            else GetStats<BaseTowerStats>().firingCooldown = -1;
+            else towerStats.firingCooldown = -1;
         }
 
-        protected virtual Collider2D[] GetEnemiesInRange() {
-            if (GetStats<BaseTowerStats>().firingRange != -1)
-                return Physics2D.OverlapCircleAll(transform.position, GetStats<BaseTowerStats>().EffectiveFiringRange, GameControl.PlacementController.controllerObject.enemyLayer);
-            else return Physics2D.OverlapBoxAll(transform.position, Vector2.one * 100, GameControl.PlacementController.controllerObject.enemyLayer);
+        protected virtual Collider2D[] GetEnemiesInRange(Tower.BaseTowerStats _towerStats) {
+            if (_towerStats.firingRange != -1)
+                 return Physics2D.OverlapCircleAll(transform.position, _towerStats.EffectiveFiringRange, GameControl.PlacementController.controllerObject.enemyLayer);
+            else return Physics2D.OverlapCircleAll(transform.position, 100,                              GameControl.PlacementController.controllerObject.enemyLayer);
         }
 
         protected virtual Collider2D[] GetVisibleEnemiesInRange() {
-            var colls = GetEnemiesInRange();
-            
-            if (GetStats<BaseTowerStats>().CamoDetection == true) {
+
+            var towerStats = this.GetStats<BaseTowerStats>();
+
+            if (towerStats == null) {
+                Debug.Log("No stats accessible in GetVisibleEnemiesInRange");
+                return null;
+            }
+            var colls = GetEnemiesInRange(towerStats);
+                        
+            if (towerStats.CamoDetection == true || colls.Length <= 0) {
                 return colls;
             }
 
             List<Collider2D> collsNew = new List<Collider2D>();
             foreach (Collider2D coll in colls) {
-                if (coll.GetComponent<Bloon.StandardBloon>().camo) {
+
+                if (coll.GetComponent<Bloon.StandardBloon>() == null) {
+                    Debug.LogError("Collision is not a bloon!!" + coll.name);
+                    return null;
+                }
+
+                var bloon = coll.GetComponent<Bloon.StandardBloon>();
+                var camo = bloon.camo;
+                if (!camo) {
                     collsNew.Add(coll);
                 }
             }
@@ -158,7 +176,9 @@ namespace Tower {
         /// <param name="_Left"></param>
         public void UpgradeTower(bool _Left) {
 
-            var upgradePaths = GetStats<BaseTowerStats>().upgradePaths;
+            var towerStats = GetStats<BaseTowerStats>();
+
+            var upgradePaths = towerStats.upgradePaths;
             TowerUpgrade[] currentPath;
             int currentInt;
             TowerUpgrade currentTowerUpgrade;
@@ -171,18 +191,22 @@ namespace Tower {
                 currentPath = upgradePaths.rightUpgradePath;
                 currentInt = upgradePaths.currentRightUpgrade;
             }
-            currentTowerUpgrade = currentPath[currentInt];
-            if (currentTowerUpgrade == null) {
-                return;
-            }
+
+
+
             if (currentInt < currentPath.Length) {
 
-                if (GameControl.InventoryController.controllerObject.gold >= currentTowerUpgrade.upgradeCost * GetStats<BaseTowerStats>().priceModifier) {
-                    GameControl.InventoryController.controllerObject.gold -= currentTowerUpgrade.upgradeCost * GetStats<BaseTowerStats>().priceModifier;
+                currentTowerUpgrade = currentPath[currentInt];
+                if (currentTowerUpgrade == null) {
+                    return;
+                }
 
-                    GetStats<BaseTowerStats>().sellValue += currentTowerUpgrade.upgradeCost * GetStats<BaseTowerStats>().priceModifier * GetStats<BaseTowerStats>().sellValueModifier;
+                if (GameControl.InventoryController.controllerObject.gold >= currentTowerUpgrade.upgradeCost * towerStats.priceModifier) {
+                    GameControl.InventoryController.ChangeGold(Mathf.RoundToInt( -currentTowerUpgrade.upgradeCost * towerStats.priceModifier));
+
+                    towerStats.sellValue += currentTowerUpgrade.upgradeCost * towerStats.priceModifier * towerStats.sellValueModifier;
                     
-                    var powerup = GetStats<BaseTowerStats>().GetPowerup(currentTowerUpgrade.upgradeEnum);
+                    var powerup = towerStats.GetPowerup(currentTowerUpgrade.upgradeEnum);
 
                     if (powerup != null) {
                         Debug.Log("Upgrade: " + currentTowerUpgrade.upgradeName + " unlocked.");
@@ -191,17 +215,18 @@ namespace Tower {
                     else {
                         Debug.LogError("Upgrade " + currentTowerUpgrade.upgradeName + " unable to be unlocked.");
                     }
-
+                    
+                    if (_Left) {
+                        towerStats.upgradePaths.currentLeftUpgrade++;
+                    }
+                    else {
+                        towerStats.upgradePaths.currentRightUpgrade++;
+                    }
+                    Debug.Log("Tower Upgraded. Now: " + upgradePaths.currentLeftUpgrade + " | " + upgradePaths.currentRightUpgrade);
                 }
             }
-
-            if (_Left) {
-                GetStats<BaseTowerStats>().upgradePaths.currentLeftUpgrade++;
-            }
-            else {
-                GetStats<BaseTowerStats>().upgradePaths.currentRightUpgrade++;
-            }
-            Debug.Log("Tower Upgraded. Now: " + upgradePaths.currentLeftUpgrade + " | " + upgradePaths.currentRightUpgrade);
         }
+
+
     }
 }

@@ -36,17 +36,19 @@ public class WaveButton : MonoBehaviour {
     }
 
     private void ButtonClicked() {
-        if (state == ButtonStates.StartWave) {
-            ChangeState(ButtonStates.activateFF);
-            GameControl.WaveSpawner.controllerObject.StartNextWave();
-        }
-        else if (state == ButtonStates.activateFF) { // Click to speed up
-            GameControl.GameController.controllerObject.fastForward = true;
-            ChangeState(ButtonStates.deactivateFF);
-        }
-        else if (state == ButtonStates.deactivateFF) { // Click to Slow down
-            GameControl.GameController.controllerObject.fastForward = false;
-            ChangeState(ButtonStates.activateFF);
+        if (GameControl.WaveSpawner.controllerObject.state != GameControl.WaveSpawner.SpawnState.GameOver) {
+            if (state == ButtonStates.StartWave) {
+                ChangeState(ButtonStates.activateFF);
+                GameControl.WaveSpawner.controllerObject.StartNextWave();
+            }
+            else if (state == ButtonStates.activateFF) { // Click to speed up
+                GameControl.GameController.controllerObject.fastForward = true;
+                ChangeState(ButtonStates.deactivateFF);
+            }
+            else if (state == ButtonStates.deactivateFF) { // Click to Slow down
+                GameControl.GameController.controllerObject.fastForward = false;
+                ChangeState(ButtonStates.activateFF);
+            }
         }
     }
     private void ChangeState(ButtonStates _state) {

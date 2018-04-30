@@ -26,36 +26,12 @@ namespace GameControl {
         private void Awake() {
             controllerObject = GetComponent<InventoryController>();
         }
-        private void Start() {
-            switch (GameController.controllerObject.difficulty) {
-                case GameController.Difficulties.Easy:
-                    startGold = 650;
-                    startLife = 200;
-                    //Debug.Log("Difficulty : Easy");
-                    break;
-                case GameController.Difficulties.Normal:
-                    startGold = 650;
-                    startLife = 150;
-                    //Debug.Log("Difficulty : Normal");
-                    break;
-                case GameController.Difficulties.Hard:
-                    startGold = 650;
-                    startLife = 100;
-                    //Debug.Log("Difficulty : Hard");
-                    break;
-                case GameController.Difficulties.Impoppable:
-                    startGold = 650;
-                    startLife = 1;
-                    //Debug.Log("Difficulty : Impoppable");
-                    break;
-                default:
-                    Debug.Log("Difficulty NOT SET");
-                    break;
-            }
 
-            gold = startGold;
-            life = startLife;
+        private void Start() {
+            SetStartValues();
         }
+
+        
 
         private void LateUpdate() {
             if (gold >= goldCap) {
@@ -85,6 +61,36 @@ namespace GameControl {
         public static void ChangeGold(int _Gold) {
             controllerObject.gold += _Gold * controllerObject.goldGainMultiplier;
             // Debug.Log("Life changed: " + _Gold + ". Currently: " + controllerObject.gold);
+        }
+        internal static void SetStartValues() {
+            switch (GameController.controllerObject.difficulty) {
+                case GameController.Difficulties.Easy:
+                    controllerObject.startGold = 650;
+                    controllerObject.startLife = 200;
+                    //Debug.Log("Difficulty : Easy");
+                    break;
+                case GameController.Difficulties.Normal:
+                    controllerObject.startGold = 650;
+                    controllerObject.startLife = 150;
+                    //Debug.Log("Difficulty : Normal");
+                    break;
+                case GameController.Difficulties.Hard:
+                    controllerObject.startGold = 650;
+                    controllerObject.startLife = 100;
+                    //Debug.Log("Difficulty : Hard");
+                    break;
+                case GameController.Difficulties.Impoppable:
+                    controllerObject.startGold = 650;
+                    controllerObject.startLife = 1;
+                    //Debug.Log("Difficulty : Impoppable");
+                    break;
+                default:
+                    Debug.Log("Difficulty NOT SET");
+                    break;
+            }
+
+            controllerObject.gold = controllerObject.startGold;
+            controllerObject.life = controllerObject.startLife;
         }
     }
 }

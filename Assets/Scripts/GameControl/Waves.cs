@@ -18,8 +18,7 @@ namespace GameControl {
 
         [HideInInspector]
         public Bloon.StandardBloon bloonPrefab;
-        [Space]
-        public int TotalSetRBE;
+        [ReadOnly]public int TotalSetRBE;
 
         public void SetDerivedAttributes() {
             bloonPrefab = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Enum(bloonEnum);

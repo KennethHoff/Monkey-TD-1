@@ -2,10 +2,11 @@ WindowsStandalone
 SceneListBegin?
 Assets/Scenes/Foundation.unity
 SceneListEnd?
+6a2c650bb55df018e39b5ce2b50cdc8d Assembly-CSharp.dll:.UpgradeButton
 262f13b5160596d7a4c47a4f1346ae30 Assembly-CSharp.dll:GameControl.PlacementController
 75cd0c6c744b9733ef29aa6c59ece2b1 Assembly-CSharp.dll:TMPro.Examples.VertexZoom
 c906602d9b43cc5e075f80e1d8ae7c79 Assembly-CSharp.dll:TMPro.Examples.Benchmark01_UGUI
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.NovaTower
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.NovaTower
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -18,8 +19,9 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.PinkBloon
-34dffbaeea81551ed2c5b59f36f077a9 Assembly-CSharp.dll:Projectile.Boomerang
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.PinkBloon
+85621548110ede231b9c476a2888ee63 Assembly-CSharp.dll:.MapController
+212221839a98a2724997232682d08384 Assembly-CSharp.dll:Projectile.Boomerang
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -86,7 +88,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 6a492d7b8465b2c00d15794caa46ec2e Assembly-CSharp.dll:TMPro.Examples.TMPro_InstructionOverlay
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:GameControl.BloonSpawner
-530d22fba9db7b397991df76e281ddb5 Assembly-CSharp.dll:GameControl.DictionaryController
+b7ace2a09296fed560b1264b3855e955 Assembly-CSharp.dll:GameControl.DictionaryController
 765037da3d8faeee91e39d672b924c61 Assembly-CSharp.dll:.EnvMapAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -100,8 +102,8 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 31aaf521b3ef8699466676591ea0efd4 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 df374c01140c2d578bf70cbd60073d1d UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-73fb0638b0c03b914371b05c8eaf16c9 Assembly-CSharp.dll:Projectile.Tack
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.DartMonkey
+cab05a38ec818cca091b543802691ffc Assembly-CSharp.dll:Projectile.Tack
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.DartMonkey
 76015de5fcb247eeb8df66c001d5a22d Assembly-CSharp.dll:TMPro.Examples.TMP_UiFrameRateCounter
 75cd0c6c744b9733ef29aa6c59ece2b1 Assembly-CSharp.dll:TMPro.Examples.VertexJitter
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
@@ -122,7 +124,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.TMP_PhoneNumberValidator
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.TowerParent
 1957a9369e72d2661ae9d0de26e7d064 Assembly-CSharp.dll:TMPro.Examples.WarpTextExample
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.StandardBloon
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.StandardBloon
 f4bd1aee67eeef7953cce6c44588b3d7 TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TextContainer
 8e879b98cad4aa17a0beef746daecd35 TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TextMeshPro
 cdb4459900f4743ae0e8ca5a2c3a821a TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TextMeshProUGUI
@@ -140,11 +142,11 @@ e763036081c708b34f78f5a56f72c23d TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TMP
 136f28bae18bcd1072d830ee3456f3ab TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TMP_SubMesh
 5833a86cc374f497ae8d9fb9d8c3e5f4 TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TMP_SubMeshUI
 d672cee35261f9935d5ce974c746730f TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TMP_Text
-31638840fce106821a839b00e369216c Assembly-CSharp.dll:GameControl.GameController
+c979ca4ca997a77f6edad9efd7ca1474 Assembly-CSharp.dll:GameControl.GameController
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.SniperMonkey
-032e27c406c0d4b4f20b5731b1b06b82 Assembly-CSharp.dll:.WayPoints
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.SniperMonkey
+959a0c2b7ec08f6b9efd7bb7b2e22ecf Assembly-CSharp.dll:Bloon.WayPoints
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.InputController
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -153,7 +155,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 50a0fa002cfc67638c87a901e46b763e Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_B
 020550babdb991365f61c5bffe1f4f52 Assembly-CSharp.dll:TMPro.Examples.Benchmark03
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.BlackBloon
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.BlackBloon
 b9332c0eee630779376843b5343eb250 Assembly-CSharp.dll:TMPro.Examples.TMP_TextInfoDebugTool
 f4bd1aee67eeef7953cce6c44588b3d7 TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TextContainer
 8e879b98cad4aa17a0beef746daecd35 TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TextMeshPro
@@ -175,9 +177,10 @@ d672cee35261f9935d5ce974c746730f TextMeshPro-2017.3-1.0.56-Runtime.dll:TMPro.TMP
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_A
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ParentController
 b900ead596b2fb1093b31cb63a678767 Assembly-CSharp.dll:TMPro.Examples.TextMeshProFloatingText
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.GreenBloon
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.GreenBloon
 65ad82f40d4cca32c7a500f968711150 Assembly-CSharp.dll:GameControl.PathController
 dad1c1272dfe1898bb613dcb2631bcce Assembly-CSharp.dll:TMPro.Examples.Benchmark02
+cfb1b9cb90d00154ea264a5bd2fc268c Assembly-CSharp.dll:GameControl.Tooltip
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ProjectileParent
 05524b8f659e7bfe5756d1335fec24ba TextMeshPro-2017.3-1.0.56-Editor.dll:TMPro.EditorUtilities.DropdownEditor
 05524b8f659e7bfe5756d1335fec24ba TextMeshPro-2017.3-1.0.56-Editor.dll:TMPro.EditorUtilities.TMP_ColorGradientEditor
@@ -200,9 +203,9 @@ a8ed45ab553b07236625df6cc6ac449c TextMeshPro-2017.3-1.0.56-Editor.dll:TMPro.Edit
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.TeleType
-365df240d18d9d5e38c075c609a2ec08 Assembly-CSharp.dll:Bloon.LeadBloon
-73fb0638b0c03b914371b05c8eaf16c9 Assembly-CSharp.dll:Projectile.StandardProjectile
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.YellowBloon
+983c91fc566feb3b5340992337b86a69 Assembly-CSharp.dll:Bloon.LeadBloon
+cab05a38ec818cca091b543802691ffc Assembly-CSharp.dll:Projectile.StandardProjectile
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.YellowBloon
 8a50d3d11bf0cc541f5c35347dd25633 Assembly-CSharp.dll:TMPro.Examples.ShaderPropAnimator
 9baafe3bf02e3e17bdab81bde83e1acd Mini Profiler.dll:kleberswf.tools.miniprofiler.FramerateValueProvider
 bb682ba95c07e796dda5d7a15bb8074b Mini Profiler.dll:kleberswf.tools.util.KeyboardShortcut
@@ -232,9 +235,9 @@ ed89a9b31ed5c150159536a8cbeae336 Assembly-CSharp.dll:.WaveButton
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 aa9d1bd0cc771545f2ae1f63a6d0ed6a Assembly-CSharp.dll:TMPro.Examples.TMP_TextEventCheck
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
-77b4e9319a8ec6c7d3a9b2fabc0200be Assembly-CSharp.dll:GameControl.TargetHUD
+b431e492bfce07e1755ee0e089199f99 Assembly-CSharp.dll:GameControl.TargetHUD
 f0f0ab6b8a39d0572cfa4ea315d84fbf Assembly-CSharp.dll:TMPro.Examples.Benchmark04
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.NinjaMonkey
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.NinjaMonkey
 29273f491d11f6bdd02a43a9d8df84c7 Assembly-CSharp.dll:TMPro.Examples.TMP_ExampleScript_01
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -245,26 +248,26 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PathingParent
 48a9dee325686d1924a2646b71c83f08 Assembly-CSharp.dll:TMPro.Examples.Benchmark01
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-fbfa4d4a494fbcce153edcc6808f0c72 Assembly-CSharp.dll:GameControl.UIController
+8b7de620efa64e465e0229ced5a00361 Assembly-CSharp.dll:GameControl.UIController
 2f36cea59b1191df601c29dfb7fe0664 Assembly-CSharp.dll:.TemplateScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.TextConsoleSimulator
 3cc77d41407cc4ca7173bca1ccfada46 Assembly-CSharp.dll:GameControl.InventoryController
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.StandardTower
-3bb408bdb434afa1ebe20cdec38b1f64 Assembly-CSharp.dll:.TowerSelector
-73fb0638b0c03b914371b05c8eaf16c9 Assembly-CSharp.dll:Projectile.Dart
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.StandardTower
+57bfd04fe871e6fa391c74b7e22e7cd0 Assembly-CSharp.dll:.TowerSelector
+cab05a38ec818cca091b543802691ffc Assembly-CSharp.dll:Projectile.Dart
 75cd0c6c744b9733ef29aa6c59ece2b1 Assembly-CSharp.dll:TMPro.Examples.VertexShakeB
-73fb0638b0c03b914371b05c8eaf16c9 Assembly-CSharp.dll:Projectile.ThrowingStar
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.MonkeyTower
+cab05a38ec818cca091b543802691ffc Assembly-CSharp.dll:Projectile.ThrowingStar
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.MonkeyTower
 afc52d27c3ec0bd47909e81bd45fbffa Assembly-CSharp.dll:TMPro.TMP_TextEventHandler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.VertexColorCycler
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpawnPoint
 020550babdb991365f61c5bffe1f4f52 Assembly-CSharp.dll:TMPro.Examples.TextMeshSpawner
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.BlueBloon
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.BlueBloon
 cd90e207aa7bb39aa3ef04b66cfd940f Assembly-CSharp.dll:GameControl.WaveSpawner
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SettingsMenuButton
 af7666733efcc974926d7d470e1732a6 Assembly-CSharp.dll:TMPro.Examples.SkewTextExample
-0df008a4d258112719d959b09f0eeba2 Assembly-CSharp.dll:Tower.BoomerangThrower
-83ede0e6107150ebbd4e0e768e01db5c Assembly-CSharp.dll:Bloon.RedBloon
-19100666b6b4c3aea12c459e4de52e2b Assembly-CSharp.dll:Tower.TackShooter
+9c9531cd2b02c9169f319b331c39973c Assembly-CSharp.dll:Tower.BoomerangThrower
+f7a9d91e1a9be6d2d4198aab657fac86 Assembly-CSharp.dll:Bloon.RedBloon
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Tower.TackShooter
 34e025057ef78b1bf238460cdf6583a3 Assembly-CSharp.dll:TMPro.Examples.ObjectSpin
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TMPro.Examples.SimpleScript

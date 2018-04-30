@@ -14,6 +14,7 @@ TextureImporter:
     21300014: boomerang
     21300016: camo_overlay
     21300018: camo_regen_overlay
+    21300020: spikeopult_ball
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -220,7 +221,7 @@ TextureImporter:
         width: 77
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -233,6 +234,20 @@ TextureImporter:
         y: 494
         width: 117
         height: 102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spikeopult_ball
+      rect:
+        serializedVersion: 2
+        x: 1648
+        y: 18
+        width: 52
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

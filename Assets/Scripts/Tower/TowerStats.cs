@@ -10,13 +10,12 @@ namespace Tower {
 
         public BaseTowerStats() {
             SetDefaultStats();
-            //Debug.Log("Default: " + attackSpeed);
+            
         }
 
         protected void SetProjectile() {
             if (projectileEnum != GameControl.DictionaryController.Projectiles.Undefined) { 
-                projectileObject = GameControl.DictionaryController.RetrieveProjectileFromProjectileDictionary_Enum(projectileEnum);
-                Debug.Log("Projectile set: " + projectileEnum);
+                projectileObject = GameControl.DictionaryController.RetrieveProjectileFromProjectileDictionary_Enum(projectileEnum).projectileObject;
             }
             else Debug.LogWarning("No Projectile set for: " + towerEnum);
         }
@@ -32,6 +31,10 @@ namespace Tower {
         public virtual TowerUpgrade GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades _enum) {
             return GameControl.DictionaryController.RetrieveTowerUpgradeFromTowerUpgradeDictionary_Enum(_enum);
         }
+
+        protected virtual void SetUpgradePaths() {
+
+        }
     }
 
     public class DartMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<DartMonkeyTowerStats> {
@@ -41,6 +44,8 @@ namespace Tower {
             this.projectileEnum = GameControl.DictionaryController.Projectiles.Dart_Monkey_Default;
             
             SetStats(_GoldCost: 200, _attackSpeed: 1 / 1.03f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 1, _penetration: 1, _projectileSpeed: 2500);
+
+            SetDescription("Dart Monkey", KeyCode.Q, "Medium Range.\nMedium Firing Speed\nPops 1 bloon");
 
         }
         public void AddPowerup(PowerupBase<DartMonkeyTowerStats> _Powerup) {
@@ -52,33 +57,128 @@ namespace Tower {
             SetUpgradePaths();
             base.OnStart();
         }
-
-
-        private void SetUpgradePaths() {
+        
+        protected override void SetUpgradePaths() {
 
             var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Long_Range_Darts);
             var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Enhanced_Eyesight);
             var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Spike_O_Pult);
             var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Juggernaut);
 
-
-
+            
             var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Sharp_Shots);
             var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Razor_Sharp_Shots);
             var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Triple_Darts);
             var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Super_Monkey_Fan_Club);
 
+
             List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
                 upgrade_Left_1,
                 upgrade_Left_2,
-                upgrade_Left_3,
-                upgrade_Left_4
+                //upgrade_Left_3,
+                //upgrade_Left_4
             };
             List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
                 upgrade_Right_1,
                 upgrade_Right_2,
-                upgrade_Right_3,
-                upgrade_Right_4
+                //upgrade_Right_3,
+                //upgrade_Right_4
+            };
+            SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
+        }
+    }
+
+    public class TackShooterTowerStats : BaseTowerStats, Powerups.IPowerupable<TackShooterTowerStats> {
+        public TackShooterTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Tack_Shooter;
+            this.projectileEnum = GameControl.DictionaryController.Projectiles.Tack_Shooter_Default;
+
+            SetStats(_GoldCost: 360, _attackSpeed: 1 / 0.6f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 2, _poppingPower: 1, _penetration: 1, _projectileSpeed: 1500);
+
+            SetDescription("Tack Shooter", KeyCode.W, "Short Range\nSlow Firing Speed\n\nShoots 8 tacks in a circle around the Tower");
+        }
+        public void AddPowerup(PowerupBase<TackShooterTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public override void OnStart() {
+            SetProjectile();
+            SetUpgradePaths();
+            base.OnStart();
+        }
+
+        protected override void SetUpgradePaths() {
+
+            var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Faster_Shooting);
+            var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Even_Faster_Shooting);
+            var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Tack_Sprayer);
+            var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Ring_Of_Fire);
+
+
+            var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Extra_Range_Tacks);
+            var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Super_Range_Tacks);
+            var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Blade_Shooter);
+            var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Tack_Shooter_Blade_Maelstrom);
+
+
+            List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
+                upgrade_Left_1,
+                upgrade_Left_2,
+                //upgrade_Left_3,
+                //upgrade_Left_4
+            };
+            List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
+                upgrade_Right_1,
+                upgrade_Right_2,
+                //upgrade_Right_3,
+                //upgrade_Right_4
+            };
+            SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
+        }
+    }
+
+    public class SniperMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<SniperMonkeyTowerStats> {
+        public SniperMonkeyTowerStats() {
+            this.towerEnum = GameControl.DictionaryController.Towers.Sniper_Monkey;
+
+            SetStats(_GoldCost: 350, _attackSpeed: 1 / 0.45f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: -1, _poppingPower: 1, _penetration: 2, _projectileSpeed: -1);
+
+            SetDescription("Sniper Monkey", KeyCode.E, "Unlimited Range\nPenetrates 2 layers\nSlow firing speed");
+        }
+        public void AddPowerup(PowerupBase<SniperMonkeyTowerStats> pu) {
+            this.Powerups.Add(pu);
+        }
+
+        public override void OnStart() {
+            SetUpgradePaths();
+            base.OnStart();
+        }
+
+        protected override void SetUpgradePaths() {
+
+            var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Full_Metal_Jacket);
+            var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Point_Five_Oh);
+            var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Deadly_Precision);
+            var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Cripple_MOAB);
+
+
+            var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Faster_Firing);
+            var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Night_Vision_Goggles);
+            var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Semi_Automatic_Rifle);
+            var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Sniper_Monkey_Supply_Drop);
+
+
+            List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
+                upgrade_Left_1,
+                upgrade_Left_2,
+                //upgrade_Left_3,
+                //upgrade_Left_4
+            };
+            List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
+                upgrade_Right_1,
+                upgrade_Right_2,
+                //upgrade_Right_3,
+                //upgrade_Right_4
             };
             SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
         }
@@ -90,6 +190,8 @@ namespace Tower {
             this.projectileEnum = GameControl.DictionaryController.Projectiles.Boomerang_Thrower_Default;
 
             SetStats(_GoldCost: 400, _attackSpeed: 1/0.75f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 3, _penetration: 1, _projectileSpeed: 1000);
+
+            SetDescription("Boomerang Thrower", KeyCode.R, "Medium Range\nMedium Firing Speed\n\nShoots a Boomerang that returns back to the Tower");
         }
 
         public void AddPowerup(PowerupBase<BoomerangThrowerTowerStats> pu) {
@@ -98,7 +200,37 @@ namespace Tower {
 
         public override void OnStart() {
             SetProjectile();
+            SetUpgradePaths();
             base.OnStart();
+        }
+
+        protected override void SetUpgradePaths() {
+
+            var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Multi_Target);
+            var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Glaive_Thrower);
+            var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Glaive_Ricochet);
+            var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Glaive_Lord);
+
+
+            var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Sonic_Boom);
+            var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Red_Hot_Rangs);
+            var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Bionic_Boomer);
+            var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Boomerang_Thrower_Turbo_Charge);
+
+
+            List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
+                upgrade_Left_1,
+                upgrade_Left_2,
+                //upgrade_Left_3,
+                //upgrade_Left_4
+            };
+            List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
+                upgrade_Right_1,
+                upgrade_Right_2,
+                //upgrade_Right_3,
+                //upgrade_Right_4
+            };
+            SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
         }
     }
 
@@ -108,6 +240,8 @@ namespace Tower {
             this.projectileEnum = GameControl.DictionaryController.Projectiles.Ninja_Monkey_Default;
 
             SetStats(_GoldCost: 500, _attackSpeed: 1 / 1.67f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 2, _penetration: 1, _projectileSpeed: 4000);
+
+            SetDescription("Ninja Monkey", KeyCode.T, "Medium Range\nFast Firing Speed");
         }
         public void AddPowerup(PowerupBase<NinjaMonkeyTowerStats> pu) {
             this.Powerups.Add(pu);
@@ -115,37 +249,42 @@ namespace Tower {
 
         public override void OnStart() {
             SetProjectile();
+            SetUpgradePaths();
             base.OnStart();
         }
+
+        protected override void SetUpgradePaths() {
+
+            var upgrade_Left_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Ninja_Discipline);
+            var upgrade_Left_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Sharp_Shuriken);
+            var upgrade_Left_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Double_Shot);
+            var upgrade_Left_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Bloonjitsu);
+
+
+            var upgrade_Right_1 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Seeking_Shuriken);
+            var upgrade_Right_2 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Distraction);
+            var upgrade_Right_3 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Flash_Bomb);
+            var upgrade_Right_4 = GetTowerUpgrade(GameControl.DictionaryController.TowerUpgrades.Ninja_Monkey_Sabotage_Supply_Lines);
+
+
+            List<TowerUpgrade> leftUpgradePath = new List<TowerUpgrade> {
+                upgrade_Left_1,
+                upgrade_Left_2,
+                //upgrade_Left_3,
+                //upgrade_Left_4
+            };
+            List<TowerUpgrade> rightUpgradePath = new List<TowerUpgrade> {
+                upgrade_Right_1,
+                upgrade_Right_2,
+                //upgrade_Right_3,
+                //upgrade_Right_4
+            };
+            SetUpgradePaths(leftUpgradePath.ToArray(), rightUpgradePath.ToArray());
+        }
+
     }
 
-    public class SniperMonkeyTowerStats : BaseTowerStats, Powerups.IPowerupable<SniperMonkeyTowerStats> {
-        public SniperMonkeyTowerStats() {
-            this.towerEnum = GameControl.DictionaryController.Towers.Sniper_Monkey;
 
-            SetStats(_GoldCost: 350, _attackSpeed: 1 / 1.67f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: -1, _poppingPower: 1, _penetration: 2, _projectileSpeed: -1);
-        }
-        public void AddPowerup(PowerupBase<SniperMonkeyTowerStats> pu) {
-            this.Powerups.Add(pu);
-        }
-    }
-
-    public class TackShooterTowerStats : BaseTowerStats, Powerups.IPowerupable<TackShooterTowerStats> {
-        public TackShooterTowerStats() {
-            this.towerEnum = GameControl.DictionaryController.Towers.Tack_Shooter;
-            this.projectileEnum = GameControl.DictionaryController.Projectiles.Tack_Shooter_Default;
-
-            SetStats(_GoldCost: 360, _attackSpeed: 1 / 0.6f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 2, _poppingPower: 1, _penetration: 1, _projectileSpeed: 1500);
-        }
-        public void AddPowerup(PowerupBase<TackShooterTowerStats> pu) {
-            this.Powerups.Add(pu);
-        }
-
-        public override void OnStart() {
-            SetProjectile();
-            base.OnStart();
-        }
-    }
     
     public class TowerStats : Powerups.ITowerBase {
 
@@ -182,6 +321,12 @@ namespace Tower {
             this.projectileSpeed = _projectileSpeed;
         }
 
+        public void SetDescription(string _name, KeyCode _keyCode, string _description) {
+            this.towerName = _name;
+            this.hotkey = _keyCode;
+            this.towerDescription = _description;
+        }
+
         public void SetUpgradePaths(TowerUpgrade[] _leftUpgrades, TowerUpgrade[] _rightUpgrades) {
             for (int i = 0; i < _leftUpgrades.Length; i++) {
                 if (_leftUpgrades[i] == null) return;
@@ -195,6 +340,16 @@ namespace Tower {
             
         }
 
+        public void SetUpgradeIndex() {
+
+            currentLeftUpgrade = upgradePaths.leftUpgradePath[upgradePaths.currentLeftUpgrade];
+            currentLeftUpgradeInt = upgradePaths.currentLeftUpgrade;
+
+            currentRightUpgrade = upgradePaths.rightUpgradePath[upgradePaths.currentRightUpgrade];
+            currentRightUpgradeInt = upgradePaths.currentRightUpgrade;
+
+        }
+
         public void DebugPrintStats() {
             Debug.Log(this.towerEnum + ": Range: " + firingRange + ". Attack Speed: " + attackSpeed + ". Projectile: " + projectileEnum);
         }
@@ -203,7 +358,6 @@ namespace Tower {
             
             foreach (Powerups.IPowerup _powerup in Powerups) {
                 if (_powerup.GetType() == i) {
-                    Debug.Log("Powerup : " + i);
                     return _powerup;
                 }
             }
@@ -266,10 +420,8 @@ namespace Tower {
         /// Which Projectile to Fire. 
         /// See: <see cref="projectileObject"/>
         /// </summary>
-        public GameControl.DictionaryController.Projectiles projectileEnum; // LowPrio: Remove the serialization, and make it dynamic (based on Upgrades).
-
-
-
+        public GameControl.DictionaryController.Projectiles projectileEnum;
+        
         /// <summary>
         /// Total number of pops this instance of the Tower has done.
         /// </summary>
@@ -301,11 +453,6 @@ namespace Tower {
         /// </summary>
         [Space(10), Header("Implementation Stats")]
         public GameControl.DictionaryController.Towers towerEnum;
-
-        /// <summary>
-        /// Icon that shows when targetted.
-        /// </summary>
-        public Sprite towerIcon;
 
         /// <summary>
         /// An Array of Right- and Left-Hand side upgrades.
@@ -403,6 +550,18 @@ namespace Tower {
         /// Only aims under 0 (Looks sharper and performs a lot better)
         /// </summary>
         public float aimCooldown;
+
+        public TowerUpgrade currentLeftUpgrade;
+        public int currentLeftUpgradeInt;
+
+        public TowerUpgrade currentRightUpgrade;
+        public int currentRightUpgradeInt;
+
+        public KeyCode hotkey;
+
+        public string towerName;
+
+        public string towerDescription;
 
 
     }

@@ -65,6 +65,10 @@ TextureImporter:
     21300116: upgrade_path_green_cell
     21300118: new_tower_icon
     21300120: drag_lock_no
+    21300122: tack_shooter_avatar_small
+    21300124: sniper_avatar_small
+    21300126: boomerang_avatar_small
+    21300128: ninja_avatar_small
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -998,6 +1002,62 @@ TextureImporter:
         y: 454
         width: 73
         height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tack_shooter_avatar_small
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 633
+        width: 189
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_avatar_small
+      rect:
+        serializedVersion: 2
+        x: 3156
+        y: 1707
+        width: 196
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_avatar_small
+      rect:
+        serializedVersion: 2
+        x: 945
+        y: 246
+        width: 175
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_avatar_small
+      rect:
+        serializedVersion: 2
+        x: 2741
+        y: 1568
+        width: 198
+        height: 197
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -13,9 +13,8 @@ namespace Tower {
 
         protected override void Start() {
             dartMonkeyTowerStats = new DartMonkeyTowerStats();
-            Debug.Log(dartMonkeyTowerStats.attackSpeed);
-            
-            
+            base.Start();
+
             dartMonkeyTowerStats.AddPowerup(new Powerups.DartMonkey.Long_Range_Darts(dartMonkeyTowerStats));
             dartMonkeyTowerStats.AddPowerup(new Powerups.DartMonkey.Enhanced_Eyesight(dartMonkeyTowerStats));
             dartMonkeyTowerStats.AddPowerup(new Powerups.DartMonkey.Spike_O_Pult(dartMonkeyTowerStats));
@@ -26,11 +25,10 @@ namespace Tower {
             dartMonkeyTowerStats.AddPowerup(new Powerups.DartMonkey.Triple_Darts(dartMonkeyTowerStats));
             dartMonkeyTowerStats.AddPowerup(new Powerups.DartMonkey.Super_Monkey_Fan_Club(dartMonkeyTowerStats));
             
-            base.Start();
         }
 
         protected override void Shoot() {
-            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(GameControl.DictionaryController.RetrieveProjectileFromProjectileDictionary_Enum(GetStats<Tower.BaseTowerStats>().projectileEnum) , transform.position, transform.rotation);
+            List<Projectile.StandardProjectile> shotProjectileList = CreateProjectileFamilyTree(GameControl.DictionaryController.RetrieveProjectileFromProjectileDictionary_Enum(GetStats<Tower.BaseTowerStats>().projectileEnum).projectileObject, transform.position, transform.rotation);
 
             foreach (Projectile.StandardProjectile projectile in shotProjectileList) {
                 projectile.despawnDistance = GetStats<Tower.BaseTowerStats>().firingRange * 10f;
@@ -51,7 +49,7 @@ namespace Powerups.DartMonkey {
         public override void Powerup() {
             var rangeToAdd = 1;
             this.Tower.firingRange += rangeToAdd;
-            Debug.Log("Range increased by " + rangeToAdd);
+            Debug.Log("Range increased by " + rangeToAdd + ". Now at " + this.Tower.firingRange);
         }
     }
 
@@ -63,9 +61,11 @@ namespace Powerups.DartMonkey {
             var rangeToAdd = 1;
             this.Tower.CamoDetection = true;
             this.Tower.firingRange += rangeToAdd;
-            Debug.Log("Can now detect camo : Range increased by " + rangeToAdd);
+            Debug.Log("Can now detect camo : Range increased by " + rangeToAdd + ". Now at " + this.Tower.firingRange);
         }
     }
+
+    
 
     class Spike_O_Pult : Powerups.PowerupBase<DartMonkeyTowerStats> {
 
@@ -73,8 +73,10 @@ namespace Powerups.DartMonkey {
 
         public override void Powerup() {
             Debug.LogWarning("Does nothing..");
+            // GameControl.DictionaryController.RetrieveTowerSpriteFromTowerSpriteDictionary_Enum(this.Tower.towerEnum).currentTowerHUDIconSprite = 1;
         }
     }
+    
 
     class Juggernaut : Powerups.PowerupBase<DartMonkeyTowerStats> {
 
@@ -94,7 +96,7 @@ namespace Powerups.DartMonkey {
         public override void Powerup() {
             var poppingPowerToAdd = 1;
             this.Tower.poppingPower += poppingPowerToAdd;
-            Debug.Log("Popping Power increased by " + poppingPowerToAdd + " now at " + this.Tower.poppingPower);
+            Debug.Log("Popping Power increased by " + poppingPowerToAdd + ". Now at " + this.Tower.poppingPower);
         }
     }
 
@@ -104,10 +106,10 @@ namespace Powerups.DartMonkey {
         public override void Powerup() {
             var poppingPowerToAdd = 2;
             this.Tower.poppingPower += poppingPowerToAdd;
-            Debug.Log("Popping Power increased by " + poppingPowerToAdd + " now at " + this.Tower.poppingPower);
+            Debug.Log("Popping Power increased by " + poppingPowerToAdd + ". Now at " + this.Tower.poppingPower);
         }
     }
-
+    
     class Triple_Darts : Powerups.PowerupBase<DartMonkeyTowerStats> {
         public Triple_Darts(DartMonkeyTowerStats _tower) : base(_tower, GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Triple_Darts) { }
 
@@ -115,7 +117,6 @@ namespace Powerups.DartMonkey {
             Debug.LogWarning("Does nothing..");
         }
     }
-
     class Super_Monkey_Fan_Club : Powerups.PowerupBase<DartMonkeyTowerStats> {
         public Super_Monkey_Fan_Club(DartMonkeyTowerStats _tower) : base(_tower, GameControl.DictionaryController.TowerUpgrades.Monkey_Dart_Super_Monkey_Fan_Club) { }
 
@@ -127,22 +128,24 @@ namespace Powerups.DartMonkey {
 
 
 
-    /*
-     * TODO: THIS IS HOW TO ADD AN UPGRADE
-    class XXX : Powerups.PowerupBase<YYY> {
-        public XXX(YYY _tower) : base (_tower, GameControl.DictionaryController.TowerUpgrades.Undefined) { }
+}
 
-        public override void Powerup() {
-            // DO STUFF
-        }
 
-        // Also remember to:
-        // * Add it to the list of upgrades for the Towers (add the list if required) in the "TowerUpgrades" script.
-        // * Create a "SetUpgradePath" (and add all upgrades there) in the "TowerStats" for that tower. (And make it sure it is running in the "OnStart" method in TowerStats of that tower as well.
-        // * Add item to the dictionary.
-        // 
-        // ^Add more to this guide if I forgot something. (probably did.)
+/*
+ * TODO: THIS IS HOW TO ADD AN UPGRADE
+class XXX : Powerups.PowerupBase<YYY> {
+    public XXX(YYY _tower) : base (_tower, GameControl.DictionaryController.TowerUpgrades.Undefined) { }
+
+    public override void Powerup() {
+        // DO STUFF
     }
 
-    */
+    // Also remember to:
+    // * Add it to the list of upgrades for the Towers (add the list if required) in the "TowerUpgrades" script.
+    // * Create a "SetUpgradePath" (and add all upgrades there) in the "TowerStats" for that tower. (And make it sure it is running in the "OnStart" method in TowerStats of that tower as well.
+    // * Add item to the dictionary.
+    // 
+    // ^Add more to this guide if I forgot something. (probably did.)
 }
+
+*/

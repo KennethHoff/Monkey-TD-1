@@ -11,6 +11,7 @@ namespace Tower {
         }
 
         protected override void FixedUpdate() {
+            base.FixedUpdate();
 
             if (GameControl.WaveSpawner.controllerObject.waveActive)
                 GetStats<Tower.BaseTowerStats>().firingCooldown -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;

@@ -13,8 +13,8 @@ namespace GameControl {
 
         // LowPrio: Remake the Bloon & Projectile Spawning mechanic to be a Object Pooler
         public static Bloon.StandardBloon SpawnBloon(Bloon.StandardBloon _bloon, Vector3 _position, Quaternion _rotation, int _CurrentWaypoint,  bool _regrowth, bool _camo) {
-            Bloon.StandardBloon spawnedBloon = Instantiate(_bloon, _position, _rotation, GameController.enemyParent.transform);
-            spawnedBloon.GetComponent<Bloon.WayPoints>().currentWayPoint = _CurrentWaypoint;
+            Bloon.StandardBloon spawnedBloon = Instantiate(_bloon, _position, _rotation, GameController.controllerObject.mapController.enemyParent.transform);
+            spawnedBloon.GetComponent<Bloon.WayPoints>().currentWayPointInt = _CurrentWaypoint;
             spawnedBloon.regrowth = _regrowth;
             spawnedBloon.camo = _camo;
             return spawnedBloon;

@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace GameControl { 
     public class UIController : MonoBehaviour {
 
+        private bool hovering = false;
 
         public Sprite transparentImage;
         public Sprite defaultImage;
         public Sprite HighestTierTowerImage;
         public Sprite UpgradeBoughtImage;
+        public Sprite UpgradeBuyImage;
         [Space(5)]
         
         public GameObject BottomHUD_TowerSelected;
@@ -25,6 +28,9 @@ namespace GameControl {
         public TextMeshProUGUI roundValueText;
         public TextMeshProUGUI difficultyText;
 
+        [Space(5)]
+        public TextMeshProUGUI GameOverText;
+
         public static UIController controllerObject;
 
         [Space(5)]
@@ -33,6 +39,10 @@ namespace GameControl {
         private void Awake() {
             controllerObject = GetComponent<UIController>();
         }
+        private void Start() {
+            SetGameOverText(false);
+        }
+
         private void LateUpdate() {
             if (targettedTower != null) {
                 ToggleBottomHUD(true);
@@ -47,8 +57,13 @@ namespace GameControl {
             if (InventoryController.controllerObject.life > 0) {
                 WriteLifeText(InventoryController.controllerObject.life.ToString());
             }
-            else WriteLifeText("Game Over!");
+            else {
+                WriteLifeText("0");
+                GameControl.GameController.controllerObject.EndGame();
+            }
+
         }
+
 
         public static void WriteText(TextMeshProUGUI _TextRenderer, string _TextToRender) {
             _TextRenderer.text = _TextToRender;
@@ -84,6 +99,15 @@ namespace GameControl {
             else {
                 BottomHUD_TowerSelected.SetActive(false);
                 BottomHUD_Default.SetActive(true);
+            }
+        }
+
+        public void SetGameOverText(bool _GameOver) {
+            if (_GameOver) {
+                GameOverText.text = "GAME OVER";
+            }
+            else {
+                GameOverText.text = null;
             }
         }
     }

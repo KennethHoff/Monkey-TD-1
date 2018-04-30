@@ -302,6 +302,7 @@
     <Compile Include="Assets\Scripts\Classes\Dictionaries\BloonPrefabs.cs" />
     <Compile Include="Assets\Scripts\Classes\Dictionaries\ProjectilePrefabs.cs" />
     <Compile Include="Assets\Scripts\Classes\Dictionaries\TowerLists.cs" />
+    <Compile Include="Assets\Scripts\Classes\Dictionaries\TowerSprites.cs" />
     <Compile Include="Assets\Scripts\Classes\Dictionaries\TowerUpgrades.cs" />
     <Compile Include="Assets\Scripts\Classes\DifficultyList.cs" />
     <Compile Include="Assets\Scripts\Classes\ReadOnlyAttribute.cs" />
@@ -324,8 +325,10 @@
     <Compile Include="Assets\Scripts\GameControl\GameController.cs" />
     <Compile Include="Assets\Scripts\GameControl\InputController.cs" />
     <Compile Include="Assets\Scripts\GameControl\InventoryController.cs" />
+    <Compile Include="Assets\Scripts\GameControl\MapController.cs" />
     <Compile Include="Assets\Scripts\GameControl\PlacementController.cs" />
     <Compile Include="Assets\Scripts\GameControl\SceneLoader.cs" />
+    <Compile Include="Assets\Scripts\GameControl\Tooltip.cs" />
     <Compile Include="Assets\Scripts\GameControl\UIController.cs" />
     <Compile Include="Assets\Scripts\GameControl\Waves.cs" />
     <Compile Include="Assets\Scripts\GameControl\WaveSpawner.cs" />
@@ -341,10 +344,8 @@
     <Compile Include="Assets\Scripts\Projectiles\StandardProjectile.cs" />
     <Compile Include="Assets\Scripts\Projectiles\Tack.cs" />
     <Compile Include="Assets\Scripts\Projectiles\ThrowingStar.cs" />
-    <Compile Include="Assets\Scripts\Tower Upgrades\Alex\IPowerup.cs" />
-    <Compile Include="Assets\Scripts\Tower Upgrades\Alex\PowerupBase.cs" />
-    <Compile Include="Assets\Scripts\Tower Upgrades\IUpgradeBase.cs" />
-    <Compile Include="Assets\Scripts\Tower Upgrades\Upgrader.cs" />
+    <Compile Include="Assets\Scripts\Tower Upgrades\IPowerup.cs" />
+    <Compile Include="Assets\Scripts\Tower Upgrades\PowerupBase.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\BoomerangThrower.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\DartMonkey.cs" />
     <Compile Include="Assets\Scripts\Tower\Monkey Tower\MonkeyTower.cs" />
@@ -357,6 +358,7 @@
     <Compile Include="Assets\Scripts\Tower\TowerStats.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsMenuButton.cs" />
     <Compile Include="Assets\Scripts\UI\TowerSelector.cs" />
+    <Compile Include="Assets\Scripts\UI\UpgradeButton.cs" />
     <Compile Include="Assets\Scripts\UI\WaveButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,11 +76,12 @@ namespace GameControl {
             totalWaves = waves.Length;
         }
 
+
         private void Update() {
             bloonSpawnsLeftThisWave = totalBloonsThisWave - bloonsSpawnedThisWave;
             RBESpawnsLeftThisWave = totalRBEThisWave - RBESpawnedThisWave;
 
-            bloonsOnScreen = GameController.enemyParent.transform.childCount;
+            bloonsOnScreen = GameController.controllerObject.mapController.enemyParent.transform.childCount;
             
             if (state == SpawnState.RoundEnded) {
                 // RoundEnded - AutoStart if autostart is active, otherwise do nothing.
@@ -109,7 +111,12 @@ namespace GameControl {
             }
             else if (state == SpawnState.GameOver) {
                 // Life is at 0 || CurrentRound == maxRounds
-                GameControl.GameController.controllerObject.fastForward = false;
+            }
+        }
+
+        internal static void RemoveAllBloons() {
+            foreach (Transform child in GameControl.GameController.controllerObject.mapController.enemyParent) {
+                Destroy(child.gameObject);
             }
         }
 
@@ -204,5 +211,11 @@ namespace GameControl {
         }
 
         #endregion
+
+        internal static void ResetWaves() {
+            controllerObject.StopAllCoroutines();
+            GameControl.WaveSpawner.controllerObject.currentWave = 1;
+            GameControl.WaveSpawner.controllerObject.state = WaveSpawner.SpawnState.GameStart;
+        }
     }
 }

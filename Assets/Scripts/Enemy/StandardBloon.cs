@@ -67,6 +67,7 @@ namespace Bloon {
             if (regrowth) {
                 GetComponent<SpriteRenderer>().sprite = regrowthSprite;
             }
+
             if (camo) {
                 SetCamo();
             }
@@ -116,14 +117,14 @@ namespace Bloon {
             
             StandardBloon childrenComponents = GetComponentInChildren<StandardBloon>(true);
 
-            Bloon.StandardBloon childBloon = GameControl.BloonSpawner.SpawnBloon(_bloonToSpawn, _posToSpawn, Quaternion.identity, GetComponent<WayPoints>().currentWayPoint, regrowth, camo);
+            Bloon.StandardBloon childBloon = GameControl.BloonSpawner.SpawnBloon(_bloonToSpawn, _posToSpawn, Quaternion.identity, GetComponent<WayPoints>().currentWayPointInt, regrowth, camo);
 
             childBloon.originalFamilyTreeIndex = originalFamilyTreeIndex;
 
             return childBloon;
         }
           
-        private void PopBloon(int _Overkill, params GameObject[] theObjects) {
+        private void PopBloon(int _Overkill, GameObject _Object) {
             int soundToPlay = Mathf.RoundToInt(UnityEngine.Random.Range(0, popSounds.Count)); // tilfeldig tall mellom 0 og antallet lyder i listen av lyder.
             List<StandardBloon> childrenList = null;
             audioSource.clip = popSounds[soundToPlay];
@@ -133,27 +134,26 @@ namespace Bloon {
 
             Tower.StandardTower _Tower = null;
             Projectile.StandardProjectile _Proj = null;
-            foreach (GameObject obj in theObjects) {
-                if (obj.GetComponent<Projectile.StandardProjectile>() != null) {
-                    _Proj = obj.GetComponent<Projectile.StandardProjectile>();
-                    _Tower = _Proj.tower;
-                    
-                }
-                else if (obj.GetComponent<Tower.StandardTower>() != null) {
-                    _Tower = obj.GetComponent<Tower.StandardTower>();
-                }
-                else {
-                    Debug.LogError("Not a Projectile or Tower as parameters.");
-                    return;
-                }
-                
-                if (_Tower != null && _Overkill > 0)
-                    childrenList = CreateChildren(_Overkill, _Tower);
 
-                if (_Proj != null) {
-                    if (childrenList != null) {
-                        AddChildrenToDictionary(_Proj.parent, childrenList);
-                    }
+            if (_Object.GetComponent<Projectile.StandardProjectile>() != null) {
+                _Proj = _Object.GetComponent<Projectile.StandardProjectile>();
+                _Tower = _Proj.tower;
+                    
+            }
+            else if (_Object.GetComponent<Tower.StandardTower>() != null) {
+                _Tower = _Object.GetComponent<Tower.StandardTower>();
+            }
+            else {
+                Debug.LogError("Not a Projectile or Tower as parameters.");
+                return;
+            }
+                
+            if (_Tower != null && _Overkill > 0)
+                childrenList = CreateChildren(_Overkill, _Tower);
+
+            if (_Proj != null) {
+                if (childrenList != null) {
+                    AddChildrenToDictionary(_Proj.parent, childrenList);
                 }
             }
 
@@ -196,7 +196,7 @@ namespace Bloon {
 
             var _Prefab = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_Index);
 
-            spawnedBloon = GameControl.BloonSpawner.SpawnBloon(prefabToSpawn, transform.position, transform.rotation, GetComponent<WayPoints>().currentWayPoint, regrowth, camo);
+            spawnedBloon = GameControl.BloonSpawner.SpawnBloon(prefabToSpawn, transform.position, transform.rotation, GetComponent<WayPoints>().currentWayPointInt, regrowth, camo);
 
             spawnedBloon.originalFamilyTreeIndex = originalFamilyTreeIndex;
 
@@ -253,29 +253,27 @@ namespace Bloon {
             }
         }
         
-        protected virtual void DamageBloon(params GameObject[] theObjects) {
-            foreach(GameObject obj in theObjects) {
+        protected virtual void DamageBloon(GameObject _Object) {
 
-                if (obj.GetComponent<Projectile.StandardProjectile>() != null) {
-                    var _Proj = obj.GetComponent<Projectile.StandardProjectile>();
-                    currArmor -= _Proj.tower.GetStats<Tower.BaseTowerStats>().penetration;
+            if (_Object.GetComponent<Projectile.StandardProjectile>() != null) {
+                var _Proj = _Object.GetComponent<Projectile.StandardProjectile>();
+                currArmor -= _Proj.tower.GetStats<Tower.BaseTowerStats>().penetration;
 
-                    if (currArmor < 0) {
-                        PopBloon(-currArmor, _Proj.gameObject);
-                    }
+                if (currArmor < 0) {
+                    PopBloon(-currArmor, _Proj.gameObject);
                 }
-                else if (obj.GetComponent<Tower.StandardTower>() != null) {
-                    var _Tower = obj.GetComponent<Tower.StandardTower>();
-                    currArmor -= _Tower.GetStats<Tower.BaseTowerStats>().penetration;
+            }
+            else if (_Object.GetComponent<Tower.StandardTower>() != null) {
+                var _Tower = _Object.GetComponent<Tower.StandardTower>();
+                currArmor -= _Tower.GetStats<Tower.BaseTowerStats>().penetration;
 
-                    if (currArmor < 0) {
-                        PopBloon(-currArmor, _Tower.gameObject);
-                    }
+                if (currArmor < 0) {
+                    PopBloon(-currArmor, _Tower.gameObject);
                 }
-                else {
-                    Debug.LogError("Not a Projectile or Tower as parameters.");
-                    return;
-                }
+            }
+            else {
+                Debug.LogError("Not a Projectile or Tower as parameters.");
+                return;
             }
         }
 
@@ -287,13 +285,13 @@ namespace Bloon {
 
             List<Bloon.StandardBloon> childrenList = new List<Bloon.StandardBloon>();
 
-            int layersToGoThrough = CalculateLayers(ref _overkill, _Tower);
+            int layersToGoThrough = CalculateLayers(_overkill, _Tower);
             if (layersToGoThrough <= 0) return null;
 
             int _amountOfChildren = 0;
             float _spacing = 0;
 
-            CalculateNumberOfChildren(layersToGoThrough, ref _amountOfChildren, ref _spacing, ref currentFamilyTreeIndex);
+            CalculateNumberOfChildren_First(layersToGoThrough, ref _amountOfChildren, ref _spacing, ref currentFamilyTreeIndex);
 
             var _Index = currentFamilyTreeIndex - layersToGoThrough;
             StandardBloon bloonToSpawn = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_Index);
@@ -301,8 +299,7 @@ namespace Bloon {
 
             return childrenList;
         }
-
-        private static void CalculateNumberOfChildren(int layersToGoThrough, ref int _amountOfChildren, ref float _spacing, ref int _CurrentIndex) {
+        private static void CalculateNumberOfChildren_All(int layersToGoThrough, ref int _amountOfChildren, ref float _spacing, ref int _CurrentIndex) {
 
             int _highestChildrenAmount = 0;
             for (int i = 0; i < layersToGoThrough; i++) {
@@ -342,22 +339,26 @@ namespace Bloon {
             }
         }
 
-        private int CalculateLayers(ref int _overkill, Tower.StandardTower _Tower) {
+        private static void CalculateNumberOfChildren_Last(int layersToGoThrough, ref int _amountOfChildren, ref float _spacing, ref int _CurrentIndex) {
+
+            var _Prefab = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_CurrentIndex-layersToGoThrough);
+
+            _amountOfChildren = _Prefab.childrenAmount;
+            _spacing = _Prefab.childSpawningSpacing;
+        }
+
+        private static void CalculateNumberOfChildren_First(int layersToGoThrough, ref int _amountOfChildren, ref float _spacing, ref int _CurrentIndex) {
+
+            var _Prefab = GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_CurrentIndex);
+
+            _amountOfChildren = _Prefab.childrenAmount;
+            _spacing = _Prefab.childSpawningSpacing;
+        }
+
+        private int CalculateLayers(int _overkill, Tower.StandardTower _Tower) {
             int layersToGoThrough = 0;
 
-            if (currentFamilyTreeIndex < GameControl.DictionaryController.controllerObject.BloonFamilyTreeArray.Length - 1) {
-                for (int i = 0; i < _overkill; i++) {
-                    int _Index = currentFamilyTreeIndex + i;
-                    if (GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_Index).startArmor > 0) {
-                        int _IndexNew = currentFamilyTreeIndex + i;
-                        _overkill -= GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_IndexNew).startArmor;
-                    }
-                    else layersToGoThrough++;
-                }
-            }
-            else layersToGoThrough = 1;
-            
-            if (layersToGoThrough > currentFamilyTreeIndex) {
+            if (_overkill > currentFamilyTreeIndex) {
                 FinalPop(_Tower);
                 int count = currentFamilyTreeIndex + 1;
                 GameControl.InventoryController.ChangeGold(count);
@@ -366,20 +367,31 @@ namespace Bloon {
                 GameControl.WaveSpawner.ChangeBloons_Killed(1);
                 return 0;
             }
-            else {
-                GameControl.InventoryController.ChangeGold(layersToGoThrough);
-                GameControl.WaveSpawner.ChangeRBE_Killed(layersToGoThrough);
-                return layersToGoThrough;
+
+            if (currentFamilyTreeIndex <= GameControl.DictionaryController.controllerObject.BloonFamilyTreeArray.Length - 1) {
+                for (int i = 0; i < _overkill; i++) {
+                    int _Index = currentFamilyTreeIndex - i;
+                    if (GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_Index).startArmor > 0) {
+                        int _IndexNew = currentFamilyTreeIndex + i;
+                        _overkill -= GameControl.DictionaryController.RetrieveBloonFromBloonDictionary_Index(_IndexNew).startArmor;
+                    }
+                    else layersToGoThrough++;
+                }
             }
+            GameControl.InventoryController.ChangeGold(layersToGoThrough);
+            GameControl.WaveSpawner.ChangeRBE_Killed(layersToGoThrough);
+            return layersToGoThrough;
         }
         #endregion
 
         private void SetCamo() {
             if (regrowth) {
                 overlayChildGameObject.GetComponent<SpriteRenderer>().sprite = GameControl.GameController.controllerObject.camo_regen_overlay;
+                Debug.Log("Camo Regrowth set.");
             }
             else {
                 overlayChildGameObject.GetComponent<SpriteRenderer>().sprite = GameControl.GameController.controllerObject.camo_overlay;
+                Debug.Log("Camo set.");
             }
         }
     }

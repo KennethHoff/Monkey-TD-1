@@ -6,12 +6,31 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: dart_monkey_longer_range_icon
     21300002: dart_monkey_sharp_shots_icon
-    21300004: dart_monkey_enhanced_eyesight
+    21300004: dart_monkey_enhanced_eyesight_icon
     21300006: dart_monkey_razor_icon
     21300008: dart_monkey_triple_icon
     21300010: dart_monkey_spikeopult_icon
     21300012: dart_monkey_juggernaut_icon
     21300014: dart_monkey_fanclub_icon
+    21300016: boomerang_glaive_thrower
+    21300018: boomerang_glaive_thrower_icon
+    21300020: boomerang_multi_target_icon
+    21300022: boomerang_sonic_boom_icon
+    21300024: boomerang_red_hot_rangs_icon
+    21300026: tack_shooter_faster_firing_icon
+    21300028: tack_shooter_even_faster_firing_icon
+    21300030: tack_shooter_extra_range_icon
+    21300032: tack_shooter_super_range_icon
+    21300034: sniper_deadly_precision_icon
+    21300036: sniper_faster_firing_icon
+    21300038: sniper_full_metal_icon
+    21300040: sniper_nvg_icon
+    21300042: ninja_discipline_icon
+    21300044: ninja_flash_bomb_icon
+    21300046: ninja_seeking_shuriken_icon
+    21300048: ninja_sharp_shurikens_icon
+    21300050: sniper_point_50_icon
+    21300052: ninja_distraction_icon
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -126,7 +145,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: dart_monkey_enhanced_eyesight
+      name: dart_monkey_enhanced_eyesight_icon
       rect:
         serializedVersion: 2
         x: 794
@@ -134,7 +153,7 @@ TextureImporter:
         width: 144
         height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -148,7 +167,7 @@ TextureImporter:
         width: 131
         height: 79
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -162,7 +181,7 @@ TextureImporter:
         width: 83
         height: 79
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,7 +195,7 @@ TextureImporter:
         width: 95
         height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -190,7 +209,7 @@ TextureImporter:
         width: 110
         height: 110
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -203,6 +222,258 @@ TextureImporter:
         y: 647
         width: 131
         height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_glaive_thrower_icon
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 216
+        width: 95
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_multi_target_icon
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 402
+        width: 93
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_sonic_boom_icon
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 318
+        width: 93
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: boomerang_red_hot_rangs_icon
+      rect:
+        serializedVersion: 2
+        x: 1019
+        y: 6
+        width: 91
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tack_shooter_faster_firing_icon
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 129
+        width: 108
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tack_shooter_even_faster_firing_icon
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 857
+        width: 128
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tack_shooter_extra_range_icon
+      rect:
+        serializedVersion: 2
+        x: 1180
+        y: 1134
+        width: 137
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tack_shooter_super_range_icon
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 1374
+        width: 141
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_deadly_precision_icon
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 347
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_faster_firing_icon
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 578
+        width: 152
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_full_metal_icon
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 92
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_nvg_icon
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 139
+        width: 116
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_discipline_icon
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 26
+        width: 102
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_flash_bomb_icon
+      rect:
+        serializedVersion: 2
+        x: 1624
+        y: 1207
+        width: 74
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_seeking_shuriken_icon
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 468
+        width: 155
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_sharp_shurikens_icon
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 439
+        width: 133
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: sniper_point_50_icon
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 131
+        width: 121
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: ninja_distraction_icon
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 352
+        width: 125
+        height: 98
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

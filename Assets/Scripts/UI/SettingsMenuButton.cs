@@ -19,7 +19,6 @@ public class SettingsMenuButton : MonoBehaviour {
 	}
 
     void ButtonClicked() {
-        Application.Quit();
-        Debug.Log("Exiting Game...");
+        GameControl.GameController.controllerObject.RestartGame();
     }
 }

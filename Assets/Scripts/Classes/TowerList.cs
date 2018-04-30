@@ -8,5 +8,4 @@ public class TowerList {
     public Tower.StandardTower towerPrefab;
     public TemplateScript templatePrefab;
     public TowerSelector UIButton;
-
 }

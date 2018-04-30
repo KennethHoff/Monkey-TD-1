@@ -10,6 +10,9 @@ namespace Tower {
         // [SerializeField, Header("Monkey Tower Specifics:")]
 
         protected override void FixedUpdate() {
+            base.FixedUpdate();
+
+            var stats = GetStats<Tower.BaseTowerStats>();
 
             if (GameControl.WaveSpawner.controllerObject.waveActive) {
                 GetStats<Tower.BaseTowerStats>().justShot -= Time.fixedDeltaTime * GameControl.GameController.controllerObject.currentGameSpeed;
@@ -18,14 +21,14 @@ namespace Tower {
 
                 // Debug.Log("Cooldown: " + generalStats.firingCooldown + ". Speed: " + generalStats.attackSpeed);
 
-                if (GetStats<Tower.BaseTowerStats>().justShot < 0) {
+                if (stats.justShot < 0) {
 
-                    if (GetStats<Tower.BaseTowerStats>().aimCooldown < 0)
-                        GetStats<Tower.BaseTowerStats>().aiming = true;
+                    if (stats.aimCooldown < 0)
+                        stats.aiming = true;
                     else
-                        GetStats<Tower.BaseTowerStats>().aiming = false;
+                        stats.aiming = false;
 
-                    if (GetStats<Tower.BaseTowerStats>().aiming)
+                    if (stats.aiming)
                         AttemptTargetting();
                 }
             }
@@ -42,18 +45,25 @@ namespace Tower {
 
             Collider2D _target = null;
 
+            var allCollisions = base.GetVisibleEnemiesInRange();
+
+            if (allCollisions == null) {
+                Debug.Log("No collisions");
+                return null;
+            }
+
             switch (GetStats<Tower.BaseTowerStats>().targettingState) {
                 case TowerStats.TargettingStates.Close:
-                    _target = SearchForClosestEnemy(base.GetVisibleEnemiesInRange());
+                    _target = SearchForClosestEnemy(allCollisions);
                     break;
                 case TowerStats.TargettingStates.First:
-                    _target = SearchForFirstEnemy(base.GetVisibleEnemiesInRange());
+                    _target = SearchForFirstEnemy(allCollisions);
                     break;
                 case TowerStats.TargettingStates.Last:
-                    _target = SearchForLastEnemy(base.GetVisibleEnemiesInRange());
+                    _target = SearchForLastEnemy(allCollisions);
                     break;
                 case TowerStats.TargettingStates.Strong:
-                    _target = SearchForToughestEnemy(base.GetVisibleEnemiesInRange());
+                    _target = SearchForToughestEnemy(allCollisions);
                     break;
             }
             return _target;
@@ -92,7 +102,7 @@ namespace Tower {
             foreach (Collider2D target in allCollisions) {
                 if (target.tag == "Enemy") {
 
-                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPoint;
+                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPointInt;
 
                     Vector2 currentWayPointPos = GameControl.PathController.controllerObject.wayPointList[currentWayPoint].position;
 
@@ -110,14 +120,17 @@ namespace Tower {
             return enemy;
         }
         protected static Collider2D GetFirstEnemy(Collider2D[] allCollisions) {
+
+
             Collider2D enemy = null;
             float firstEnemyDistance = 0;
             int firstEnemyWaypoint = 0;
 
+
             foreach (Collider2D target in allCollisions) {
                 if (target.tag == "Enemy") {
 
-                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPoint;
+                    int currentWayPoint = target.GetComponent<Bloon.WayPoints>().currentWayPointInt;
 
                     float distanceToPreviousWaypoint = target.GetComponent<Bloon.WayPoints>().distanceToPreviousWaypoint;
 
@@ -161,39 +174,44 @@ namespace Tower {
 
         protected void AttemptTargetting() {
 
-            if (GetStats<Tower.BaseTowerStats>().attackSpeed < GameControl.GameController.controllerObject.aimTimer)
-                GetStats<Tower.BaseTowerStats>().aimCooldown = GetStats<Tower.BaseTowerStats>().attackSpeed * 2 / 3;
+            var stats = GetStats<Tower.BaseTowerStats>();
+
+            if (stats.attackSpeed < GameControl.GameController.controllerObject.aimTimer)
+                stats.aimCooldown = stats.attackSpeed * 2 / 3;
             else
-                GetStats<Tower.BaseTowerStats>().aimCooldown = GameControl.GameController.controllerObject.aimTimer;
+                stats.aimCooldown = GameControl.GameController.controllerObject.aimTimer;
 
-            GetStats<Tower.BaseTowerStats>().target = SearchForEnemiesInRange();
+            stats.target = SearchForEnemiesInRange();
 
-            if (GetStats<Tower.BaseTowerStats>().target != null) {
-                if (GetStats<Tower.BaseTowerStats>().justShot <= 0)
-                    AimAt(GetStats<Tower.BaseTowerStats>().target.gameObject);
+            if (stats.target != null) {
+                AimAt(stats.target.gameObject);
             }
         }
 
         protected virtual void AimAt(GameObject target) {
 
+            var stats = GetStats<Tower.BaseTowerStats>();
+
             var dir = target.transform.position - transform.position;
-            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + GetStats<Tower.BaseTowerStats>().rotationOffset;
+            var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + stats.rotationOffset;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            if (GetStats<Tower.BaseTowerStats>().firingCooldown < 0) {
+            if (stats.firingCooldown < 0) {
                 Shoot();
             }
         }
 
         protected override void Shoot() {
-            GetStats<Tower.BaseTowerStats>().firingCooldown = GetStats<Tower.BaseTowerStats>().attackSpeed;
+
+            var stats = GetStats<Tower.BaseTowerStats>();
+            stats.firingCooldown = stats.attackSpeed;
 
             base.Shoot();
 
-            if (GetStats<Tower.BaseTowerStats>().attackSpeed < GetStats<Tower.BaseTowerStats>().RotationDurationAfterShooting)
-                GetStats<Tower.BaseTowerStats>().justShot = GetStats<Tower.BaseTowerStats>().attackSpeed * 1 / 3;
+            if (stats.attackSpeed < stats.RotationDurationAfterShooting)
+                stats.justShot = stats.attackSpeed * 1 / 3;
             else
-                GetStats<Tower.BaseTowerStats>().justShot = GetStats<Tower.BaseTowerStats>().RotationDurationAfterShooting;
+                stats.justShot = stats.RotationDurationAfterShooting;
         }
 
 

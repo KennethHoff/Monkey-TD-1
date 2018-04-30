@@ -10,9 +10,9 @@ public class TowerSelector : MonoBehaviour {
     public Vector3 startScale;
 
     [SerializeField]
-    private GameControl.DictionaryController.Towers towerEnum;
+    public GameControl.DictionaryController.Towers towerEnum;
     
-    private Tower.StandardTower tower;
+    public Tower.StandardTower tower;
 
     public enum UITowerStates {
         Clickable,
@@ -53,20 +53,27 @@ public class TowerSelector : MonoBehaviour {
                     GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
                 }
             }
+            if (Input.GetKeyDown(tower.GetStats<Tower.BaseTowerStats>().hotkey)) {
+                GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
+                GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
+            }
         }
         else if (state == UITowerStates.NotClickable) {
             imageRenderer.sprite = greyedOutSprite;
             imageRenderer.color = Color.red;
         }
     }
-
     public void ButtonPointerEnter() {
         // Hovering -- waiting for clicking : Increase size of Sprite to show the player he is hovering : Show Tower Stat Panel
         hovering = true;
+        GameControl.GameController.controllerObject.buttonUnderCursor = this;
     }
 
     public void ButtonPointerExit() {
         transform.localScale = startScale;
+        if (GameControl.GameController.controllerObject.buttonUnderCursor == this) {
+            GameControl.GameController.controllerObject.buttonUnderCursor = null;
+        }
         hovering = false;
     }
     public void ButtonPressed() {

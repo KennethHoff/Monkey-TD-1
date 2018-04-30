@@ -59,24 +59,34 @@ namespace GameControl {
 
         private void LateUpdate() {
             if (UIC.targettedTower != null) {
+
+                if (Input.GetKeyDown(",")) {
+                    UpgradeTower(true);
+                }
+                if (Input.GetKeyDown(".")) {
+                    UpgradeTower(false);
+                }
                 
                 targettedTower = UIC.targettedTower;
-                upgradePaths = targettedTower.GetStats<Tower.BaseTowerStats>().upgradePaths;
-                var name = UIC.targettedTower.GetStats<Tower.BaseTowerStats>().towerEnum.ToString();
+                var towerStats = targettedTower.GetStats<Tower.BaseTowerStats>();
+                upgradePaths = towerStats.upgradePaths;
+                var towerSprites = GameControl.DictionaryController.RetrieveTowerSpriteFromTowerSpriteDictionary_Enum(towerStats.towerEnum);
+
+
+                var name = towerStats.towerEnum.ToString();
 
                 var newName = name.Replace("_", " ");
+
+                WriteTowerIcon(towerSprites.towerHUDIcons[towerSprites.currentTowerHUDIconSprite]);
                 
                 WriteTowerName(newName);
-                WriteTowerPops(targettedTower.GetStats<Tower.BaseTowerStats>().towerPops);
-                WriteTowerSell(Mathf.RoundToInt(targettedTower.GetStats<Tower.BaseTowerStats>().sellValue));
-                WriteTargettingMode(targettedTower.GetStats<Tower.BaseTowerStats>().targettingState.ToString());
+                WriteTowerPops(towerStats.towerPops);
+                WriteTowerSell(Mathf.RoundToInt(towerStats.sellValue));
+                WriteTargettingMode(towerStats.targettingState.ToString());
 
                 if (upgradePaths != null) {
-                    WriteUpgradeInfo(true, upgradePaths.currentLeftUpgrade);
-                }
 
-                if (upgradePaths != null) {
-                    WriteUpgradeInfo(false, upgradePaths.currentRightUpgrade);
+                    WriteUpgradeInfo();
                 }
             }
         }
@@ -101,52 +111,32 @@ namespace GameControl {
             UIController.WriteText(TargettingModeText, _TargettingModeString);
         }
 
-        public void WriteUpgradeInfo(bool _Left, int _currentUpgradeIndex) {
+        public void WriteUpgradeInfo() {
+            var towerStats = targettedTower.GetStats<Tower.BaseTowerStats>();
 
-            TowerUpgrade[] _UpgradePath;
-            Image _NextUpgrade_Image;
-            TMPro.TextMeshProUGUI _NextUpgrade_Name;
-            TMPro.TextMeshProUGUI _NextUpgrade_Cost;
-
-            if (_Left && (upgradePaths.leftUpgradePath[_currentUpgradeIndex] != null)) { 
-                _UpgradePath = upgradePaths.leftUpgradePath;
-                _NextUpgrade_Image = LeftUpgrade_Next_Image;
-                _NextUpgrade_Name = LeftUpgrade_Next_Name;
-                _NextUpgrade_Cost = LeftUpgrade_Next_Cost;
-            }
-            else if (upgradePaths.rightUpgradePath[_currentUpgradeIndex] != null) {
-                _UpgradePath = upgradePaths.rightUpgradePath;
-                _NextUpgrade_Image = RightUpgrade_Next_Image;
-                _NextUpgrade_Name = RightUpgrade_Next_Name;
-                _NextUpgrade_Cost = RightUpgrade_Next_Cost;
+            if (towerStats.currentLeftUpgrade != null) {
+                UIController.WriteSprite(LeftUpgrade_Next_Image, towerStats.currentLeftUpgrade.upgradeIcon);
+                UIController.WriteText(LeftUpgrade_Next_Name, towerStats.currentLeftUpgrade.upgradeName);
+                UIController.WriteText(LeftUpgrade_Next_Cost, "$" + towerStats.currentLeftUpgrade.upgradeCost.ToString());
             }
             else {
-                return;
+                UIController.WriteSprite(LeftUpgrade_Next_Image, UIC.HighestTierTowerImage);
+                UIController.WriteText(LeftUpgrade_Next_Name, null);
+                UIController.WriteText(LeftUpgrade_Next_Cost, null);
             }
 
-
-            TowerUpgrade _CurrentUpgrade = null;
-
-            if (_currentUpgradeIndex < _UpgradePath.Length) {
-                _CurrentUpgrade = _UpgradePath[_currentUpgradeIndex];
-            }
-
-            int _PreviousUpgradeInt = _currentUpgradeIndex - 1;
-
-            ShowPreviousUpgrade(_Left, _PreviousUpgradeInt, _UpgradePath);
-
-            if (_CurrentUpgrade != null) {
-                UIController.WriteSprite(_NextUpgrade_Image,    _CurrentUpgrade.upgradeIcon);
-                UIController.WriteText  (_NextUpgrade_Name,     _CurrentUpgrade.upgradeName);
-                UIController.WriteText  (_NextUpgrade_Cost,     "$" + _CurrentUpgrade.upgradeCost.ToString());
+            if (towerStats.currentRightUpgrade != null) { 
+                UIController.WriteSprite(RightUpgrade_Next_Image, towerStats.currentRightUpgrade.upgradeIcon);
+                UIController.WriteText(RightUpgrade_Next_Name, towerStats.currentRightUpgrade.upgradeName);
+                UIController.WriteText(RightUpgrade_Next_Cost, "$" + towerStats.currentRightUpgrade.upgradeCost.ToString());
             }
             else {
-                UIController.WriteSprite(_NextUpgrade_Image,    UIC.HighestTierTowerImage);
-                UIController.WriteText  (_NextUpgrade_Name,     null);
-                UIController.WriteText  (_NextUpgrade_Cost,     null);
+                UIController.WriteSprite(RightUpgrade_Next_Image, UIC.HighestTierTowerImage);
+                UIController.WriteText(RightUpgrade_Next_Name, null);
+                UIController.WriteText(RightUpgrade_Next_Cost, null);
             }
 
-            WriteUpgradeBoughtIcons(_Left, _currentUpgradeIndex);
+            WriteUpgradeBoughtIcons();
         }
 
         public void ShowPreviousUpgrade(bool _Left,  int _PreviousUpgradeIndex, TowerUpgrade[] _UpgradePath) {
@@ -174,40 +164,81 @@ namespace GameControl {
             }
         }
 
-        public void WriteUpgradeBoughtIcons(bool _Left,  int _CurrentUpgradeIndex) {
+        public void WriteUpgradeBoughtIcons() {
+            if (targettedTower != null) {
+                var towerStats = targettedTower.GetStats<Tower.BaseTowerStats>();
 
-            Image Upgrade1;
-            Image Upgrade2;
-            Image Upgrade3;
-            Image Upgrade4;
+                Sprite buyImage = UIC.UpgradeBuyImage;
+                Sprite boughtImage = UIC.UpgradeBoughtImage;
 
-            if (_Left) {
-                Upgrade1 = LeftUpgrade_Upgrade1;
-                Upgrade2 = LeftUpgrade_Upgrade2;
-                Upgrade3 = LeftUpgrade_Upgrade3;
-                Upgrade4 = LeftUpgrade_Upgrade4;
-            }
-            else {
-                Upgrade1 = RightUpgrade_Upgrade1;
-                Upgrade2 = RightUpgrade_Upgrade2;
-                Upgrade3 = RightUpgrade_Upgrade3;
-                Upgrade4 = RightUpgrade_Upgrade4;
+                #region left
+
+                if (towerStats.currentLeftUpgradeInt >= 1) {
+                    LeftUpgrade_Upgrade1.sprite = boughtImage;
+                }
+                else {
+                    LeftUpgrade_Upgrade1.sprite = buyImage;
+                }
+
+                if (towerStats.currentLeftUpgradeInt >= 2) {
+                    LeftUpgrade_Upgrade2.sprite = boughtImage;
+                }
+                else {
+                    LeftUpgrade_Upgrade2.sprite = buyImage;
+                }
+
+                if (towerStats.currentLeftUpgradeInt >= 3) {
+                    LeftUpgrade_Upgrade3.sprite = boughtImage;
+                }
+                else {
+                    LeftUpgrade_Upgrade3.sprite = buyImage;
+                }
+
+                if (towerStats.currentLeftUpgradeInt >= 4) {
+                    LeftUpgrade_Upgrade4.sprite = boughtImage;
+                }
+                else {
+                    LeftUpgrade_Upgrade4.sprite = buyImage;
+                }
+
+                #endregion
+
+                #region right
+
+                if (towerStats.currentRightUpgradeInt >= 1) {
+                    RightUpgrade_Upgrade1.sprite = boughtImage;
+                }
+                else {
+                    RightUpgrade_Upgrade1.sprite = buyImage;
+                }
+
+                if (towerStats.currentRightUpgradeInt >= 2) {
+                    RightUpgrade_Upgrade2.sprite = boughtImage;
+                }
+                else {
+                    RightUpgrade_Upgrade2.sprite = buyImage;
+                }
+
+                if (towerStats.currentRightUpgradeInt >= 3) {
+                    RightUpgrade_Upgrade3.sprite = boughtImage;
+                }
+                else {
+                    RightUpgrade_Upgrade3.sprite = buyImage;
+                }
+
+                if (towerStats.currentRightUpgradeInt >= 4) {
+                    RightUpgrade_Upgrade4.sprite = boughtImage;
+                }
+                else {
+                    RightUpgrade_Upgrade4.sprite = buyImage;
+                }
+
+                #endregion
             }
 
-            if (_CurrentUpgradeIndex >= 1) {
-                Upgrade1.sprite = UIC.UpgradeBoughtImage; 
-            }
-            if (_CurrentUpgradeIndex >= 2) {
-                Upgrade2.sprite = UIC.UpgradeBoughtImage;
-            }
-            if (_CurrentUpgradeIndex >= 3) {
-                Upgrade3.sprite = UIC.UpgradeBoughtImage;
-            }
-            if (_CurrentUpgradeIndex >= 4) {
-                Upgrade4.sprite = UIC.UpgradeBoughtImage;
-            }
+
         }
-        
+
         public void ChangeTargettingStateButton(bool _increase) {
             targettedTower.ChangeTargettingState(_increase);
         }
@@ -241,11 +272,15 @@ namespace GameControl {
             UIController.WriteText(LeftUpgrade_Next_Cost, null);
 
 
+
             WriteTowerName("Reset");
             WriteTowerPops(-1);
             WriteTowerSell(-1);
             WriteTargettingMode("Reset");
             WriteTowerIcon(UIC.transparentImage);
+            WriteUpgradeBoughtIcons();
+
+            Debug.Log("UI reset.");
         }
     }
 }
