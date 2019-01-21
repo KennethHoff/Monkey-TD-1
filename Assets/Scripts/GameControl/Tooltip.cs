@@ -47,7 +47,7 @@ namespace GameControl {
 
                 if (upgrade != null) {
                     upgrade_tooltipName.text = upgrade.upgradeName;
-                    upgrade_tooltipCost.text = upgrade.upgradeCost.ToString();
+                    upgrade_tooltipCost.text = "$" + upgrade.upgradeCost.ToString();
 
                     string tooltip = upgrade.upgradeDescription;
                     string newTooltip = tooltip.Replace("<N>", "\n");
@@ -76,7 +76,7 @@ namespace GameControl {
                 }
 
                 tower_tooltipName.text = towerStats.towerName;
-                tower_tooltipCost.text = towerStats.goldCost.ToString();
+                tower_tooltipCost.text = "$" + towerStats.goldCost.ToString();
                 tower_tooltipDescription.text = towerStats.towerDescription;
                 if (towerStats.hotkey != KeyCode.None) { 
                     tower_tooltipHotkey.text = "Hotkey: " + towerStats.hotkey.ToString();
