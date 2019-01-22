@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Input;
+
 
 public class WaveButton : MonoBehaviour {
 
@@ -26,7 +28,7 @@ public class WaveButton : MonoBehaviour {
     }
     private void Update() {
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             ButtonClicked();
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Experimental.Input;
 
 namespace GameControl { 
     public class Tooltip : MonoBehaviour {
@@ -78,7 +79,7 @@ namespace GameControl {
                 tower_tooltipName.text = towerStats.towerName;
                 tower_tooltipCost.text = "$" + towerStats.goldCost.ToString();
                 tower_tooltipDescription.text = towerStats.towerDescription;
-                if (towerStats.hotkey != KeyCode.None) { 
+                if (towerStats.hotkey != Key.None) { 
                     tower_tooltipHotkey.text = "Hotkey: " + towerStats.hotkey.ToString();
                 }
                 else {

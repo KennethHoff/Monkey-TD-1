@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Powerups;
 using UnityEngine;
+using UnityEngine.Experimental.Input;
 
 namespace Tower {
 
@@ -45,7 +46,7 @@ namespace Tower {
             
             SetStats(_GoldCost: 200, _attackSpeed: 1 / 1.03f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 1, _penetration: 1, _projectileSpeed: 2500);
 
-            SetDescription("Dart Monkey", KeyCode.Q, "Medium Range.\nMedium Firing Speed\nPops 1 bloon");
+            SetDescription("Dart Monkey", Key.Q, "Medium Range.\nMedium Firing Speed\nPops 1 bloon");
 
         }
         public void AddPowerup(PowerupBase<DartMonkeyTowerStats> _Powerup) {
@@ -95,7 +96,7 @@ namespace Tower {
 
             SetStats(_GoldCost: 360, _attackSpeed: 1 / 0.6f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 2, _poppingPower: 1, _penetration: 1, _projectileSpeed: 1500);
 
-            SetDescription("Tack Shooter", KeyCode.W, "Short Range\nSlow Firing Speed\n\nShoots 8 tacks in a circle around the Tower");
+            SetDescription("Tack Shooter", Key.W, "Short Range\nSlow Firing Speed\n\nShoots 8 tacks in a circle around the Tower");
         }
         public void AddPowerup(PowerupBase<TackShooterTowerStats> pu) {
             this.Powerups.Add(pu);
@@ -143,7 +144,7 @@ namespace Tower {
 
             SetStats(_GoldCost: 350, _attackSpeed: 1 / 0.45f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: -1, _poppingPower: 1, _penetration: 2, _projectileSpeed: -1);
 
-            SetDescription("Sniper Monkey", KeyCode.E, "Unlimited Range\nPenetrates 2 layers\nSlow firing speed");
+            SetDescription("Sniper Monkey", Key.E, "Unlimited Range\nPenetrates 2 layers\nSlow firing speed");
         }
         public void AddPowerup(PowerupBase<SniperMonkeyTowerStats> pu) {
             this.Powerups.Add(pu);
@@ -191,7 +192,7 @@ namespace Tower {
 
             SetStats(_GoldCost: 400, _attackSpeed: 1/0.75f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 3, _penetration: 1, _projectileSpeed: 1000);
 
-            SetDescription("Boomerang Thrower", KeyCode.R, "Medium Range\nMedium Firing Speed\n\nShoots a Boomerang that returns back to the Tower");
+            SetDescription("Boomerang Thrower", Key.R, "Medium Range\nMedium Firing Speed\n\nShoots a Boomerang that returns back to the Tower");
         }
 
         public void AddPowerup(PowerupBase<BoomerangThrowerTowerStats> pu) {
@@ -241,7 +242,7 @@ namespace Tower {
 
             SetStats(_GoldCost: 500, _attackSpeed: 1 / 1.67f, _DamageType: GameControl.GameController.DamageTypes.Sharp, _firingRange: 3, _poppingPower: 2, _penetration: 1, _projectileSpeed: 4000);
 
-            SetDescription("Ninja Monkey", KeyCode.T, "Medium Range\nFast Firing Speed");
+            SetDescription("Ninja Monkey", Key.T, "Medium Range\nFast Firing Speed");
         }
         public void AddPowerup(PowerupBase<NinjaMonkeyTowerStats> pu) {
             this.Powerups.Add(pu);
@@ -321,7 +322,7 @@ namespace Tower {
             this.projectileSpeed = _projectileSpeed;
         }
 
-        public void SetDescription(string _name, KeyCode _keyCode, string _description) {
+        public void SetDescription(string _name, Key _keyCode, string _description) {
             this.towerName = _name;
             this.hotkey = _keyCode;
             this.towerDescription = _description;
@@ -557,7 +558,7 @@ namespace Tower {
         public TowerUpgrade currentRightUpgrade;
         public int currentRightUpgradeInt;
 
-        public KeyCode hotkey;
+        public Key hotkey; // Change this to use InputMaster
 
         public string towerName;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Input;
 
 public class TowerSelector : MonoBehaviour {
 
@@ -11,8 +12,8 @@ public class TowerSelector : MonoBehaviour {
 
     [SerializeField]
     public GameControl.DictionaryController.Towers towerEnum;
-    
-    public Tower.StandardTower tower;
+
+    [ReadOnly] public Tower.StandardTower tower;
 
     public enum UITowerStates {
         Clickable,
@@ -35,6 +36,7 @@ public class TowerSelector : MonoBehaviour {
     }
 
     private void Update() {
+
         if (tower.GetStats<Tower.BaseTowerStats>().goldCost <= GameControl.InventoryController.controllerObject.gold) {
             state = UITowerStates.Clickable;
         }
@@ -47,14 +49,12 @@ public class TowerSelector : MonoBehaviour {
             imageRenderer.color = Color.white;
             if (hovering) {
                 transform.localScale = startScale * .95f;
-                if (Input.GetMouseButtonDown(0)) {
+                if (Mouse.current.leftButton.wasPressedThisFrame) {
                     // Clicking - Instantiate new Tower Template : Make the image blink
-                    GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
                     GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
                 }
             }
-            if (Input.GetKeyDown(tower.GetStats<Tower.BaseTowerStats>().hotkey)) {
-                GameControl.PlacementController.controllerObject.DestroyTowerTemplate();
+            if (Keyboard.current[(tower.GetStats<Tower.BaseTowerStats>().hotkey)].wasPressedThisFrame) {
                 GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
             }
         }
@@ -63,19 +63,22 @@ public class TowerSelector : MonoBehaviour {
             imageRenderer.color = Color.red;
         }
     }
-    public void ButtonPointerEnter() {
-        // Hovering -- waiting for clicking : Increase size of Sprite to show the player he is hovering : Show Tower Stat Panel
-        hovering = true;
-        GameControl.GameController.controllerObject.buttonUnderCursor = this;
-    }
 
-    public void ButtonPointerExit() {
-        transform.localScale = startScale;
-        if (GameControl.GameController.controllerObject.buttonUnderCursor == this) {
-            GameControl.GameController.controllerObject.buttonUnderCursor = null;
-        }
-        hovering = false;
-    }
+    // TODO: --- IMPORTANT --- FIX TOWER SELECTION
+
+    //public void ButtonPointerEnter() {
+    //    // Hovering -- waiting for clicking : Increase size of Sprite to show the player he is hovering : Show Tower Stat Panel
+    //    hovering = true;
+    //    GameControl.GameController.controllerObject.buttonUnderCursor = this;
+    //}
+    //public void ButtonPointerExit() {
+    //    transform.localScale = startScale;
+    //    if (GameControl.GameController.controllerObject.buttonUnderCursor == this) {
+    //        GameControl.GameController.controllerObject.buttonUnderCursor = null;
+    //    }
+    //    hovering = false;
+    //}
+
     public void ButtonPressed() {
         transform.localScale = startScale;
         hovering = false;

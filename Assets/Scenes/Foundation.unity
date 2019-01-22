@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 25067662}
   - component: {fileID: 25067665}
   - component: {fileID: 25067667}
-  - component: {fileID: 25067671}
   - component: {fileID: 25067670}
   - component: {fileID: 25067672}
   - component: {fileID: 25067673}
@@ -1405,18 +1404,6 @@ MonoBehaviour:
   difficultyText: {fileID: 924764236}
   GameOverText: {fileID: 216559934}
   targettedTower: {fileID: 0}
---- !u!114 &25067671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25067660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9219d6f490db1434b96ed14a82449ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &25067672
 MonoBehaviour:
   m_ObjectHideFlags: 0

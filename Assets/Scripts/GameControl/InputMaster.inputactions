@@ -1,0 +1,30 @@
+{
+    "name": "InputController",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "52f75edf-c1a6-4700-bc66-2bdc3af4cfb0",
+            "actions": [],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard & Mouse",
+            "basedOn": "",
+            "bindingGroup": "Keyboard & Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

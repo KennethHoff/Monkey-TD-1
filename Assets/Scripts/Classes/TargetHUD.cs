@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Experimental.Input;
 
 namespace GameControl { 
     public class TargetHUD : MonoBehaviour {
@@ -60,10 +61,10 @@ namespace GameControl {
         private void LateUpdate() {
             if (UIC.targettedTower != null) {
 
-                if (Input.GetKeyDown(",")) {
+                if (Keyboard.current.commaKey.wasPressedThisFrame) {
                     UpgradeTower(true);
                 }
-                if (Input.GetKeyDown(".")) {
+                if (Keyboard.current.periodKey.wasPressedThisFrame) {
                     UpgradeTower(false);
                 }
                 
