@@ -9,7 +9,7 @@ using UnityEngine.Experimental.Input;
 
 namespace GameControl {
 
-public class InputController : MonoBehaviour {
+    public class InputController : MonoBehaviour {
 
-}
+    }
 }

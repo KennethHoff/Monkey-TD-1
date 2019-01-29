@@ -45,6 +45,7 @@ public class TowerSelector : MonoBehaviour {
         }
 
         if (state == UITowerStates.Clickable) {
+            Debug.Log("Hotkey: " + tower.GetStats<Tower.BaseTowerStats>().hotkey);
             imageRenderer.sprite = defaultSprite;
             imageRenderer.color = Color.white;
             if (hovering) {
@@ -54,7 +55,7 @@ public class TowerSelector : MonoBehaviour {
                     GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
                 }
             }
-            if (Keyboard.current[(tower.GetStats<Tower.BaseTowerStats>().hotkey)].wasPressedThisFrame) {
+            if (Keyboard.current[tower.GetStats<Tower.BaseTowerStats>().hotkey].wasPressedThisFrame) {
                 GameControl.PlacementController.controllerObject.InstantiateTowerTemplate(towerEnum);
             }
         }
